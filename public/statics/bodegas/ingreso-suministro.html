@@ -1,0 +1,452 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="ingreso-suministro.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_suministro.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!---VACIO--->
+            <!----------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <!-------------------------MUESTRA EL CORRETATIVO----------------------------->
+    <!---------------------------------------------------------------------------->
+    <?php 
+        $consulta = "SELECT MAX(codigosuministro) numero FROM suministrobodega";
+        $ejecutar = mysqli_query($con, $consulta);
+
+        $fila = mysqli_fetch_array($ejecutar);
+        $numero = $fila['numero'];
+        $numero++;
+    ?>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 10px 10px 10px; margin-bottom: 1px;">
+        <!-------------------------NOMBRES IZQUIERDA------------------------------>
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+            <input class="form-control" id="nombres0" readonly="" type="text" value="Código:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres1" readonly="" type="text" value="Bodega:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres2" readonly="" type="text" value="Categoría:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres3" readonly="" type="text" value="Descripción:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres4" readonly="" type="text" value="Color:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres5" readonly="" type="text" value="Unidad:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres6" readonly="" type="text" value="Ubicación:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres7" readonly="" type="text" value="Equivalentes:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres9" readonly="" type="text" value="Ultimo Ingreso:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres10" readonly="" type="text" value="Saldo Actual:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" id="nombres11" readonly="" type="text" value="Saldo:"/>
+            <a class="descripcion">
+                .
+            </a>
+        </div>
+        <div class="col-xs-12 col-sm-9 col-md-6 col-lg-6 espacio">
+            <!------------------NUMERO---------------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="numero" name="numero" onkeyup="saltar(event,'bodegasuministro')" placeholder="Número de Pedido" type="text" value="<?php echo $numero?>"/>
+                    <a class="descripcion" id="descripcion-numero">
+                        Código
+                    </a>
+                </div>
+            </div>
+            <!------------------BODEGA---------------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <select class="form-control" id="bodegasuministro" name="bodegasuministro" onchange="VerificarBodega(this.value)" onkeyup="saltar(event,'categoriasuministro')">
+                        <option value="">
+                            Seleccione la Bodega
+                        </option>
+                        <!-----------Se importa la clase php para colocar dentro de este div lo que hay en ese archivo php--------->
+                        <!--------------------------------------------------------------------------------------------------------->
+                        <?php include '../funciones/bodegas/ingreso-suministro/cargar-bodega.php'?>
+                    </select>
+                    <a class="descripcion" id="descripcion-bodegasuministro">
+                        Bodega
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 espacio">
+                    <select class="form-control" id="categoriasuministro" name="categoriasuministro" onchange="VerificarCategoria(this.value)">
+                        <option value="">
+                            Seleccione la Categoria
+                        </option>
+                        <!-----------Se importa la clase php para colocar dentro de este div lo que hay en ese archivo php--------->
+                        <!--------------------------------------------------------------------------------------------------------->
+                        <?php include '../funciones/bodegas/ingreso-suministro/cargar-categoria.php'?>
+                    </select>
+                    <a class="descripcion" id="descripcion-lineaIngreso">
+                        Categoria del Suministro
+                    </a>
+                </div>
+            </div>
+            <!------------------Descripcion------------------->
+            <!-------------------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input class="form-control capitalizeText" id="descripcionsuministro" name="descripcionsuministro" onkeyup="saltar(event,'colorsuministro')" placeholder="Descripcion" type="text"/>
+                    <a class="descripcion" id="descripcion-descripcionsuministro">
+                        Descripcion
+                    </a>
+                </div>
+            </div>
+            <!------------------COLOR------------------->
+            <!-------------------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 espacio">
+                    <input class="form-control capitalizeText" id="colorsuministro" name="colorsuministro" onkeyup="saltar(event,'unidadmedidasuministro')" placeholder="Color" type="text"/>
+                    <a class="descripcion" id="descripcion-colorsuministro">
+                        Color
+                    </a>
+                </div>
+            </div>
+            <!------------UNIDAD DE MEDIDA-------------->
+            <!--------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 espacio">
+                    <select class="form-control" id="unidadmedidasuministro" name="unidadmedidasuministro" onchange="VerificarUnidad(this.value)">
+                        <option value="">
+                            Seleccione la Unidad de Medida
+                        </option>
+                        <!-----------Se importa la clase php para colocar dentro de este div lo que hay en ese archivo php--------->
+                        <!--------------------------------------------------------------------------------------------------------->
+                        <?php include '../funciones/bodegas/ingreso-suministro/cargar-unidad.php'?>
+                    </select>
+                    <a class="descripcion" id="descripcion-lineaIngreso">
+                        Unidad de Medida
+                    </a>
+                </div>
+            </div>
+            <!-------------UBICACION------------>
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="ubicacionsuministro" name="ubicacionsuministro" onkeyup="saltar(event,'equivalente1suministro')" placeholder="Ubicacion" type="text"/>
+                    <a class="descripcion" id="descripcion-ubicacionsuministro">
+                        Ubicación
+                    </a>
+                </div>
+            </div>
+            <!--------------EQUIVALENTE 1------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="equivalente1suministro" name="equivalente1suministro" onkeyup="saltar(event,'equivalente2suministro')" placeholder="Equivalente 1" type="text"/>
+                    <a class="descripcion" id="descripcion-equivalente1suministro">
+                        Equivalente 1
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="equivalente2suministro" name="equivalente2suministro" onkeyup="saltar(event,'ultimafecha')" placeholder="Equivalente 2" type="text"/>
+                    <a class="descripcion" id="descripcion-equivalente2suministro">
+                        Equivalente 2
+                    </a>
+                </div>
+            </div>
+            <!--------------ULTIMO INGRESO------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="ultimafecha" name="ultimafecha" onkeyup="saltar(event,'saldosuministro')" type="date" value="<?php echo date('Y-m-d');?>"/>
+                    <a class="descripcion" id="descripcion-ultimafecha">
+                        Fecha del Ultimo Ingreso
+                    </a>
+                </div>
+            </div>
+            <!----------------SALDO-------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-10 col-sm-11 col-md-5 col-lg-5 espacio">
+                    <input autocomplete="off" class="form-control" id="saldosuministro" min="0" name="saldosuministro" onkeyup="saltar(event,'saldominimosuministro')" placeholder="Saldo Actual" style="background-color: transparent;" type="number"/>
+                    <a class="descripcion" id="descripcion-saldosuministro">
+                        Saldo Actual
+                    </a>
+                </div>
+                <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                    <a href="../inventarios/transaccion-bodega.php" onclick="window.open(this) return false;" target="newWin">
+                        <button class="button0" type="button">
+                            <span class="glyphicon glyphicon-edit">
+                            </span>
+                        </button>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 espacio" id="codigobarra">
+                    <!----------------CODIGO DE BARRA--------------->
+                    <!---------------------------------------------->
+                    <center style="display: block; margin-top: -50px;">
+                        <svg id="barcode">
+                        </svg>
+                    </center>
+                </div>
+            </div>
+            <!----------------SALDO MINIMO-------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="saldominimosuministro" min="0" name="saldominimosuministro" onkeyup="saltar(event,'saldomaximosuministro')" placeholder="Minimo" style="background-color: transparent;" type="number"/>
+                    <a class="descripcion" id="descripcion-saldominimosuministro">
+                        Minimo
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="saldomaximosuministro" min="0" name="saldomaximosuministro" onkeyup="saltar(event,'agregar1')" placeholder="Maximo" style="background-color: transparent;" type="number"/>
+                    <a class="descripcion" id="descripcion-saldomaximosuministro">
+                        Maximo
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 15px;">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                    <button class="button-1" id="agregar1" type="button">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        Guardar
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                    <button class="button" id="clear1" type="button">
+                        <span class="glyphicon glyphicon-erase">
+                        </span>
+                        Limpiar
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                    <a href="ingreso-suministro.php">
+                        <button class="button" type="button">
+                            <span class="glyphicon glyphicon-refresh">
+                            </span>
+                            Refrescar
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row ocultar">
+            <!------------------FECHA Y HORA---------------->
+            <!---------------------------------------------->
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------TABLA---------------------->
+    <!---------------------------------------------->
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <div class="datostabla">
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <!------------------CARGAR---------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <!------------------GUARDAR---------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio ocultar">
+            <button class="button-1" id="agregar" type="button">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <!------------------VACIO----------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-6 col-sm-0 col-md-2 col-lg-2 espacio ocultar">
+        </div>
+        <!------------------BORRAR---------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+            <!--<button class="button" id="clear" type="button">
+                <span class="glyphicon glyphicon-erase">
+                </span>
+                Borrar
+            </button>-->
+        </div>
+        <!------------------LIMPIAR--------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+            <!--<button class="button-e" type="button">
+                <span class="glyphicon glyphicon-trash">
+                </span>
+                Eliminar
+            </button>-->
+        </div>
+        <!------------------AGREGAR PRODUCTO---------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-12 col-sm-0 col-md-2 col-lg-2 espacio">
+            <button class="button" id="imprimirbarcode" type="button">
+                <span class="glyphicon glyphicon-print">
+                </span>
+                Estiquer
+            </button>
+        </div>
+    </div>
+    <!------------------BOTON ARRIBA---------------------->
+    <!---------------------------------------------->
+    <div class="row mensaje" id="mensaje">
+        <!--ESTE DIV ES PARA COLOCAR EL MENSAJE DE INSERT.PHP-->
+    </div>
+</div>
+<style type="text/css">
+    .button, .button-1{
+        margin-bottom:2px;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    } 
+    .has-succes {
+        border-color: #cccccc;
+        border-left: solid 1px;
+        border-color: black;
+    }
+    .eModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+/*El nombre de nuestra clase de table es list, Extendemos las propiedades de la clase table de Bootstrap*/
+    .list{
+   @extend .table;
+   margin-top: 10px;
+   width: 100%;
+}
+
+/*Colocamos bordes a nuestra tabla*/
+.list td, .list th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+     color: black;
+     
+}
+
+/*Colocamos color a los hijos pares de la tabla y al encabezado*/
+
+.list tr:nth-child(even), .list thead>tr {
+    background-color: #dddddd;
+}
+
+/*CAMBIAMOS EL CURSOS A NUESTRAS CELDAS ELIMINAR Y MODIFICAR CREADAS DINAMICAMENTE*/
+.modificarcelda, .eliminarcelda{
+    cursor: pointer;
+    color: black;
+}
+
+
+/*CAMBIAMOS EL COLOR A LOS ICONOS A NUESTRAS CELDAS ELIMINAR Y MODIFICAR CREADAS DINAMICAMENTE*/
+.modificarcelda:hover{
+    color: blue;
+}
+.eliminarcelda:hover{
+    color: red;
+}
+/*///////////////////////////////////////////////////////////////////////////////////////////////*/
+/*vamos a hacer un quiebre justo en 992 para posicionar los divs a la derecha para pantalla grande*/
+@media (min-width: 992px) and (max-width: 1200px) { 
+      .codigobarra{
+        position: absolute;
+        left: 550px;
+        top: 200px;
+        text-align: center;
+      
+    }
+   }
+/*vamos a hacer un quiebre justo en 1200 para posicionar los divs a la derecha para pantalla extra grande*/
+@media (min-width: 1200px) { 
+    .codigobarra{
+        position: absolute;
+        left: 650px;
+        top: 200px;
+    }
+
+}
+/*vamos a hacer un quiebre justo en 1500 para posicionar los divs a la derecha para pantalla extra grande*/
+@media (min-width: 1500px) { 
+    .codigobarra{
+        position: absolute;
+        left: 800px;
+        top: 200px;
+    }
+
+}
+/*vamos a hacer un quiebre justo en 1500 para posicionar los divs a la derecha para pantalla extra grande*/
+@media (min-width: 1750px) { 
+    .codigobarra{
+        position: absolute;
+        left: 950px;
+        top: 200px;
+    }
+}
+.ocultar_mientras{
+   
+}
+@media (max-width: 1200px){
+    #codigobarra, #imprimirbarcode{
+        display: none;
+    }
+}
+</style>

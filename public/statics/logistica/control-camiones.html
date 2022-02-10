@@ -1,0 +1,244 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="control-camiones.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    CONTROL DE CAMIONES
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!---VACIO--->
+            <!----------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 10px 20px; margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" disabled type="text" value="Codigo:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="" type="text" value="Horario:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Camion:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Tipo de Carga:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Estado:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres6" readonly="" type="text" value="Ubicacion:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres7" readonly="" type="text" value="Observaciones:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 espacio">
+                    <input class="form-check-input" id="codigo" name="codigo"  type="text" disabled>
+                    </input>
+                    <a class="descripcion" id="cod">
+                        Codigo
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 espacio">
+                    <select class="form-control" id="horario" name="horario">
+                        <option value="8 AM">
+                            8:00 AM
+                        </option>
+                        <option value="2 PM">
+                            2:00 PM
+                        </option>
+                        <option value="5 PM">
+                            5:00 PM
+                        </option>
+                    </select>
+                    <a class="descripcion" id="descripcion-tipo-carga">
+                        Tipo de Carga
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <?php
+                               $consulta = "SELECT * FROM camion ORDER BY 2";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                    <input autocomplete="off" class="form-control" id="Ubicacion" list="des" name="camion" onkeyup="saltar(event,'tipoCarga')" placeholder="Camion" type="text"/>
+                    <datalist id="des">
+                        <?php foreach ($ejecutar as $descripcion): ?>
+                        <option value="<?php echo ($descripcion['placa']);?>">
+                            <?php echo ($descripcion['nombre']);?>
+                        </option>
+                        <? endforeach; ?>
+                    </datalist>
+                    <a class="descripcion" id="descripcion-ubicacion">
+                        Camion
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-12 col-lg-12 espacio">
+                    <input class="form-check-input" id="tipoCarga" name="tipoCarga" required="" type="text" disabled>
+                    </input>
+                    <a class="descripcion" id="descripcion-tipo-carga">
+                        Tipo de Carga
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-12 col-lg-12 espacio">
+                    <select class="form-control" id="estadoPipa" name="estadoPipa">
+                        <option value="Descargando">
+                            Descargando
+                        </option>
+                        <option value="Cargando">
+                            Cargando
+                        </option>
+                        <option value="Por Descarga">
+                            Por Descarga
+                        </option>
+                        <option value="Por Cargar">
+                            Por Cargar
+                        </option>
+                        <option value="Cargada">
+                            Cargada
+                        </option>
+                        <option value="Vacia">
+                            Vacia
+                        </option>
+                    </select>
+                    <a class="descripcion" id="descripcion-estado-pipa">
+                        Estado del camión
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <?php
+                               $consulta = "SELECT codigo, nombre FROM ubicacionGPS order by 2";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                    <select class="form-control" id="ubicacion" name="ubicacion">
+                        <?php foreach ($ejecutar as $descripcion): ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>">
+                            <?php echo ($descripcion['nombre']);?>
+                        </option>
+                        <? endforeach; ?>
+                    </select>
+                    <a class="descripcion" id="descripcion-ubicacion">
+                        Ubicacion
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones" required="" rows="3"></textarea>
+                        <a class="descripcion" id="descripcion-cantidadTransaccion">
+                            Observaciones
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <label class="form-check-label" for="enTransito">
+                            ¿En transito?
+                        </label>
+                        <input class="form-check-input" id="enTransito" name="enTransito" required="" type="checkbox">
+                        </input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!------------------FECHA Y HORA---------------->
+            <!---------------------------------------------->
+            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 espacio">
+                <select class="form-control" id="horaReporte" name="horaReporte">
+                    <option value="8 AM">
+                        8:00 AM
+                    </option>
+                    <option value="2 PM">
+                        2:00 PM
+                    </option>
+                    <option value="5 PM">
+                        5:00 PM
+                    </option>
+                </select>
+                <a class="descripcion">
+                    Hora de Reporte
+                </a>
+            </div>
+            <div class="col-xs-0 col-sm-7 col-md-7 col-lg-7 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+                <button class="button" id="reporteExcel" type="button">
+                    <span class="glyphicon glyphicon-th-list">
+                    </span>
+                    Excel
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+                <button class="button" id="agregar" type="button">
+                    <span class="glyphicon glyphicon-floppy-disk">
+                    </span>
+                    Guardar
+                </button>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+                <a href="control-camiones.php">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-refresh">
+                        </span>
+                        Refrescar
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Tabla de Camiones -->
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/logistica/control-camiones/cargar.php'; ?>
+    </div>
+
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .button{
+        margin-bottom: 3px;
+    }
+</style>

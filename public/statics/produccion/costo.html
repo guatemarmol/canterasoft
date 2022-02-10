@@ -1,0 +1,288 @@
+<form>
+    <div class="contenedor">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+                <a href="costo.php">
+                    <img class="logo" id="nombreLogo" src="../images/nombre/1_costo.png"/>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+                <i class="glyphicon glyphicon-user" id="icono">
+                </i>
+                <a class="descripcion">
+                    Usuario
+                </a>
+                <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+            </div>
+        </div>
+        <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px; ">
+            <?php 
+                include '../on-database.php';
+                $consulta = "SELECT MAX(codigoCosto) codigoCosto FROM costo";
+                $ejecutar = mysqli_query($con, $consulta);
+
+                $tabla = mysqli_fetch_array($ejecutar);
+                $codigoCosto = $tabla['codigoCosto'];
+                $codigoCosto++;
+            ?>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="" type="text" value="Código Costo:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres1" readonly="" type="text" value="Valor Transporte Interno:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres2" readonly="" type="text" value="Energia Electrica:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres3" readonly="" type="text" value="Mano de Obra:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres4" readonly="" type="text" value="Comunicaciones:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Depreciaciones:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres6" readonly="" type="text" value="Prestaciones:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres7" readonly="" type="text" value="Alquileres:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres7" readonly="" type="text" value="Valor Total:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <!--<input type="text" id="nombres8" class="form-control" value="Fecha y Hora:" readonly>
+                        <a class="descripcion">.</a>-->
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control" id="codigoCosto" name="codigoCosto" onkeyup="saltar(event,'valorTransporteInternoCosto')" placeholder="Código Tipo Costo" readonly="off" type="text" value="<?php echo $codigoCosto;?>"/>
+                            <a class="descripcion" id="descripcion-codigoCosto">
+                                Código Costo
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="valorTransporteInternoCosto" name="valorTransporteInternoCosto" onkeyup="saltar(event,'energiaElectricaCosto')" placeholder="Valor Transporte Interno" type="text" value="<?php echo $valorTransporteInternoCosto;?>"/>
+                            <a class="descripcion" id="descripcion-valorTransporteInternoCosto">
+                                Valor Transporte Interno
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="energiaElectricaCosto" name="energiaElectricaCosto" onkeyup="saltar(event,'manoObraCosto')" placeholder="Energia Electrica" type="text" value="<?php echo $energiaElectricaCosto;?>"/>
+                            <a class="descripcion" id="descripcion-energiaElectricaCosto">
+                                Energia Electrica
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="manoObraCosto" name="manoObraCosto" onkeyup="saltar(event,'comunicacionesCosto')" placeholder="Mano de Obra" type="text" value="<?php echo $manoObraCosto;?>"/>
+                            <a class="descripcion" id="descripcion-manoObraCosto">
+                                Mano de Obra
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="comunicacionesCosto" name="comunicacionesCosto" onkeyup="saltar(event,'depreciacionesCosto')" placeholder="Comunicaciones" type="text" value="<?php echo $comunicacionesCosto;?>"/>
+                            <a class="descripcion" id="descripcion-comunicacionesCosto">
+                                Comunicaciones
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="depreciacionesCosto" name="depreciacionesCosto" onkeyup="saltar(event,'prestacionesCosto')" placeholder="Depreciaciones" type="text" value="<?php echo $depreciacionesCosto;?>"/>
+                            <a class="descripcion" id="descripcion-depreciacionesCosto">
+                                Depreciaciones
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="prestacionesCosto" name="prestacionesCosto" onkeyup="saltar(event,'alquileresCosto')" placeholder="Prestaciones" type="text" value="<?php echo $prestacionesCosto;?>"/>
+                            <a class="descripcion" id="descripcion-prestacionesCosto">
+                                Prestaciones
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="alquileresCosto" name="alquileresCosto" onkeyup="saltar(event,'valorTotalCosto')" placeholder="Alquileres" type="text" value="<?php echo $alquileresCosto;?>"/>
+                            <a class="descripcion" id="descripcion-alquileresCosto">
+                                Alquileres
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="Q">
+                                <a class="descripcion">
+                                    Moneda
+                                </a>
+                            </input>
+                        </div>
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="valorTotalCosto" name="valorTotalCosto" onkeyup="saltar(event,'cargarCosto')" placeholder="Valor Total" type="text" value="<?php echo $valorTotalCosto;?>"/>
+                            <a class="descripcion" id="descripcion-valorTotalCosto">
+                                Valor Total
+                            </a>
+                        </div>
+                    </div>
+                    <?php date_default_timezone_set("America/Guatemala"); ?>
+                    <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control usuario-contador" id="horaFija" name="horaCosto" value="<?php $timestamp = time()+date("Z"); echo gmdate("H:i:s",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-time" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-horaCosto">Hora</a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control usuario-contador" id="fechaFija" name="fechaCosto" value="   <?php $timestamp = time()+date("Z"); echo gmdate("d/m/Y",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-calendar" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-fechaCosto">Fecha</a>
+                </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+            <?php include '../funciones/produccion/costo/cargar.php'; ?>
+        </div>
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <button class="button" id="cargarCosto" name="cargarCosto" type="button">
+                    <span class="glyphicon glyphicon-fullscreen">
+                    </span>
+                    Cargar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <button class="button" id="agregarCosto" name="agregarCosto" type="button">
+                    <span class="glyphicon glyphicon-plus">
+                    </span>
+                    Guardar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <a href="costo.php">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-unchecked">
+                        </span>
+                        Limpiar
+                    </button>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <a href="javascript:window.close();">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-remove">
+                        </span>
+                        Cerrar
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row mensaje" id="mensaje">
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $codigoCosto1;?>' != ""){
+           var codigoCosto = '<?php echo $codigoCosto1;?>'
+           document.getElementById('codigoCosto').value = codigoCosto;
+        }else{
+        }
+
+        if ('<?php echo $fechaCosto ?>' != ""){
+           var fechaCosto = '<?php echo $fechaCosto ?>'
+           document.getElementById('fechaFija').value = fechaCosto;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $horaCosto ?>' != ""){
+           var horaCosto = '<?php echo $horaCosto ?>'
+           document.getElementById('horaFija').value = horaCosto;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+</script>

@@ -1,0 +1,207 @@
+<?php 
+    include '../../on-database.php';
+    $consulta = "SELECT MAX(codigo) codigo FROM packingCliente";
+    $ejecutar = mysqli_query($con, $consulta);
+
+    $tabla = mysqli_fetch_array($ejecutar);
+    $codigoC1 = $tabla['codigo'];
+    $codigoC1++;
+?>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" id="clientes">
+    <!-------------------------------------------------------->
+    <!-------------------------------------------------------->
+    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 espacio ocultar">
+        <!----------VACIO---------->
+    </div>
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 espacio" style="margin-bottom: 30px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="on" type="text" value=" Código:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="codigoC" name="codigoC" onkeyup="saltar(event,'numPedidoC')" placeholder="Código" type="text" value="<?php echo $codigoC1 ?>"/>
+                    <a class="descripcion" id="descripcion-numPedidoC">
+                        Código
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="on" type="text" value=" No. Pedido:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="numPedidoC" name="numPedidoC" onkeyup="saltar(event,'nomClienteC')" placeholder=" Número Pedido" type="text" value="<?php echo $nPedidoC1 ?>"/>
+                    <a class="descripcion" id="descripcion-numPedidoC">
+                        Número Pedido
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="on" type="text" value="Cliente:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 espacio">
+                <?php
+                    $consulta = "SELECT * FROM cliente";
+                    $ejecutar = mysqli_query($con, $consulta);
+                ?>
+                <select class="form-control" id="nomClienteC" name="nomClienteC" onkeyup="saltar(event,'nOrdenCompraC')">
+                    <option value="Cliente">
+                        Cliente
+                    </option>
+                    <?php foreach ($ejecutar as $cliente): ?>
+                    <option value="<?php echo $cliente['nombreComercialCliente']?>">
+                        <?php echo $cliente['nombreComercialCliente']?>
+                    </option>
+                    <? endforeach; ?>
+                </select>
+                <a class="descripcion" id="descripcion-nomClienteC">
+                    Cliente
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="on" type="text" value="No. Orden:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="nOrdenCompraC" name="nOrdenCompraC" onkeyup="saltar(event,'nPackingListC')" placeholder="No. Orden" type="text" value="<?php echo $nOrdenCompraC1 ?>"/>
+                    <a class="descripcion" id="descripcion-nOrdenCompraC">
+                        No. Orden de Compra
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="on" type="text" value="Packing List:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="nPackingListC" name="nPackingListC" onkeyup="saltar(event,'transportistaC')" placeholder="Packing List" type="text" value="<?php echo $nPackingListC1 ?>"/>
+                    <a class="descripcion" id="descripcion-nPackingListC">
+                        Packing List
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="on" type="text" value="Transporte:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                    <?php
+                            $consulta = "SELECT * FROM transportista";
+                            $ejecutar = mysqli_query($con, $consulta);
+                        ?>
+                    <select class="form-control" id="transportistaC" name="transportistaC" onkeyup="saltar(event,'pilotoC')">
+                        <option value="Transportista">
+                            Transportista
+                        </option>
+                        <?php foreach ($ejecutar as $transportista): ?>
+                        <option value="<?php echo $transportista['nombreComercial']?>">
+                            <?php echo $transportista['nombreComercial']?>
+                        </option>
+                        <? endforeach; ?>
+                    </select>
+                    <a class="descripcion" id="descripcion-transportistaC">
+                        Transportista
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="on" type="text" value="Piloto:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="pilotoC" name="pilotoC" onkeyup="saltar(event,'placaC')" placeholder="Piloto" type="text" value="<?php echo $pilotoC1 ?>"/>
+                    <a class="descripcion" id="descripcion-pilotoC">
+                        Piloto
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="on" type="text" value="Placa:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="placaC" name="placaC" onkeyup="saltar(event,'plataformaC')" placeholder="Número de Placa" type="text" value="<?php echo $placaC1 ?>"/>
+                    <a class="descripcion" id="descripcion-placaC">
+                        Número de Placa
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="on" type="text" value="Plataforma:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="plataformaC" name="plataformaC" onkeyup="saltar(event,'barrasC0')" placeholder="Número de Plataforma" type="text" value="<?php echo $plataformaC1 ?>"/>
+                    <a class="descripcion" id="descripcion-plataformaC">
+                        Número de Plataforma
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php include '../funciones/produccion/packing-list/cargar-datos-cliente.php' ?>
+    <?php include '../funciones/produccion/packing-list/lineas-envio-cliente.php' ?>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $codigoC ?>' != ''){
+            var id = '<?php echo $codigoC ?>';
+            document.getElementById('codigoC').value = id;
+        }else{
+
+        }
+
+        if ('<?php echo $clienteC ?>' != ''){
+            var clien = '<?php echo $clienteC ?>';
+            document.getElementById('nomClienteC').value = clien;
+            document.getElementById('nomClienteC').style.color = '#000000';
+        }else{
+
+        }
+
+        if ('<?php echo $transporteC ?>' != ''){
+            var trans = '<?php echo $transporteC ?>';
+            document.getElementById('transportistaC').value = trans;
+            document.getElementById('transportistaC').style.color = '#000000';
+        }else{
+
+        }
+    });
+</script>

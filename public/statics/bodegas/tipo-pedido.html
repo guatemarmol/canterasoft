@@ -1,0 +1,119 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="tipo-pedido.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_tipo-pedido.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+            <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user" id="icono">
+            </i>
+            <a class="descripcion">
+                Usuario
+            </a>
+            <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <?php 
+        $consulta = "SELECT MAX(codigo) codigo FROM tipoPedidoBodegas";
+        $ejecutar = mysqli_query($con, $consulta);
+
+        $tabla = mysqli_fetch_array($ejecutar);
+        $codigo = $tabla['codigo'];
+        $codigo++;
+    ?>
+    <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Código:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Descripción:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="codigo" name="codigo" onkeyup="saltar(event,'descripcion')" placeholder="Código" readonly="" type="text" value="<?php echo $codigo;?>"/>
+                    <a class="descripcion" id="descripcion-codigo">
+                        Código
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="descripcion" name="descripcion" onkeyup="saltar(event,'cargar')" placeholder="Descripción" type="text" value="<?php echo $descripcion;?>"/>
+                    <a class="descripcion" id="descripcion-descripcion">
+                        Descripción
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/bodegas/tipo-pedido/cargar.php'; ?>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-fullscreen">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+            <a href="tipo-pedido.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-unchecked">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+            <button class="button" onclick="window.close();" type="button">
+                <span class="glyphicon glyphicon-remove">
+                </span>
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $codigo1;?>' != ""){
+           var codigo = '<?php echo $codigo1;?>'
+           document.getElementById('codigo').value = codigo;
+        }else{
+        }
+
+        if ('<?php echo $fecha ?>' != ""){
+           var fecha = '<?php echo $fecha ?>'
+           document.getElementById('fechaFija').value = fecha;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $hora ?>' != ""){
+           var hora = '<?php echo $hora ?>'
+           document.getElementById('horaFija').value = hora;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+</script>

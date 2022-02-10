@@ -1,0 +1,183 @@
+<form>
+    
+    <div class="contenedor">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+                <a href=linea-transaccion.php><img class="logo" id="nombreLogo" src="../images/logo-form/lineaTransaccion.png"></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+                
+                  <input class="form-control" type="text" id="linea" autocomplete="off" readonly />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input type="text" class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>" readonly='true'>
+                 <i class="glyphicon glyphicon-user" id="icono"></i>
+                <a class="descripcion">Usuario</a>
+                <input type="text" class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" value="Departamento de <?php echo $_SESSION['departamento']; ?>" readonly='true'>
+            </div>
+        </div>
+
+        <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">
+
+             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                 
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                    <input type="text" id="nombres0" class="form-control" value="Número Transacción:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres1" class="form-control" value="Línea Transacción:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres2" class="form-control" value="Producto:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres3" class="form-control" value="Bodega:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres4" class="form-control" value="Correlativo Producción:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres5" class="form-control" value="Fecha y Hora:" readonly>
+                    <a class="descripcion">.</a>
+                </div>
+
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                  <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                       <?php
+                                   $consulta = "SELECT * FROM transacciones";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                        ?>
+                        <input type="text" list="nt" id="numero" name="numero" class="form-control"  value="<?php echo $numero ?>" placeholder="Número Transacción" autocomplete="off" onkeyup="saltar(event,'linea')" />
+                        <datalist id="nt">
+                              <?php foreach ($ejecutar as $transacciones): ?>
+                               <option value="<?php echo $transacciones['numero']?>"></option>
+                              <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion"  id="descripcion-numero">Número Transacción</a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="../logistica/transaccion.php" target="newWin" onclick="window.open(this) return false;"><button type="button" class="button0"><span class="glyphicon glyphicon-edit"></span></button> </a>
+                    </div> 
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input type="text" id="lineaT" name="linea" class="form-control capitalizeText"  value="<?php echo $linea ?>" placeholder="Línea Transacción" autocomplete="off" onkeyup="saltar(event,'producto')" />
+                        <a class="descripcion"  id="descripcion-lineaT">Línea Transacción</a>
+                    </div> 
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                                   $consulta = "SELECT * FROM productoFinal";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                        <input type="text" list="codp" id="producto" name="producto" class="form-control"  value="<?php echo $producto ?>" placeholder="Producto" autocomplete="off" onkeyup="saltar(event,'bodega')" />
+                        <datalist id="codp">
+                              <?php foreach ($ejecutar as $productoFinal): ?>
+                               <option value="<?php echo $productoFinal['nombreEspecificoProducto']?>"></option>
+                              <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion"  id="descripcion-producto">Producto</a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="producto-final.php" target="newWin" onclick="window.open(this) return false;"><button type="button" class="button0"><span class="glyphicon glyphicon-edit"></span></button> </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                                   $consulta = "SELECT * FROM bodega";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                        <input type="text" list="codb" id="bodega" name="bodega" class="form-control"  value="<?php echo $bodega ?>" placeholder="Bodega" autocomplete="off" onkeyup="saltar(event,'correlativoProduccion')" />
+                        <datalist id="codb">
+                              <?php foreach ($ejecutar as $bodega): ?>
+                               <option value="<?php echo $bodega['nombreBodega']?>"></option>
+                              <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion"  id="descripcion-bodega">Bodega</a>
+                    </div>
+                   <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="bodega.php" target="newWin" onclick="window.open(this) return false;"><button type="button" class="button0"><span class="glyphicon glyphicon-edit"></span></button> </a>
+                    </div>    
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                                   $consulta = "SELECT * FROM produccion";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                        <input type="text" list="cp" id="correlativoProduccion" name="correlativoProduccion" class="form-control"  value="<?php echo $correlativoProduccion ?>" placeholder="Correlativo Producción" autocomplete="off" onkeyup="saltar(event,'cargar')" />
+                        <datalist id="cp">
+                              <?php foreach ($ejecutar as $produccion): ?>
+                               <option value="<?php echo $produccion['correlativoProduccion']?>"></option>
+                              <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion"  id="descripcion-correlativoProduccion">Correlativo Producción</a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="../produccion/produccion.php" target="newWin" onclick="window.open(this) return false;"><button type="button" class="button0"><span class="glyphicon glyphicon-edit"></span></button> </a>
+                    </div> 
+                </div>
+                <?php date_default_timezone_set("America/Guatemala"); ?>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control" id="horaFija" name="hora" value="<?php $timestamp = time()+date("Z"); echo gmdate("H:i:s",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-time" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-horaTransaccion">Hora</a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control" id="fechaFija" name="fecha" value="   <?php $timestamp = time()+date("Z"); echo gmdate("d/m/Y",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-calendar" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-fechaLineaTransaccion">Fecha</a>
+                </div>
+             </div>
+          </div>
+        </div>
+
+        <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+                <?php include '../funciones/logistica/linea-transaccion/cargar.php'; ?>
+        </div>
+
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ocultar espacio">
+                <button type="button" id="cargar" class="button">
+                <span class="glyphicon glyphicon-fullscreen"></span> Cargar </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <button type="button" id="agregar" class="button">
+                <span class="glyphicon glyphicon-plus"></span> Guardar </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <a href="linea-transaccion.php"><button type="button" class="button">
+			    <span class="glyphicon glyphicon-unchecked"></span> Limpiar </button></a>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <a href="javascript:window.close();"><button type="button" class="button">
+                    <span class="glyphicon glyphicon-remove"></span> Cerrar </button></a>
+            </div>
+        </div>  
+      
+    </div>
+    <div class="row mensaje" id="mensaje"></div>
+</form>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+        if ('<?php echo $fecha ?>' != ""){
+           var fecha = '<?php echo $fecha ?>'
+           document.getElementById('fechaFija').value = fecha;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $hora ?>' != ""){
+           var hora = '<?php echo $hora ?>'
+           document.getElementById('horaFija').value = hora;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+});
+
+</script>

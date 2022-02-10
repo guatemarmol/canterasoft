@@ -1,0 +1,347 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="orden-compra.php?estado=cotizado">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_orden-compra.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--VACIO--->
+            <!---------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    
+
+    <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">  
+        
+            <br>
+            <div class="row" style="border-color: darkblue;">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 espacio mx-auto" >
+                    <select class="selectpicker form-control" data-live-search="true" id="areaSelect" name="areaSelect">
+                        <option selected value="0">Área</option>
+                        <?php
+                            $query = "SELECT * FROM `area` ORDER BY area ASC";
+                            $ejecutar = mysqli_query($con, $query);
+
+                            while($fila = mysqli_fetch_assoc($ejecutar)){
+                                echo '<option value="'.$fila['codigo'].'">'.$fila['area'].'</option>';
+                            }
+                        ?>
+                    </select>
+                    <a class="descripcion">
+                        Seleccione un Área
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 espacio mx-auto" >
+                    <select class="selectpicker form-control" data-live-search="true" id="proveedorSelect" name="proveedorSelect">
+                        <option selected value="0">Proveedor</option>
+                        <?php
+                            $query = "SELECT P.codigo, P.nombre, C.rango FROM proveedor AS P
+                                        INNER JOIN proveedorCategoria AS C ON C.proveedor = P.codigo";
+                            $ejecutar = mysqli_query($con, $query);
+
+                            while($fila = mysqli_fetch_assoc($ejecutar)){
+                                echo '<option value="'.$fila['codigo'].'">'.$fila['rango'].' - '.$fila['nombre'].'</option>';
+                            }
+                        ?>
+                    </select>
+                    <a class="descripcion">
+                        Seleccione un Proveedor
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 espacio mx-auto" >
+                    <select class="selectpicker form-control" data-live-search="true" id="productoSelect" name="productoSelect">
+                        <option selected value="0">Producto</option>
+                        <?php
+                            $query = "SELECT * FROM producto";
+                            $ejecutar = mysqli_query($con, $query);
+
+                            while($fila = mysqli_fetch_assoc($ejecutar)){
+                                echo '<option value="'.$fila['codigo'].'">'.$fila['descripcion'].'</option>';
+                            }
+                        ?>
+                    </select>
+                    <a class="descripcion">
+                        Seleccione un Producto
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 espacio">
+                    <input style="width: min-content;" autocomplete="off" class="form-control" id="rango" name="rango" placeholder="Fechas de Reporte" type="text"/>
+                    <a class="descripcion">
+                        Fechas de Reporte
+                    </a>
+                </div>
+            </div>
+
+            <br>
+            
+            <div class="row">
+                <div class="col-xs-15 col-sm-3 col-md-2 col-lg-3 espacio">
+                    <button class="button" id="reporteFechas"  type="button">
+                        <span class="glyphicon glyphicon-calendar">
+                        </span>
+                        Reporte por Fecha
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-3 espacio">
+                    <button class="button" id="reporteProveedor"  type="button">
+                        <span class="glyphicon glyphicon-shopping-cart">
+                        </span>
+                        Reporte por Proveedor
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-3 espacio">
+                    <button class="button" id="reporteProducto"  type="button">
+                        <span class="glyphicon glyphicon-barcode">
+                        </span>
+                        Reporte por Producto
+                    </button>
+                </div>
+            </div>
+
+            
+
+            <br><br><br>
+        
+        <div id="tablesInfo">
+            <div id="tablaListado" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <!--Usaremos una clase de bootsrap para realizar nuestra table responsivo-->
+                <div class="table-responsive">
+                    <!--Creamos nuestra table, el width esta al 100% ya que tambien tiene que cazar con el div que nos habilita el espacio dentro del grid-->
+                    <table class="list" id="listaproducto" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Cantidad</th>
+                                <th>U/Med.</th>
+                                <th>Descripción</th>
+                                <th>Máquina</th>
+                                <th>Consumo Mensual</th>
+                                <th>Saldo Actual</th>
+                                <th>Mínimo</th>
+                                <th>Máximo</th>
+                                <th>Horómetro</th>
+                                <th>Observación</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody class="cuerpoTabla">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="row" style="padding-bottom: 15px; padding-top: 10px;"></div>
+            
+            <h2 style="text-align: center;"> Valores Cotizados </h2>
+            <div id="tablaListado" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="table-responsive">
+                    <table class="list" id="listaCotizacion" name="listaCotizacion" width="100%">
+                        <thead>
+                            <tr>    
+                                <th>Proveedor</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Descuento</th>
+                                <th>Precio C/ Descuento</th>
+                                <th>Precio Final</th>
+                                <th>Nota</th>
+                                <th>Fecha</th>
+                                <th>Autorizar</th>
+                            </tr>
+                        </thead>
+                        <tbody class="cuerpoTabla" id="listaC">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row" style="padding-bottom: 15px; padding-top: 10px;"></div>
+            <div class="row" style="padding-bottom: 15px; padding-top: 10px;"></div>
+
+            <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+                    <button class="button" id="denegar" type="button">
+                        <span class="glyphicon glyphicon-remove">
+                        </span>
+                        Denegar Pedido 
+                    </button>
+                </div>
+                
+                <div class="col-xs-6 col-sm-3 col-md-6 col-lg-6 espacio ocultar"></div>
+
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+                    <button class="button" id="compra"  type="button">
+                        <span class="glyphicon glyphicon-usd"></span>
+                        Ordenes de Compra
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+                    <button class="button" id="reporte"  type="button">
+                        <span class="glyphicon glyphicon-folder-open">
+                        </span>
+                        Generar Reporte
+                    </button>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 col-md-6 col-lg-8 espacio ocultar"></div>
+
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+                    <button class="button" id="autorizar"  type="button">
+                        <span class="glyphicon glyphicon-ok">
+                        </span>
+                        Autorizar Pedido
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+                    <button class="button" id="autorizarParcial" type="button">
+                        <span class="glyphicon glyphicon-th-list">
+                        </span>
+                        Autorizar Suministros
+                    </button>
+                </div>
+                
+                <input  id="fechaI" name="fechaI" hidden type="text"/>
+                <input  id="fechaF" name="fechaF" hidden type="text"/>
+                <input  id="codPedido" name="codPedido" hidden type="text"/>
+                <input  id="solicitante" name="solicitante" hidden type="text"/>
+                <input  id="area" name="area" hidden type="text"/>
+            </div>
+            <br>
+
+            <div class="row">
+                <!----------------------------FECHA Y HORA------------------------------->
+                <!----------------------------------------------------------------------->
+                <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+                </div>
+                <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                        <i class="glyphicon glyphicon-time" id="reloj">
+                        </i>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                        <i class="glyphicon glyphicon-calendar" id="calendario">
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <select class="selectpicker form-control" data-live-search="true" id="areaDisplay" name="areaDisplay">
+        <option selected value="0">Selecione un área</option>
+        <?php
+            $query = "SELECT * FROM `area` ORDER BY area ASC";
+            $ejecutar = mysqli_query($con, $query);
+
+            while($fila = mysqli_fetch_assoc($ejecutar)){
+                echo '<option value="'.$fila['codigo'].'">'.$fila['area'].'</option>';
+            }
+        ?>
+    </select>
+    <!-------------------------TABLAS-------------------------------->
+    <!-------------------------------------------------------------->
+    <div class="row" id="1" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-plantaCarbonato.php'; ?>
+    </div>
+
+    <div class="row" id="2" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-produccionPiedra.php'; ?>
+    </div>
+
+    <div class="row" id="3" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-acarreoPiedra.php'; ?>
+    </div>
+
+    <div class="row" id="4" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-predioTrasiego.php'; ?>
+    </div>
+
+    <div class="row" id="5" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-produccionBloques.php'; ?>
+    </div>
+
+    <div class="row" id="6" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-plantaMarfisa.php'; ?>
+    </div>
+
+    <div class="row" id="7" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-bodegaCantera.php'; ?>
+    </div>
+
+    <div class="row" id="8" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-bodega-Z13.php'; ?>
+    </div>
+
+    <div class="row" id="9" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/cotizacion/cargar-taller.php'; ?>
+    </div>
+    
+    
+    <div class="row" style="padding-top: 15px; padding-bottom: -20px"></div>
+    <div class="row" style="padding-top: 15px; padding-bottom: -20px"></div>
+    <div class="row" style="padding-top: 15px; padding-bottom: -20px"></div>
+</div>
+
+
+<style type="text/css">
+
+    .button{
+        margin-bottom:2px;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: #cccccc;
+        border-left: solid 1px;
+        border-color: black;
+    }
+    .eModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+/*El nombre de nuestra clase de table es list, Extendemos las propiedades de la clase table de Bootstrap*/
+    .list{
+   @extend .table;
+   margin-top: 10px;
+   width: 100%;
+}
+
+/*Colocamos bordes a nuestra tabla*/
+.list td, .list th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+     color: black;
+     
+}
+
+/*Colocamos color a los hijos pares de la tabla y al encabezado*/
+
+.list tr:nth-child(even), .list thead>tr {
+    background-color: #dddddd;
+}
+
+</style>

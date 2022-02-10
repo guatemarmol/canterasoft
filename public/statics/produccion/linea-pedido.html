@@ -1,0 +1,150 @@
+<form>
+
+    <div class="contenedor">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+                <a href=linea-pedido.php><img class="logo" id="nombreLogo" src="../images/logo-form/lineaPedido.png"></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+                
+                  <input class="form-control" type="text" id="linea" autocomplete="off" readonly />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input type="text" class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>" readonly='true'>
+                 <i class="glyphicon glyphicon-user" id="icono"></i>
+                <a class="descripcion">Usuario</a>
+                <input type="text" class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" value="Departamento de <?php echo $_SESSION['departamento']; ?>" readonly='true'>
+            </div>
+        </div>
+
+        <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">
+
+             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                 
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                    <input type="text" id="nombres0" class="form-control" value="Número Pedido:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres1" class="form-control" value="Linea de Pedido:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres2" class="form-control" value="Producto:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres3" class="form-control" value="Cantidad en Peso:" readonly>
+                    <a class="descripcion">.</a>
+                    <input type="text" id="nombres4" class="form-control" value="Fecha y Hora:" readonly>
+                    <a class="descripcion">.</a>
+                </div>
+
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                                   $consulta = "SELECT * FROM pedido";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                         <input type="text" list="nlp" id="numeroPedidoLineaPedido" name="numeroPedidoLineaPedido" class="form-control"  value="<?php echo $numeroPedidoLineaPedido ?>" placeholder="Número Pedido" autocomplete="off" onkeyup="saltar(event,'lineaPedido')" />
+                        <datalist id="nlp">
+                              <?php foreach ($ejecutar as $pedido): ?>
+                               <option value="<?php echo $pedido['numeroPedido']?>"></option>
+                              <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion"  id="descripcion-numeroPedidoLineaPedido">Número Pedido</a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="../produccion/pedido.php" target="newWin" onclick="window.open(this) return false;"><button type="button" class="button0"><span class="glyphicon glyphicon-edit"></span></button> </a>
+                    </div>
+                </div>
+                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input type="text" id="lineaPedido" name="lineaPedido" class="form-control capitalizeText"  value="<?php echo $lineaPedido ?>" placeholder="Linea de Pedido" autocomplete="off" onkeyup="saltar(event,'codigoProductoLineaPedido')" />
+                    <a class="descripcion"  id="descripcion-lineaPedido">Linea de Pedido</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                                   $consulta = "SELECT * FROM productoFinal";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                         <input type="text" list="plp" id="codigoProductoLineaPedido" name="codigoProductoLineaPedido" class="form-control capitalizeText"  value="<?php echo $codigoProductoLineaPedido ?>" placeholder="Producto" autocomplete="off" onkeyup="saltar(event,'cantidadEnPesoLineaPedido')" />
+                        <datalist id="plp">
+                              <?php foreach ($ejecutar as $productoFinal): ?>
+                               <option value="<?php echo $productoFinal['nombreEspecificoProducto']?>"></option>
+                              <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion"  id="descripcion-codigoProductoLineaPedido">Código Producto</a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="../produccion/producto-final.php" target="newWin" onclick="window.open(this) return false;"><button type="button" class="button0"><span class="glyphicon glyphicon-edit"></span></button> </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input type="text" id="cantidadEnPesoLineaPedido" name="cantidadEnPesoLineaPedido" class="form-control capitalizeText"  value="<?php echo $cantidadEnPesoLineaPedido ?>" placeholder="Cantidad en Peso" autocomplete="off" onkeyup="saltar(event,'cargarLineaPedido')" />
+                        <a class="descripcion"  id="descripcion-cantidadEnPesoLineaPedido">Cantidad en Peso</a>
+                    </div> 
+                </div>
+                <?php date_default_timezone_set("America/Guatemala"); ?>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control usuario-contador" id="horaFija" name="horaLineaPedido" value="<?php $timestamp = time()+date("Z"); echo gmdate("H:i:s",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-time" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-horaPedido">Hora</a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control usuario-contador" id="fechaFija" name="fechaLineaPedido" value="   <?php $timestamp = time()+date("Z"); echo gmdate("d/m/Y",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-calendar" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-fechaLineaPedido">Fecha</a>
+                </div>
+             </div>
+          </div>
+        </div>
+
+        <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+                <?php include '../funciones/produccion/linea-pedido/cargar.php'; ?>
+        </div>
+
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <button type="button" id="cargarLineaPedido" name="cargarLineaPedido" class="button">
+                <span class="glyphicon glyphicon-fullscreen"></span> Cargar </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <button type="button" id="agregarLineaPedido" name="agregarLineaPedido" class="button">
+                <span class="glyphicon glyphicon-plus"></span> Guardar </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <button type="button" id="printLineaPedido" name="printLineaPedido" class="button">
+                    <span class="glyphicon glyphicon-print"></span> Imprimir </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <a href="linea-pedido.php"><button type="button" id="borrarLineaPedido" name="borrarLineaPedido" class="button">
+			    <span class="glyphicon glyphicon-unchecked"></span> Limpiar </button></a>
+            </div>
+        </div>  
+      
+    </div>
+    <div class="row mensaje" id="mensaje"></div>
+
+</form>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        if ('<?php echo $fechaLineaPedido ?>' != ""){
+           var fechaLineaPedido = '<?php echo $fechaLineaPedido ?>'
+           document.getElementById('fechaFija').value = fechaLineaPedido;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $horaLineaPedido ?>' != ""){
+           var horaLineaPedido = '<?php echo $horaLineaPedido ?>'
+           document.getElementById('horaFija').value = horaLineaPedido;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+
+</script>

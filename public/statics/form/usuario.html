@@ -1,0 +1,306 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="usuario.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_usuarios.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------>
+    <!------------------------------------------------------------------------------------------------------------------>
+    <div class="row thumbnail SelloAgua" style="padding: 15px; margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="hidden" value="Código:"/>
+                <a class="descripcion" style="display: none">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Usuario:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="hidden" value="Empleado:"/>
+                <a class="descripcion" style="display: none">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Departamento:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="" type="text" value="Rol:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Nombre a Mostrar:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres6" readonly="" type="text" value="Contraseña:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <!--CARGA EL CORRELATIVO DE LOS USUARIOS---------------------------------------------------------------------------->
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 espacio">
+                <!------------------------------------------------USUARIO----------------------------------------------------------->
+                <!------------------------------------------------------------------------------------------------------------------>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="usuario1" name="usuario" onchange="javascript:this.value=this.value.toUpperCase();" placeholder="Usuario" type="text" value="<?php echo strtoupper($usuario);?>"/>
+                        <a class="descripcion" id="descripcion-usuario">
+                            Usuario
+                        </a>
+                    </div>
+                </div>
+                <!------------------------------------------------DEPARTAMENTO------------------------------------------------------>
+                <!------------------------------------------------------------------------------------------------------------------>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <select class="form-control" id="puesto" name="puesto">
+                            <option selected="">
+                                Departamento
+                            </option>
+                            <option value="Logistica">
+                                Logistica
+                            </option>
+                            <option value="Informatica">
+                                Informatica
+                            </option>
+                            <option value="Ventas">
+                                Ventas
+                            </option>
+                            <option value="Contabilidad">
+                                Contabilidad
+                            </option>
+                            <option value="R.R.H.H.">
+                                R.R.H.H.
+                            </option>
+                            <option value="Gerencia">
+                                Gerencia
+                            </option>
+                        </select>
+                        <a class="descripcion" id="descripcion-puesto">
+                            Departamento
+                        </a>
+                    </div>
+                </div>
+                <!------------------------------------------------ROL--------------------------------------------------------------->
+                <!------------------------------------------------------------------------------------------------------------------>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <select class="form-control" id="rol" name="rol">
+                            <option selected="">
+                                Acceso
+                            </option>
+                            <option value="1">
+                                1
+                            </option>
+                            <option value="2">
+                                2
+                            </option>
+                            <option value="3">
+                                3
+                            </option>
+                            <option value="4">
+                                4
+                            </option>
+                            <option value="5">
+                                5
+                            </option>
+                            <option value="6">
+                                6
+                            </option>
+                            <option value="7">
+                                7
+                            </option>
+                            <option value="8">
+                                8
+                            </option>
+                            <option value="9">
+                                9
+                            </option>
+                            <option value="10">
+                                10
+                            </option>
+                            <option value="11">
+                                11
+                            </option>
+                        </select>
+                        <a class="descripcion" id="descripcion-rol">
+                            Nivel de Acceso
+                        </a>
+                    </div>
+                </div>
+                <!------------------------------------------------NOMBRE----------------------------------------------------------->
+                <!------------------------------------------------------------------------------------------------------------------>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="nombreMostrar" name="nombreMostrar" placeholder="Nombre" type="text" value="<?php echo $username1;?>"/>
+                        <a class="descripcion" id="descripcion-nombreMostrar">
+                            Nombre
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="apellidoMostrar" name="apellidoMostrar" placeholder="Apellido" type="text" value="<?php echo $username0;?>"/>
+                        <a class="descripcion" id="descripcion-apellidoMostrar">
+                            Apellido
+                        </a>
+                    </div>
+                </div>
+                <!------------------------------------------------CONTRASEÑA--------------------------------------------------------->
+                <!------------------------------------------------------------------------------------------------------------------>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="contrasena" name="contrasena" placeholder="******" style="text-align: center;" type="password" value="<?php echo $contrasena;?>"/>
+                        <a class="descripcion" id="descripcion-contrasena">
+                            Contraseña
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="contrasenaConfirmar" name="contrasenaConfirmar" placeholder="******" style="text-align: center;" type="password" value="<?php echo $ccontrasena;?>"/>
+                        <a class="descripcion" id="descripcion-contrasenaConfirmar">
+                            Contraseña Confirmar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!------------------------------------------------HORA Y FECHA------------------------------------------------------>
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------>
+    <!------------------------------------------------------------------------------------------------------------------>
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <!--CARGA LA TABLA DE USUARIOS---------------------------------------------------->
+        <!-------------------------------------------------------------------------------->
+        <?php include '../funciones/usuarios/cargar.php'; ?>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------------>
+    <!------------------------------------------------------------------------------------------------------------------>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <!----------------------------------------------CARGAR-------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------------>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio" style="margin-bottom: 2px;">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------>
+        <!------------------------------------------------------------------------------------------------------------------>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 espacio ocultar" style="margin-bottom: 2px;">
+        </div>
+        <!----------------------------------------------GUARDAR------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------------>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio" style="margin-bottom: 2px;">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <!---------------------------------------------REINICIAR------------------------------------------------------------>
+        <!------------------------------------------------------------------------------------------------------------------>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="reiniciar" name="reiniciar" type="button">
+                <span class="fa fa-lock">
+                </span>
+                Reiniciar
+            </button>
+        </div>
+        <!----------------------------------------------LIMPIAR------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------------>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="usuario.php">
+                <button class="button" id="borrar" type="button">
+                    <span class="glyphicon glyphicon-unchecked">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    #usuario1{
+        font-weight: 900;
+        text-align: center;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: darkgreen;
+        border-left: solid 3px;
+        border-left-color: darkgreen;
+    }
+    .pieModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+    @media (max-width: 767px){
+        .dt-buttons{
+            display: none;
+        }
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $departamento;?>' != ""){
+           var depto = '<?php echo $departamento;?>'
+           document.getElementById('puesto').value = depto;
+           document.getElementById('puesto').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $rol ?>' != ""){
+           var rol = '<?php echo $rol ?>'
+           document.getElementById('rol').value = rol;
+           document.getElementById('rol').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $usuario1 ?>' != ""){
+           var usuario = '<?php echo $usuario1 ?>'
+           document.getElementById('usuario').value = usuario;
+         }else{
+         }
+  });
+</script>

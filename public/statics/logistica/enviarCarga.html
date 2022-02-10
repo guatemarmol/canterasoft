@@ -1,0 +1,376 @@
+<div class="contenedor" id="cuerpo">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="cargacarbonato.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    Envío a Predio
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!---VACIO- -->
+            <!-- ------- -->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    
+    <div class="row thumbnail SelloAgua" style="padding: 20px 10px 10px 10px; margin-bottom: 1px;">
+        <div class="row tablet">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-3 espacio"></div>
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-6 espacio">
+                <center>
+                    <h3 style="font-weight: 700;">
+                        REGISTRO DE ENVIO
+                    </h3>
+                </center>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-3 espacio"></div>
+        </div>
+        <br>
+        <br>
+        <div class="row">    
+            <div class="col-xs-11 col-sm-9 col-md-5 col-lg-5 espacio"></div>
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 espacio">
+                <label for="piedra"><strong>Transportista:  </strong></label>
+                <select class="selectpicker" id="trans" name="trans">
+                    <?php
+                        $consulta = "SELECT * FROM transportista;";
+                        $ejecutar = mysqli_query($con, $consulta);
+
+                        while($fila = mysqli_fetch_assoc($ejecutar)){
+                            echo '<option value="'.$fila['id'].'">'.$fila['nombreComercial'].'</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">    
+            <div class="col-xs-11 col-sm-9 col-md-5 col-lg-5 espacio"></div>
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 espacio">
+                <label for="piedra"><strong>Piloto:  </strong></label>
+                <select class="selectpicker" id="pilotoS" name="piloto">
+                    <!-- LLENAR EL SELECT DESDE JAVASCRIPT CON JQUERY CADA VEz QUE EXISTA un ONCHANGE
+                        EN EL SELECT DE LOS TRANSPORTISTAS -->
+                    <option value="Piloto 1">Piloto 1</option>
+                    <option value="Piloto 2">Piloto 2</option>
+                    <option value="Piloto 3">Piloto 3</option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <input id="envio" name="envio" style="display: none;" value="<?php echo $_GET['e']; ?>"/>
+        <input id="peso" name="peso" style="display: none;" value="<?php echo $_GET['p']; ?>"/>
+        <input id="placa" name="placa" style="display: none;" />
+        <input id="producto" name="producto" style="display: none;" />
+
+        <div class="row">
+            <!------------------FECHA Y HORA---------------->
+            <!---------------------------------------------->
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj"></i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-bottom: 15px; padding-top: 10px;" id="botones">
+    <div class="col-xs-6 col-sm-3 col-md-6 col-lg-5 espacio ocultar">
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="guardar" type="button">
+            <span class="glyphicon glyphicon-floppy-disk">
+            </span>
+            Guardar
+        </button>
+    </div>
+    <!------------------LIMPIAR--------------------->
+    <!---------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <a href="envioPredio.php">
+            <button class="button" type="button">
+                <span class="glyphicon glyphicon-unchecked">
+                </span>
+                Limpiar
+            </button>
+        </a>
+    </div>
+</div>
+
+<div id="envioProd" class="bottomMargin">
+    <div id="encabezado">
+        <div id="first">
+            <img src="../images/logo/logo-reporte.jpg" style="width: 230px; height: 60px;">
+        </div>
+        <div id="second">
+            <center>
+                <h4 style="font-weight: 700;" class="predioh3">
+                    ENVÍO A PREDIO
+                </h4>
+                <h4 style="font-weight: 700;"  class="predioh3">
+                    DE DISTRIBUCIÓN
+                </h4>
+            </center>    
+        </div>
+        <div id="third">
+            <table id="tableENV">
+                <thead>
+                    <tr style="height: 30px;">
+                        <th style="width: 150px;"><center>Packing List</center></th>
+                        <th style="width: 1500px; border-left:solid black 1px;"><center><h4 style="color: red;"><?php echo "No. ".$_GET['e'];?></h4></center></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>  
+
+    <div id="datos">
+        <div id="df">
+            <center>
+                <h3 style="font-weight: 400;">
+                    CARBONATO DE CALCIO
+                </h3>
+            </center>   
+            <table style="width: 100%;" class="tableDAT">
+                <tbody> 
+                    <tr>
+                        <th style="width: 30%; font-weight: 1;">Fecha: </th>
+                        <td style="border-bottom: solid black 3px;"><center><h5 id="fechaENV"></h5></center></td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: 1;">Hora Salida: </th>
+                        <td style="border-bottom: solid black 3px;"><center><h5 id="horaENV"></h5></center></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="ds">
+            <table style="width: 100%; height: 12px;" class="tableDAT2">
+                <tbody>
+                    <tr>
+                        <th style="width: 55%; font-weight: 1;">A Predio de Distribución: </th>
+                        <td style="border-bottom: solid black 3px;"><center><h5>Ojo de Agua</h5></center></td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: 1;">Transporte: </th>
+                        <td style="border-bottom: solid black 3px;"><center><h5 id="transportista"></h5></center></td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: 1;">Nombre del Piloto: </th>
+                        <td style="border-bottom: solid black 3px;"><center><h5 id="piloto"></h5></center></td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight: 1;"># de Placa: </th>
+                        <td style="border-bottom: solid black 3px;"><center><h5 id="placaE">C 223 BJP</h5></center></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>  
+    <div id="datosProd">
+        <div id="df">
+            <table style="width: 99%;" class="tablePROD" id="tablaIZQ">
+                <thead>
+                    <tr>
+                        <th><center>#</center></th>
+                        <th>Mesh</th>
+                        <th>Color</th>
+                        <th>Tons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div id="ds">
+            <table style="width: 100%;" class="tablePROD" id="tablaDER">
+                <thead>
+                    <tr>
+                        <th><center>#</center></th>
+                        <th>Mesh</th>
+                        <th>Color</th>
+                        <th>Tons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="totalBorder"></td>
+                        <td class="totalBorder"></td>
+                        <th class="totalBorder">TOTAL</th>
+                        <td><?php echo round( ($_GET['p']/1000),2);?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div id="firmas">
+        <div id="dfirma">
+            <table style="width: 100%;" class="tablePROD">
+                <thead>
+                    <tr>
+                        <td class="firmaBorder"><center>Firma de Quien Envía</center></td>
+                        <td class="totalBorder" style="width: 10%;"></td>
+                        <td class="firmaBorder"><center>Firma de Quien Recibe</center></td>
+                    </tr>
+                </thead>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    #bottomMargin{
+        margin-bottom: 0px;
+    }
+    #envioProd{
+        display: none;
+    }
+
+    .totalBorder{
+        border-style: none;
+    }
+
+    .firmaBorder{
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+    }
+
+    .predioh3 {
+        margin-top: 10px;
+    }
+    
+    .tableDAT tr,th{
+        border: solid white;
+        /*height: 1px;*/
+        margin-bottom: 1px;
+    }
+
+    .tableDAT2 tr, td, th{
+        border: solid white;
+        height: 0px;
+        margin-bottom: 0px;
+    }
+    
+    .tablePROD th, td{
+        border-collapse : separate;
+        border : solid black 1px;
+    }
+
+    #tableENV {
+        margin-top: 5px;
+        border-collapse:separate;
+        border:solid black 1px;
+        border-radius:6px;
+        -moz-border-radius:6px;
+    }
+    
+    #tableENV td, th {
+        border-left:solid black 1px;
+        border-top:solid black 1px;
+    }
+
+    #tableENV th {
+        border-left:none;
+    }
+
+    #datos{
+        width: 100%;
+        margin-left: 1px;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+
+    #datosProd{
+        width: 100%;
+        margin-left: 1px;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+
+    #firmas{
+        width: 100%;
+        height: 2%;
+        margin-left: 1px;
+        overflow: hidden;
+    }
+
+    #dfirma {
+        width: 70%;
+        float:left;
+        
+    }
+
+    #df {
+        width: 50%;
+        float:left;
+    }
+    #ds {
+        width: 50%;
+        float:left;
+        overflow: hidden;
+    }
+
+    #encabezado {
+        width: 100%;
+        margin-left: 1px;
+        margin-top: 15px;
+        height: 55px;
+        overflow: hidden;
+    }
+    #first {
+        width: max-content;
+        float:left;
+    }
+    #second {
+        width: 30%;
+        height: 10px;
+        height: fit-content;
+        float:left;
+        overflow: hidden;
+    }
+    #third {
+        overflow: hidden;
+    }
+</style>
+
+<style type="text/css" media="print">
+    @media print{
+        #envioProd{display: inline;}
+        #cuerpo{display: none;}
+        #botones{display: none;}
+        header, footer, nav, aside, title{
+            display: none;
+        }
+        @page{
+            margin: 0;
+            size: auto  ;
+        }
+    }
+</style>

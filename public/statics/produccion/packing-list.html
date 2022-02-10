@@ -1,0 +1,5251 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="packing-list.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_packin-list.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 5px 20px; margin-bottom: 1px;">
+        <?php 
+            include '../on-database.php';
+            $consulta = "SELECT MAX(codigo) codigo FROM packinList";
+            $ejecutar = mysqli_query($con, $consulta);
+
+            $tabla = mysqli_fetch_array($ejecutar);
+            $codigo = $tabla['codigo']; 
+            $codigo++;
+        ?>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="" type="text" value="Tipo:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md6 col-lg-6 espacio">
+                    <select class="form-control" id="tipo" name="tipo" onkeyup="saltar(event,'ordenCompra')">
+                        <option value="Tipo">
+                            Tipo
+                        </option>
+                        <option value="Local">
+                            Local
+                        </option>
+                        <option value="Cliente">
+                            Cliente
+                        </option>
+                    </select>
+                    <a class="descripcion" id="descripcion-Tipo">
+                        Tipo
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio ocultar">
+                <!----------VACIO---------->
+            </div>
+        </div>
+        <?php include'envios/local.html'?>
+        <?php include'envios/cliente.html'?>
+        <div class="row">
+            <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mensajeL" style="display: none;">
+        <h4>
+            ¡Peso máximo 19.00 Toneladas (t)!
+        </h4>
+    </div>
+    <div id="mensajeC" style="display: none;">
+        <h4>
+            ¡Peso máximo 27.00 Toneladas (t)!
+        </h4>
+    </div>
+
+
+
+
+
+    
+    <div class="row datagrid" id="datagridL" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+        <?php include '../funciones/produccion/packing-list/cargarLocal.php' ?>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="row datagrid" id="datagridC" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+        <?php include '../funciones/produccion/packing-list/cargarCliente.php' ?>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+            <button class="button" id="cargarL" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar Local
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargarC" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar Cliente
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="print" onclick="javascript:imprimir();" type="button">
+                <span class="glyphicon glyphicon-print">
+                </span>
+                Imprimir
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="packing-list.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-erase">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<!-- --------------------------------------------------------- -->
+<!-- -------------------PRINT CLIENTE------------------------- -->
+<!-- --------------------------------------------------------- -->
+<div class="row" id="print-cliente" style="padding-top: 30px;">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 espacio" style="padding-top: 10px; margin-top: -30px;">
+        <img class="logo" id="logo-guate" src="../images/logo/logo-guatemarmol.png"/>
+    </div>
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" style="padding: 0px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <h4 id="nombrePro">
+                CARBONATO DE CALCIO
+            </h4>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-4 espacio" style="margin-top: -15px;">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">
+                    Fecha:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="fechaPrintC" placeholder="Fecha" type="text"/>
+            </div>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-4 espacio" style="margin-top: -15px;">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2">
+                    Hora:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="horaPrintC" placeholder="Hora" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -15px;">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    No. Packing List:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="packingListPrint" placeholder="No. Packing-List" type="text"/>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    No. Pedido:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="numeroPedidoPrint" placeholder="No. Pedido" type="text"/>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    Orden Compra:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="ordenCompraPrint" placeholder="Orden de Compra" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    Cliente:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="clientePrint" placeholder="Cliente" type="text"/>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    Transporte:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="transportePrint" placeholder="Transporte" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 espacio">
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    Piloto:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="pilotoPrint" placeholder="Piloto" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 espacio">
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    No. Placa:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="placaPrint" placeholder="No. Placa" style="text-transform: uppercase;" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 espacio">
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    No. Plataforma:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="plataformaPrint" placeholder="No. Plataforma" style="text-transform: uppercase;" type="text"/>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="fila-unoC" style="padding: 0px 15px 30px 15px;">
+        <?php include '../funciones/produccion/packing-list/cargar-datos-cliente-print.php' ?>
+    </div>-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="filas-uno" style="padding: 0px 15px 30px 15px;">
+        <h4 style="background-color: #f4f4f4; width: 100%; padding: 3px; margin-bottom: 1px;">
+            Packing-List Cliente
+        </h4>
+        <table class="display nowrap table-bordered table-hover" style="width: 100%;">
+            <thead>
+                <tr class="table-active" id="titulo" style="background-color: #858585; color: #fff;">
+                    <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 espacio" id="ML">
+                        No.
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio" id="ML">
+                        Código Barras
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio" id="ML">
+                        Código
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio" id="ML">
+                        Producto
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio" id="ML">
+                        Lote
+                    </td>
+                    <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 espacio" id="ML">
+                        Peso Neto
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php include 'fila-cliente-print/fila-0.html'?>
+                <?php include 'fila-cliente-print/fila-1.html'?>
+                <?php include 'fila-cliente-print/fila-2.html'?>
+                <?php include 'fila-cliente-print/fila-3.html'?>
+                <?php include 'fila-cliente-print/fila-4.html'?>
+                <?php include 'fila-cliente-print/fila-5.html'?>
+                <?php include 'fila-cliente-print/fila-6.html'?>
+                <?php include 'fila-cliente-print/fila-7.html'?>
+                <?php include 'fila-cliente-print/fila-8.html'?>
+                <?php include 'fila-cliente-print/fila-9.html'?>
+                <?php include 'fila-cliente-print/fila-10.html'?>
+                <?php include 'fila-cliente-print/fila-11.html'?>
+                <?php include 'fila-cliente-print/fila-12.html'?>
+                <?php include 'fila-cliente-print/fila-13.html'?>
+                <?php include 'fila-cliente-print/fila-14.html'?>
+                <?php include 'fila-cliente-print/fila-15.html'?>
+                <?php include 'fila-cliente-print/fila-16.html'?>
+                <?php include 'fila-cliente-print/fila-17.html'?>
+                <?php include 'fila-cliente-print/fila-18.html'?>
+                <?php include 'fila-cliente-print/fila-19.html'?>
+                <?php include 'fila-cliente-print/fila-20.html'?>
+                <?php include 'fila-cliente-print/fila-21.html'?>
+                <?php include 'fila-cliente-print/fila-22.html'?>
+                <?php include 'fila-cliente-print/fila-23.html'?>
+                <?php include 'fila-cliente-print/fila-24.html'?>
+                <?php include 'fila-cliente-print/fila-25.html'?>
+                <?php include 'fila-cliente-print/fila-26.html'?>
+            </tbody>
+            <tr>
+                <td id="MLB">
+                </td>
+                <td id="MLB">
+                </td>
+                <td id="MLB">
+                </td>
+                <td id="MLB">
+                </td>
+                <td id="MLBT" style="text-align: right;">
+                    Total:
+                </td>
+                <td id="MLDGT">
+                    <input class="total" id="totalCC" name="totalC" readonly="on" style="font-weight: 550; font-size: 15px;" type="text" value="0.00"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 espacio">
+            <input aria-describedby="basic-addon1" class="form-control" id="firmaEnvia" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <span class="input-group-addon" id="basic-addon1" style="padding-top: 2px;">
+                Nombre Envia
+            </span>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 espacio">
+            <input aria-describedby="basic-addon1" class="form-control" id="firmaEnvia" type="text" value=""/>
+            <span class="input-group-addon" id="basic-addon1" style="padding-top: 2px;">
+                Firma Recibe
+            </span>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio">
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------->
+<!-----------------------PRINT LOCAL--------------------------->
+<!-----------------------------------------------------------
+-->
+<div class="row" id="print-local" style="padding-top: 30px;">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 espacio" style="padding-top: 10px; margin-top: -30px;">
+        <img class="logo" id="logo-guate" src="../images/logo/logo-guatemarmol.png"/>
+    </div>
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" style="padding: 0px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <h4 id="nombrePro">
+                CARBONATO DE CALCIO
+            </h4>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-4 espacio" style="margin-top: -15px;">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">
+                    Fecha:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="fechaPrintL" placeholder="Fecha" type="text"/>
+            </div>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-4 espacio" style="margin-top: -15px;">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2">
+                    Hora:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="horaPrintL" placeholder="Hora" type="text"/>
+            </div>
+        </div>
+    </div>
+    <!------------------------FILA 1-------------------------->
+    <!-------------------------------------------------------->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: -15px;">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    No. Packing List:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="packingListPrintL" placeholder="No. Packing-List" type="text"/>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    APDD:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="APDDPrintL" placeholder="A predio de Distribición:" type="text"/>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    Transporte:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="transportePrintL" placeholder="Transporte" type="text"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    Piloto:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="pilotoPrintL" placeholder="Piloto" type="text"/>
+            </div>
+        </div>
+    </div>
+    <!------------------------FILA 3-------------------------->
+    <!-------------------------------------------------------->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 espacio">
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio" style="border: solid 1px #e9e9e9; padding: 0px;">
+            <div class="input-group" style="padding: 0px;">
+                <span class="input-group-addon" id="basic-addon1">
+                    No. Placa:
+                </span>
+                <input aria-describedby="basic-addon1" class="form-control" id="placaPrintL" placeholder="No. Placa" type="text"/>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="fila-unoL" style="padding: 0px 15px 30px 15px;">
+        <?php include '../funciones/produccion/packing-list/cargar-datos-local-print.php' ?>
+    </div>-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="filas-unoL" style="padding: 0px 15px 30px 15px;">
+        <h4 style="background-color: #f4f4f4; width: 100%; padding: 3px; margin-bottom: 1px;">
+            Packing-List Local
+        </h4>
+        <table class="display nowrap table-bordered table-hover" style="width: 100%;">
+            <thead>
+                <tr class="table-active" id="titulo" style="background-color: #858585; color: #fff;">
+                    <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 espacio" id="ML">
+                        No.
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio" id="ML">
+                        Código Barras
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio" id="ML">
+                        Código
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio" id="ML">
+                        Producto
+                    </td>
+                    <td class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio" id="ML">
+                        Lote
+                    </td>
+                    <td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 espacio" id="ML">
+                        Peso Neto
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php include 'fila-local-print/fila-0.html'?>
+                <?php include 'fila-local-print/fila-1.html'?>
+                <?php include 'fila-local-print/fila-2.html'?>
+                <?php include 'fila-local-print/fila-3.html'?>
+                <?php include 'fila-local-print/fila-4.html'?>
+                <?php include 'fila-local-print/fila-5.html'?>
+                <?php include 'fila-local-print/fila-6.html'?>
+                <?php include 'fila-local-print/fila-7.html'?>
+                <?php include 'fila-local-print/fila-8.html'?>
+                <?php include 'fila-local-print/fila-9.html'?>
+                <?php include 'fila-local-print/fila-10.html'?>
+                <?php include 'fila-local-print/fila-11.html'?>
+                <?php include 'fila-local-print/fila-12.html'?>
+                <?php include 'fila-local-print/fila-13.html'?>
+                <?php include 'fila-local-print/fila-14.html'?>
+                <?php include 'fila-local-print/fila-15.html'?>
+                <?php include 'fila-local-print/fila-16.html'?>
+                <?php include 'fila-local-print/fila-17.html'?>
+                <?php include 'fila-local-print/fila-18.html'?>
+            </tbody>
+            <tr>
+                <td id="MLB">
+                </td>
+                <td id="MLB">
+                </td>
+                <td id="MLB">
+                </td>
+                <td id="MLB">
+                </td>
+                <td id="MLBT" style="text-align: right;">
+                    Total:
+                </td>
+                <td id="MLDGT">
+                    <input class="total" id="totalLL" name="totalL" readonly="on" style="font-weight: 550; font-size: 15px;" type="text" value="0.00"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 espacio">
+            <input aria-describedby="basic-addon1" class="form-control" id="firmaEnvia" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <span class="input-group-addon" id="basic-addon1" style="padding-top: 2px;">
+                Nombre Envia
+            </span>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 espacio">
+            <input aria-describedby="basic-addon1" class="form-control" id="firmaEnvia" type="text" value=""/>
+            <span class="input-group-addon" id="basic-addon1" style="padding-top: 2px;">
+                Firma Recibe
+            </span>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function imprimir(){
+
+        let tipo = $('#tipo').val();
+        if (tipo == 'Tipo'){
+            modalPrint();
+        }else{
+            imprimirP();
+            return false;
+            $('#fila-uno').load('../funciones/produccion/packing-list/cargar-datos-cliente-print.php');
+            if(window.print)window.print();
+            else alert("Puede utilizar Ctrl + P");
+        }
+    }
+    function modalPrint() {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '¡ Packing-List Vacio !',
+            showCancelButton: false,
+            cancelButtonColor: '#a00000',
+            cancelButtonText: 'Aceptar',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            stopKeydownPropagation: true,
+            timer: '1000',
+            timerProgressBar: 'true',
+            buttonsStyling: true,
+            showCloseButton: true,
+            closeButtonAriaLabel: 'Cerrar',
+            footer: '<c class="pieModal">Producción | Packing List</c>'
+        });
+    }
+</script>
+<style type="text/css">
+    .barras{
+        font-family: "3Of9Barcode";
+        text-align: center;
+        font-size: 20px;
+        margin-top: -2px;
+        margin-bottom: -1px;
+        border: solid 1px transparent;
+        letter-spacing: .1em;
+    }
+    /*#print-cliente, #print-local{
+        display: none;
+    }*/
+    #firmaEnvia{
+        text-align: center;
+        border: solid 1px transparent;
+        border-bottom: solid 1px #cccccc;
+        height: 20px;
+    }
+    @media print {
+        .contenedor{
+            display: none;
+        }
+        #lineas-n{
+            display: none;
+        }
+        .ir-arriba, .icon-eject{
+            display: none;
+        }
+        #ocultar-menu{
+            display: none;
+        }
+        .footer{
+            display: none;
+        }
+        #membrete{
+            display: block;
+        }
+    }
+    #basic-addon1, 
+    #basic-addon2{
+        background-color: transparent;
+        border: solid 1px transparent;
+        font-size: 13px;
+        height: 20px;
+    }
+    .margen{
+        padding-top: 20px;
+    }
+    #print{
+        border: solid 1px transparent;
+    }
+    #logo-guate{
+        width: 310px;
+    }
+    #nombrePro{
+        margin-top: 10px;
+        padding-left: 10px;
+        text-align: left;
+        font-size: 28px;
+        font-weight: 700;
+        color: #7b7b82;
+    }
+    .orilla{
+        padding-left: 30px;
+    }
+    #fechaPrintC, 
+    #horaPrintC,
+    #fechaPrintL, 
+    #horaPrintL{
+        border: solid 1px transparent;
+        text-align: left;
+        font-size: 13px;
+        margin-top: 4px;
+        margin-left: -5px;
+        font-weight: bold;
+        padding: 0px;
+        height: 20px;
+    }
+    #packingListPrint, #packingListPrintL, #APDDPrintL,
+    #numeroPedidoPrint,
+    #ordenCompraPrint,
+    #clientePrint,
+    #transportePrint, #transportePrintL,
+    #pilotoPrint, #pilotoPrintL, 
+    #placaPrint, #placaPrintL,
+    #plataformaPrint{
+        border: solid 1px transparent;
+        text-align: left;
+        font-size: 13px;
+        margin-top: 4px;
+        margin-left: -5px;
+        font-weight: bold;
+        padding: 0px;
+        height: 20px;
+    }
+    #placaPrint,
+    #plataformaPrint{
+        text-transform: uppercase;
+    }
+    #packingListPrint,
+    #pedidoPrint,
+    #ordenPrint{
+        font-weight: 700;
+    }
+    #mensajeL, 
+    #mensajeC,
+    #mensajeP{
+        text-align: center;
+        margin-top: 20px;
+    }
+    #mensajeL h4{
+        z-index: 2000; 
+        color: #ffffff;
+        background-color: darkred;
+        font-size: 20px;
+        margin: 15px 0px;
+        padding: 6px;
+    }
+    #mensajeC h4{
+        z-index: 2000;
+        color: #ffffff;
+        background-color: darkred;
+        font-size: 20px;
+        margin: 15px 0px;
+        padding: 6px;
+    }
+     #mensajeP h4{
+        z-index: 2000;
+        color: #ffffff;
+        background-color: darkred;
+        font-size: 20px;
+        margin: 15px 0px;
+        padding: 6px;
+    }
+    .pieModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+    #localTabla, 
+    #clienteTabla{
+        padding: 0 80px 10px 80px;
+    }
+    #codigoC,
+    #codigoL,
+    #numPedidoC, 
+    #nPackingListC, 
+    #nPackingListL, 
+    #nOrdenCompraC{
+        font-size: 16px;
+        font-weight: 650;
+        color: darkred;  
+        text-align: center;
+    }
+    .add{
+        font-size: 12px;
+        cursor: pointer;  
+    }
+    .add-red{
+        font-size: 12px;
+        font-weight: normal;
+        cursor: pointer;
+        color: red;
+    }
+    .no, .barras, .id, .producto, .lote, .peso, .total{
+        border: solid 1px transparent;
+        text-align: center;
+        height: 21px;
+    }
+    #noL0, #noL1, #noL2, #noL3, #noL4, #noL5, #noL6, #noL7, #noL8, #noL9, #noL10, #noL11, #noL12, #noL13, #noL14, #noL15, #noL16, #noL17, #noL18{
+        font-size: 13px;
+        font-weight: 700;
+    }
+    #noC0, #noC1, #noC2, #noC3, #noC4, #noC5, #noC6, #noC7, #noC8, #noC9, #noC10, #noC11, #noC12, #noC13, #noC14, #noC15, #noC16, #noC17, #noC18, #noC19, #noC20, #noC21, #noC22, #noC23, #noC24, #noC25, #noC26{
+        font-size: 13px;
+        font-weight: 700;
+    }
+    #no:hover, #barras:hover, #id:hover, #producto:hover, #lote:hover, #peso:hover, #total:hover{
+        border-color: solid 1px red;
+    }
+    #no:active, #barras:active, #id:active, #producto:active, #lote:active, #peso:active, #total:active{
+        border-color: solid 1px red;
+    }
+    #no:focus, #barras:focus, #id:focus, #producto:focus, #lote:focus, #peso:focus, #total:focus{
+        border-color: solid 1px red;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: darkgreen;
+        border-left: solid 3px;
+        border-left-color: darkgreen;
+    }
+    .button{
+        margin-bottom:2px;
+    }
+    @media (max-width: 767px){
+        #tablaTransacciones_wrapper .dt-buttons{
+            display: none;
+        }
+        #localTabla, #clienteTabla{
+            padding: 0px;
+        }
+    }
+</style>
+<div id="generator" style="display: none;">
+    <input id="code93" name="btype" type="radio" value="code93"/>
+    <label for="code93">
+        code 93
+    </label>
+    <input checked="checked" id="code128" name="btype" type="radio" value="code128"/>
+    <label for="code128">
+        code 128
+    </label>
+    <input id="css" name="renderer" type="radio" value="css"/>
+    <label for="css">
+        CSS
+    </label>
+    <input checked="checked" id="bmp" name="renderer" type="radio" value="bmp"/>
+    <label for="bmp">
+        BMP
+    </label>
+    <input onclick="generateBarcode();" type="button" value=" Generate "/>
+    <input class="barHeight" id="barHeight" readonly="true" size="1" style="display: none;" type="text" value="18"/>
+    <input class="barWidth" id="barWidth" readonly="true" size="1" style="display: none;" type="text" value="1"/>
+    <div class="barcodeTarget" id="barcodeTarget">
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        if ('<?php echo $tipoC ?>' != ''){
+            var tipo = '<?php echo $tipoC ?>';
+            document.getElementById('tipo').value = tipo;
+            document.getElementById('tipo').style.color = '#000000';
+            $('#clientes').show('low');
+            //alert ('alerta');
+        }else if ('<?php echo $tipoL ?>' != ''){
+            var tipo = '<?php echo $tipoL ?>';
+            document.getElementById('tipo').value = tipo;
+            document.getElementById('tipo').style.color = '#000000';
+            $('#local').show('low');
+            //alert ('alerta');
+        }else{
+        }
+        
+    });
+//////////////////////////////////////////AGREGA UNA NUEVA FILA
+/////////////////////////////////////////////////////////////// 0
+    $('.addL0').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar0 = $('#barrasL0').val();
+            if (bar0 == ''){
+                $('#barrasL0').focus();
+            }else if(bar0 != ''){
+                $('#filaL1').show();
+                $('#filaL1P').show();
+                $('.addL0').hide();
+                $('.addLL0').show();
+                $('#barrasL1').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 1
+    $('.addL1').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar1 = $('#barrasL1').val();
+            if (bar1 == ''){
+                $('#barrasL1').focus();
+            }else if(bar1 != ''){
+                $('#filaL2').show();
+                $('#filaL2P').show();
+                $('.addL1').hide();
+                $('.addLL1').show();
+                $('#barrasL2').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 2
+    $('.addL2').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar2 = $('#barrasL2').val();
+            if (bar2 == ''){
+                $('#barrasL2').focus();
+            }else if(bar2 != ''){
+                $('#filaL3').show();
+                $('#filaL3P').show();
+                $('.addL2').hide();
+                $('.addLL2').show();
+                $('#barrasL3').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 3
+    $('.addL3').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar3 = $('#barrasL3').val();
+            if (bar3 == ''){
+                $('#barrasL3').focus();
+            }else if(bar3 != ''){
+                $('#filaL4').show();
+                $('#filaL4P').show();
+                $('.addL3').hide();
+                $('.addLL3').show();
+                $('#barrasL4').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 4
+    $('.addL4').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar4 = $('#barrasL4').val();
+            if (bar4 == ''){
+                $('#barrasL4').focus();
+            }else if(bar4 != ''){
+                $('#filaL5').show();
+                $('#filaL5P').show();
+                $('.addL4').hide();
+                $('.addLL4').show();
+                $('#barrasL5').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 5
+    $('.addL5').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar5 = $('#barrasL5').val();
+            if (bar5 == ''){
+                $('#barrasL5').focus();
+            }else if(bar5 != ''){
+                $('#filaL6').show();
+                $('#filaL6P').show();
+                $('.addL5').hide();
+                $('.addLL5').show();
+                $('#barrasL6').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 6
+    $('.addL6').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar6 = $('#barrasL6').val();
+            if (bar6 == ''){
+                $('#barrasL6').focus();
+            }else if(bar6 != ''){
+                $('#filaL7').show();
+                $('#filaL7P').show();
+                $('.addL6').hide();
+                $('.addLL6').show();
+                $('#barrasL7').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 7
+    $('.addL7').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar7 = $('#barrasL7').val();
+            if (bar7 == ''){
+                $('#barrasL7').focus();
+            }else if(bar7 != ''){
+                $('#filaL8').show();
+                $('#filaL8P').show();
+                $('.addL7').hide();
+                $('.addLL7').show();
+                $('#barrasL8').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 8
+    $('.addL8').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar8 = $('#barrasL8').val();
+            if (bar8 == ''){
+                $('#barrasL8').focus();
+            }else if(bar8 != ''){
+                $('#filaL9').show();
+                $('#filaL9P').show();
+                $('.addL8').hide();
+                $('.addLL8').show();
+                $('#barrasL9').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 9
+    $('.addL9').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar9 = $('#barrasL9').val();
+            if (bar9 == ''){
+                $('#barrasL9').focus();
+            }else if(bar9 != ''){
+                $('#filaL10').show();
+                $('#filaL10P').show();
+                $('.addL9').hide();
+                $('.addLL9').show();
+                $('#barrasL10').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 10
+    $('.addL10').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar10 = $('#barrasL10').val();
+            if (bar10 == ''){
+                $('#barrasL10').focus();
+            }else if(bar10 != ''){
+                $('#filaL11').show();
+                $('#filaL11P').show();
+                $('.addL10').hide();
+                $('.addLL10').show();
+                $('#barrasL11').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 11
+    $('.addL11').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar11 = $('#barrasL11').val();
+            if (bar11 == ''){
+                $('#barrasL11').focus();
+            }else if(bar11 != ''){
+                $('#filaL12').show();
+                $('#filaL12P').show();
+                $('.addL11').hide();
+                $('.addLL11').show();
+                $('#barrasL12').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 12
+    $('.addL12').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar12 = $('#barrasL12').val();
+            if (bar12 == ''){
+                $('#barrasL12').focus();
+            }else if(bar12 != ''){
+                $('#filaL13').show();
+                $('#filaL13P').show();
+                $('.addL12').hide();
+                $('.addLL12').show();
+                $('#barrasL13').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 13
+    $('.addL13').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar13 = $('#barrasL13').val();
+            if (bar13 == ''){
+                $('#barrasL13').focus();
+            }else if(bar13 != ''){
+                $('#filaL14').show();
+                $('#filaL14P').show();
+                $('.addL13').hide();
+                $('.addLL13').show();
+                $('#barrasL14').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 14
+    $('.addL14').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar14 = $('#barrasL14').val();
+            if (bar14 == ''){
+                $('#barrasL14').focus();
+            }else if(bar14 != ''){
+                $('#filaL15').show();
+                $('#filaL15P').show();
+                $('.addL14').hide();
+                $('.addLL14').show();
+                $('#barrasL15').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 15
+    $('.addL15').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar15 = $('#barrasL15').val();
+            if (bar15 == ''){
+                $('#barrasL15').focus();
+            }else if(bar15 != ''){
+                $('#filaL16').show();
+                $('#filaL16P').show();
+                $('.addL15').hide();
+                $('.addLL15').show();
+                $('#barrasL16').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 16
+    $('.addL16').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar16 = $('#barrasL16').val();
+            if (bar16 == ''){
+                $('#barrasL16').focus();
+            }else if(bar16 != ''){
+                $('#filaL17').show();
+                $('#filaL17P').show();
+                $('.addL16').hide();
+                $('.addLL16').show();
+                $('#barrasL17').focus();
+                sumarL();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 17
+    $('.addL17').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            modalL();
+            $('#mensajeL').css('display', 'block');
+            return false;
+        }else{
+
+            let bar17 = $('#barrasL17').val();
+            if (bar17 == ''){
+                $('#barrasL17').focus();
+            }else if(bar17 != ''){
+                $('#filaL18').show();
+                $('#filaL18P').show();
+                $('.addL17').hide();
+                $('.addLL17').show();
+                $('#barrasL18').focus();
+                sumarL();
+            }
+        }
+    });
+
+//////////OCULATA EL MENSAJE DE LA CANTIDAD QUE LLEVA EL PACKING-LIST
+/////////////////////////////////////////////////////////////////////
+    function mensajeOcultar(){
+        let cantL = $('#totalL').val();
+        let pesoL = 19.00;
+
+        if (cantL < pesoL){
+            $('#mensajeL').hide();
+        }
+    }
+
+/////////CADA CAMPO CUANDO RECIBE EL FOCO OCULATA EL MENSAJE DEL PACKING LIST
+/////////////////////////////////////////////////////////////////////////////
+    $('#barrasL0').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL1').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL2').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL3').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL4').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL5').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL6').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL7').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL8').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL9').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL10').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL11').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL12').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL13').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL14').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL15').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL16').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL17').focus(function () {
+        mensajeOcultar();
+    });
+    $('#barrasL18').focus(function () {
+        mensajeOcultar();
+    });
+
+//////////CADA CAMPO VERIFICA LA CANTIDAD AL ESCRIBIR
+/////////////////////////////////////////////////////
+
+    $('#pesoL0').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL1').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL2').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL3').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL4').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL5').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL6').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL7').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL8').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL9').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL10').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL11').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL12').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL13').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL14').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL15').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL16').keypress(function () {
+        mensajeOcultar();
+    });
+    $('#pesoL17').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoL18').keypress(function () {
+        mensajeOcultar();
+    });
+
+///////////SALTA CON EL ENTER Y CREA LA SIGUENTE FILA
+///////////////////////////////////////////////////// 0
+
+    $("#pesoL0").keypress(function(e) {
+        if(e.which == 13) {
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar0 = $('#barrasL0').val();
+                if (bar0 == ''){
+                    $('#barrasL0').focus();
+                }else if(bar0 != ''){
+                    $('#filaL1').show();
+                    $('#filaL1P').show();
+                    $('.addL0').hide();
+                    $('.addLL0').show();
+                    //$('#barrasL1').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 1
+    $("#pesoL1").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar1 = $('#barrasL1').val();
+                if (bar1 == ''){
+                    $('#barrasL1').focus();
+                }else if(bar1 != ''){
+                    $('#filaL2').show();
+                    $('#filaL2P').show();
+                    $('.addL1').hide();
+                    $('.addLL1').show();
+                    //$('#barrasL2').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 2 
+    $("#pesoL2").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar2 = $('#barrasL2').val();
+                if (bar2 == ''){
+                    $('#barrasL2').focus();
+                }else if(bar2 != ''){
+                    $('#filaL3').show();
+                    $('#filaL3P').show();
+                    $('.addL2').hide();
+                    $('.addLL2').show();
+                    //$('#barrasL3').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 3
+    $("#pesoL3").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar3 = $('#barrasL3').val();
+                if (bar3 == ''){
+                    $('#barrasL3').focus();
+                }else if(bar3 != ''){
+                    $('#filaL4').show();
+                    $('#filaL4P').show();
+                    $('.addL3').hide();
+                    $('.addLL3').show();
+                    //$('#barrasL4').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 4
+    $("#pesoL4").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar4 = $('#barrasL4').val();
+                if (bar4 == ''){
+                    $('#barrasL4').focus();
+                }else if(bar4 != ''){
+                    $('#filaL5').show();
+                    $('#filaL5P').show();
+                    $('.addL4').hide();
+                    $('.addLL4').show();
+                    //$('#barrasL5').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 5
+    $("#pesoL5").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar5 = $('#barrasL5').val();
+                if (bar5 == ''){
+                    $('#barrasL5').focus();
+                }else if(bar5 != ''){
+                    $('#filaL6').show();
+                    $('#filaL6P').show();
+                    $('.addL5').hide();
+                    $('.addLL5').show();
+                    //$('#barrasL6').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 6
+    $("#pesoL6").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar6 = $('#barrasL6').val();
+                if (bar6 == ''){
+                    $('#barrasL6').focus();
+                }else if(bar6 != ''){
+                    $('#filaL7').show();
+                    $('#filaL7P').show();
+                    $('.addL6').hide();
+                    $('.addLL6').show();
+                    //$('#barrasL7').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 7
+    $("#pesoL7").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar7 = $('#barrasL7').val();
+                if (bar7 == ''){
+                    $('#barrasL7').focus();
+                }else if(bar7 != ''){
+                    $('#filaL8').show();
+                    $('#filaL8P').show();
+                    $('.addL7').hide();
+                    $('.addLL7').show();
+                    //$('#barrasL8').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 8
+    $("#pesoL8").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar8 = $('#barrasL8').val();
+                if (bar8 == ''){
+                    $('#barrasL8').focus();
+                }else if(bar8 != ''){
+                    $('#filaL9').show();
+                    $('#filaL9P').show();
+                    $('.addL8').hide();
+                    $('.addLL8').show();
+                    //$('#barrasL9').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 9
+    $("#pesoL9").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar9 = $('#barrasL9').val();
+                if (bar9 == ''){
+                    $('#barrasL9').focus();
+                }else if(bar9 != ''){
+                    $('#filaL10').show();
+                    $('#filaL10P').show();
+                    $('.addL9').hide();
+                    $('.addLL9').show();
+                    //$('#barrasL10').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 10
+    $("#pesoL10").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar10 = $('#barrasL10').val();
+                if (bar10 == ''){
+                    $('#barrasL10').focus();
+                }else if(bar10 != ''){
+                    $('#filaL11').show();
+                    $('#filaL11P').show();
+                    $('.addL10').hide();
+                    $('.addLL10').show();
+                    //$('#barrasL11').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 11
+    $("#pesoL11").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar11 = $('#barrasL11').val();
+                if (bar11 == ''){
+                    $('#barrasL11').focus();
+                }else if(bar11 != ''){
+                    $('#filaL12').show();
+                    $('#filaL12P').show();
+                    $('.addL11').hide();
+                    $('.addLL11').show();
+                    //$('#barrasL12').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 12
+    $("#pesoL12").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar12 = $('#barrasL12').val();
+                if (bar12 == ''){
+                    $('#barrasL12').focus();
+                }else if(bar12 != ''){
+                    $('#filaL13').show();
+                    $('#filaL13P').show();
+                    $('.addL12').hide();
+                    $('.addLL12').show();
+                    //$('#barrasL13').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+    $("#pesoL13").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar13 = $('#barrasL13').val();
+                if (bar13 == ''){
+                    $('#barrasL13').focus();
+                }else if(bar13 != ''){
+                    $('#filaL14').show();
+                    $('#filaL14P').show();
+                    $('.addL13').hide();
+                    $('.addLL13').show();
+                    //$('#barrasL14').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 13
+    $("#pesoL14").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar14 = $('#barrasL14').val();
+                if (bar14 == ''){
+                    $('#barrasL14').focus();
+                }else if(bar14 != ''){
+                    $('#filaL15').show();
+                    $('#filaL15P').show();
+                    $('.addL14').hide();
+                    $('.addLL14').show();
+                    //$('#barrasL15').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 14
+    $("#pesoL15").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar15 = $('#barrasL15').val();
+                if (bar15 == ''){
+                    $('#barrasL15').focus();
+                }else if(bar15 != ''){
+                    $('#filaL16').show();
+                    $('#filaL16P').show();
+                    $('.addL15').hide();
+                    $('.addLL15').show();
+                    //$('#barrasL16').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 15
+    $("#pesoL16").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar16 = $('#barrasL16').val();
+                if (bar16 == ''){
+                    $('#barrasL16').focus();
+                }else if(bar16 != ''){
+                    $('#filaL17').show();
+                    $('#filaL17P').show();
+                    $('.addL16').hide();
+                    $('.addLL16').show();
+                    //$('#barrasL17').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 16
+    $("#pesoL17").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 19.00;
+
+            if (cantL > pesoL){
+                modalL();
+                $('#mensajeL').css('display', 'block');
+                return false;
+            }else{
+
+                let bar17 = $('#barrasL17').val();
+                if (bar17 == ''){
+                    $('#barrasL17').focus();
+                }else if(bar17 != ''){
+                    $('#filaL18').show();
+                    $('#filaL18P').show();
+                    $('.addL17').hide();
+                    $('.addLL17').show();
+                    //$('#barrasL18').focus();
+                    sumarL();
+                }
+            }
+        }
+    });
+
+/////////OCULTA Y BORRA LA ULTIMA FILA QUE LLEVA EL PACKIG LIST
+/////////////////////////////////////////////////////////////// 0
+    $('.addLL0').click(function () {
+        
+        $('#barrasL0').val('');
+        $('#idL0').val('');
+        $('#productoL0').val('');
+        $('#loteL0').val('');
+        $('#pesoL0').val('0.00');
+
+        $('.addLL0').hide();
+        $('.addL0').show();
+        
+        $('#filaL1').hide();
+        $('#filaL2').hide();
+        $('#filaL3').hide();
+        $('#filaL4').hide();
+        $('#filaL5').hide();
+        $('#filaL6').hide();
+        $('#filaL7').hide();
+        $('#filaL8').hide();
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL0').focus();
+        $('#totalC').val('0.00');
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 1
+    $('.addLL1').click(function () {
+
+        $('#barrasL1').val('');
+        $('#idL1').val('');
+        $('#productoL1').val('');
+        $('#loteL1').val(''); 
+        $('#pesoL1').val('0.00');
+
+        $('.addLL1').hide();
+        $('.addL1').show();
+
+        $('#filaL2').hide();
+        $('#filaL3').hide();
+        $('#filaL4').hide();
+        $('#filaL5').hide();
+        $('#filaL6').hide();
+        $('#filaL7').hide();
+        $('#filaL8').hide();
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL0').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 2
+    $('.addLL2').click(function () {
+
+        $('#barrasL2').val('');
+        $('#idL2').val('');
+        $('#productoL2').val('');
+        $('#loteL2').val('');
+        $('#pesoL2').val('0.00');
+
+        $('.addLL2').hide();
+        $('.addL2').show();
+
+        $('#filaL3').hide();
+        $('#filaL4').hide();
+        $('#filaL5').hide();
+        $('#filaL6').hide();
+        $('#filaL7').hide();
+        $('#filaL8').hide();
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL2').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 3
+    $('.addLL3').click(function () {
+
+        $('#barrasL3').val('');
+        $('#idL3').val('');
+        $('#productoL3').val('');
+        $('#loteL3').val('');
+        $('#pesoL3').val('0.00');
+
+        $('.addLL3').hide();
+        $('.addL3').show();
+
+        $('#filaL4').hide();
+        $('#filaL5').hide();
+        $('#filaL6').hide();
+        $('#filaL7').hide();
+        $('#filaL8').hide();
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL3').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 4
+    $('.addLL4').click(function () {
+
+        $('#barrasL4').val('');
+        $('#idL4').val('');
+        $('#productoL4').val('');
+        $('#loteL4').val('');
+        $('#pesoL4').val('0.00');
+
+        $('.addLL4').hide();
+        $('.addL4').show();
+
+        $('#filaL5').hide();
+        $('#filaL6').hide();
+        $('#filaL7').hide();
+        $('#filaL8').hide();
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL4').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 5
+    $('.addLL5').click(function () {
+
+        $('#barrasL5').val('');
+        $('#idL5').val('');
+        $('#productoL5').val('');
+        $('#loteL5').val('');
+        $('#pesoL5').val('0.00');
+
+        $('.addLL5').hide();
+        $('.addL5').show();
+
+        $('#filaL6').hide();
+        $('#filaL7').hide();
+        $('#filaL8').hide();
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL5').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 6
+    $('.addLL6').click(function () {
+
+        $('#barrasL6').val('');
+        $('#idL6').val('');
+        $('#productoL6').val('');
+        $('#loteL6').val('');
+        $('#pesoL6').val('0.00');
+
+        $('.addLL6').hide();
+        $('.addL6').show();
+
+        $('#filaL7').hide();
+        $('#filaL8').hide();
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL6').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 7
+    $('.addLL7').click(function () {
+
+        $('#barrasL7').val('');
+        $('#idL7').val('');
+        $('#productoL7').val('');
+        $('#loteL7').val('');
+        $('#pesoL7').val('0.00');
+
+        $('.addLL7').hide();
+        $('.addL7').show();
+
+        $('#filaL8').hide();
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL7').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 8
+    $('.addLL8').click(function () {
+
+        $('#barrasL8').val('');
+        $('#idL8').val('');
+        $('#productoL8').val('');
+        $('#loteL8').val('');
+        $('#pesoL8').val('0.00');
+
+        $('.addLL8').hide();
+        $('.addL8').show();
+
+        $('#filaL9').hide();
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL8').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 9
+    $('.addLL9').click(function () {
+
+        $('#barrasL9').val('');
+        $('#idL9').val('');
+        $('#productoL9').val('');
+        $('#loteL9').val('');
+        $('#pesoL9').val('0.00');
+
+        $('.addLL9').hide();
+        $('.addL9').show();
+
+        $('#filaL10').hide();
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL9').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 10
+    $('.addLL10').click(function () {
+
+        $('#barrasL10').val('');
+        $('#idL10').val('');
+        $('#productoL10').val('');
+        $('#loteL10').val('');
+        $('#pesoL10').val('0.00');
+
+        $('.addLL10').hide();
+        $('.addL10').show();
+
+        $('#filaL11').hide();
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL10').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 11
+    $('.addLL11').click(function () {
+
+        $('#barrasL11').val('');
+        $('#idL11').val('');
+        $('#productoL11').val('');
+        $('#loteL11').val('');
+        $('#pesoL11').val('0.00');
+
+        $('.addLL11').hide();
+        $('.addL11').show();
+
+        $('#filaL12').hide();
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL11').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 12
+    $('.addLL12').click(function () {
+
+        $('#barrasL12').val('');
+        $('#idL12').val('');
+        $('#productoL12').val('');
+        $('#loteL12').val('');
+        $('#pesoL12').val('0.00');
+
+        $('.addLL12').hide();
+        $('.addL12').show();
+
+        $('#filaL13').hide();
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL12').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 13
+    $('.addLL13').click(function () {
+
+        $('#barrasL13').val('');
+        $('#idL13').val('');
+        $('#productoL13').val('');
+        $('#loteL13').val('');
+        $('#pesoL13').val('0.00');
+
+        $('.addLL13').hide();
+        $('.addL13').show();
+
+        $('#filaL14').hide();
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL13').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 14
+    $('.addLL14').click(function () {
+
+        $('#barrasL14').val('');
+        $('#idL14').val('');
+        $('#productoL14').val('');
+        $('#loteL14').val('');
+        $('#pesoL14').val('0.00');
+
+        $('.addLL14').hide();
+        $('.addL14').show();
+
+        $('#filaL15').hide();
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL14').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 15
+    $('.addLL15').click(function () {
+
+        $('#barrasL15').val('');
+        $('#idL15').val('');
+        $('#productoL15').val('');
+        $('#loteL15').val('');
+        $('#pesoL15').val('0.00');
+
+        $('.addLL15').hide();
+        $('.addL15').show();
+
+        $('#filaL16').hide();
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL15').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 16
+    $('.addLL16').click(function () {
+
+        $('#barrasL16').val('');
+        $('#idL16').val('');
+        $('#productoL16').val('');
+        $('#loteL16').val('');
+        $('#pesoL16').val('0.00');
+
+        $('.addLL16').hide();
+        $('.addL16').show();
+
+        $('#filaL17').hide();
+        $('#filaL18').hide();
+
+        $('#barrasL16').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 17
+    $('.addLL17').click(function () {
+
+        $('#barrasL17').val('');
+        $('#idL17').val('');
+        $('#productoL17').val('');
+        $('#loteL17').val('');
+        $('#pesoL17').val('0.00');
+
+        $('.addLL17').hide();
+        $('.addL17').show();
+
+        //$('#filaL17').hide();
+        $('#filaL17').hide();
+
+        $('#barrasL17').focus();
+        sumarL();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 18
+    $('.addL18').click(function () {
+
+        $('#barrasL18').val('');
+        $('#idL18').val('');
+        $('#productoL18').val('');
+        $('#loteL18').val('');
+        $('#pesoL18').val('0.00');
+
+        $('.addLL18').hide();
+        $('.addL18').show();
+
+        $('.addLL17').hide();
+        $('.addL17').show();
+
+        $('#filaL18').hide();
+        //$('#filaL19').hide();
+        $('#barrasL17').focus();
+        sumarL();
+    });
+
+//////////AGREGA UNA NUEVA FILA EN EL PACKING LIST Y
+//////////VERIFICA SI AUN TIENE CAPACIDAD EN PESO
+//////////SI NO TIENE CAPACIDAD NO DEJA AGREGAR LA FILA SIGUIENTE
+//////////SI ES CLIENTE
+
+///////////AGREGA UNA NUEVA FILA
+//////////////////////////////// 0
+    $('.addC0').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC0 = $('#barrasC0').val();
+            if (barC0 == ''){
+                $('#barrasC0').focus();
+            }else if(barC0 != ''){
+                $('#filaC1').show();
+                $('#filaC1P').show();
+                $('.addC0').hide();
+                $('.addCC0').show();
+                $('#barrasC1').focus();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 1
+    $('.addC1').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC1 = $('#barrasC1').val();
+            if (barC1 == ''){
+                $('#barrasC1').focus();
+            }else if(barC1 != ''){
+                $('#filaC2').show();
+                $('#filaC2P').show();
+                $('.addC1').hide();
+                $('.addCC1').show();
+                $('#barrasC2').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 2
+    $('.addC2').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC2 = $('#barrasC2').val();
+            if (barC2 == ''){
+                $('#barrasC2').focus();
+            }else if(barC2 != ''){
+                $('#filaC3').show();
+                $('#filaC3P').show();
+                $('.addC2').hide();
+                $('.addCC2').show();
+                $('#barrasC3').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 3
+    $('.addC3').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC3 = $('#barrasC3').val();
+            if (barC3 == ''){
+                $('#barrasC3').focus();
+            }else if(barC3 != ''){
+                $('#filaC4').show();
+                $('#filaC4P').show();
+                $('.addC3').hide();
+                $('.addCC3').show();
+                $('#barrasC4').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 4
+    $('.addC4').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC4 = $('#barrasC4').val();
+            if (barC4 == ''){
+                $('#barrasC4').focus();
+            }else if(barC4 != ''){
+                $('#filaC5').show();
+                $('#filaC5P').show();
+                $('.addC4').hide();
+                $('.addCC4').show();
+                $('#barrasC5').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 5
+    $('.addC5').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC5 = $('#barrasC5').val();
+            if (barC5 == ''){
+                $('#barrasC5').focus();
+            }else if(barC5 != ''){
+                $('#filaC6').show();
+                $('#filaC6P').show();
+                $('.addC5').hide();
+                $('.addCC5').show();
+                $('#barrasC6').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 6
+    $('.addC6').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC6 = $('#barrasC6').val();
+            if (barC6 == ''){
+                $('#barrasC6').focus();
+            }else if(barC6 != ''){
+                $('#filaC7').show();
+                $('#filaC7P').show();
+                $('.addC6').hide();
+                $('.addCC6').show();
+                $('#barrasC7').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 7
+    $('.addC7').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC7 = $('#barrasC7').val();
+            if (barC7 == ''){
+                $('#barrasC7').focus();
+            }else if(barC7 != ''){
+                $('#filaC8').show();
+                $('#filaC8P').show();
+                $('.addC7').hide();
+                $('.addCC7').show();
+                $('#barrasC8').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 8
+    $('.addC8').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC8 = $('#barrasC8').val();
+            if (barC8 == ''){
+                $('#barrasC8').focus();
+            }else if(barC8 != ''){
+                $('#filaC9').show();
+                $('#filaC9P').show();
+                $('.addC8').hide();
+                $('.addCC8').show();
+                $('#barrasC9').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 9
+    $('.addC9').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC9 = $('#barrasC9').val();
+            if (barC9 == ''){
+                $('#barrasC9').focus();
+            }else if(barC9 != ''){
+                $('#filaC10').show();
+                $('#filaC10P').show();
+                $('.addC9').hide();
+                $('.addCC9').show();
+                $('#barrasC10').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 10
+    $('.addC10').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC10 = $('#barrasC10').val();
+            if (barC10 == ''){
+                $('#barrasC10').focus();
+            }else if(barC10 != ''){
+                $('#filaC11').show();
+                $('#filaC11P').show();
+                $('.addC10').hide();
+                $('.addCC10').show();
+                $('#barrasC11').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 11
+    $('.addC11').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC11 = $('#barrasC11').val();
+            if (barC11 == ''){
+                $('#barrasC11').focus();
+            }else if(barC11 != ''){
+                $('#filaC12').show();
+                $('#filaC12P').show();
+                $('.addC11').hide();
+                $('.addCC11').show();
+                $('#barrasC12').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 12
+    $('.addC12').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC12 = $('#barrasC12').val();
+            if (barC12 == ''){
+                $('#barrasC12').focus();
+            }else if(barC12 != ''){
+                $('#filaC13').show();
+                $('#filaC13P').show();
+                $('.addC12').hide();
+                $('.addCC12').show();
+                $('#barrasC13').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 13
+    $('.addC13').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC13 = $('#barrasC13').val();
+            if (barC13 == ''){
+                $('#barrasC13').focus();
+            }else if(barC13 != ''){
+                $('#filaC14').show();
+                $('#filaC14P').show();
+                $('.addC13').hide();
+                $('.addCC13').show();
+                $('#barrasC14').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 14
+    $('.addC14').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC14 = $('#barrasC14').val();
+            if (barC14 == ''){
+                $('#barrasC14').focus();
+            }else if(barC14 != ''){
+                $('#filaC15').show();
+                $('#filaC15P').show();
+                $('.addC14').hide();
+                $('.addCC14').show();
+                $('#barrasC15').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 15
+    $('.addC15').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC15 = $('#barrasC15').val();
+            if (barC15 == ''){
+                $('#barrasC15').focus();
+            }else if(barC15 != ''){
+                $('#filaC16').show();
+                $('#filaC16P').show();
+                $('.addC15').hide();
+                $('.addCC15').show();
+                $('#barrasC16').focus();
+                sumarC();
+            }
+        }  
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 16
+    $('.addC16').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC16 = $('#barrasC16').val();
+            if (barC16 == ''){
+                $('#barrasC16').focus();
+            }else if(barC16 != ''){
+                $('#filaC17').show();
+                $('#filaC17P').show();
+                $('.addC16').hide();
+                $('.addCC16').show();
+                $('#barrasC17').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 17
+    $('.addC17').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC17 = $('#barrasC17').val();
+            if (barC17 == ''){
+                $('#barrasC17').focus();
+            }else if(barC17 != ''){
+                $('#filaC18').show();
+                $('#filaC18P').show();
+                $('.addC17').hide();
+                $('.addCC17').show();
+                $('#barrasC18').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 18
+    $('.addC18').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC18 = $('#barrasC18').val();
+            if (barC18 == ''){
+                $('#barrasC18').focus();
+            }else if(barC18 != ''){
+                $('#filaC19').show();
+                $('#filaC19P').show();
+                $('.addC18').hide();
+                $('.addCC18').show();
+                $('#barrasC19').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 19
+    $('.addC19').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC19 = $('#barrasC19').val();
+            if (barC19 == ''){
+                $('#barrasC19').focus();
+            }else if(barC19 != ''){
+                $('#filaC20').show();
+                $('#filaC20P').show();
+                $('.addC19').hide();
+                $('.addCC19').show();
+                $('#barrasC20').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 20
+    $('.addC20').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC20 = $('#barrasC20').val();
+            if (barC20 == ''){
+                $('#barrasC20').focus();
+            }else if(barC20 != ''){
+                $('#filaC21').show();
+                $('#filaC21P').show();
+                $('.addC20').hide();
+                $('.addCC20').show();
+                $('#barrasC21').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 21
+    $('.addC21').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC21 = $('#barrasC21').val();
+            if (barC21 == ''){
+                $('#barrasC21').focus();
+            }else if(barC21 != ''){
+                $('#filaC22').show();
+                $('#filaC22P').show();
+                $('.addC21').hide();
+                $('.addCC21').show();
+                $('#barrasC22').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 22
+    $('.addC22').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC22 = $('#barrasC22').val();
+            if (barC22 == ''){
+                $('#barrasC22').focus();
+            }else if(barC22 != ''){
+                $('#filaC23').show();
+                $('#filaC23P').show();
+                $('.addC22').hide();
+                $('.addCC22').show();
+                $('#barrasC23').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 23
+    $('.addC23').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC23 = $('#barrasC23').val();
+            if (barC23 == ''){
+                $('#barrasC23').focus();
+            }else if(barC23 != ''){
+                $('#filaC24').show();
+                $('#filaC24P').show();
+                $('.addC23').hide();
+                $('.addCC23').show();
+                $('#barrasC24').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 24
+    $('.addC24').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC24 = $('#barrasC24').val();
+            if (barC24 == ''){
+                $('#barrasC24').focus();
+            }else if(barC24 != ''){
+                $('#filaC25').show();
+                $('#filaC25P').show();
+                $('.addC24').hide();
+                $('.addCC24').show();
+                $('#barrasC25').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 25
+    $('.addC25').click(function () {
+
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC > pesoC){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC25 = $('#barrasC25').val();
+            if (barC25 == ''){
+                $('#barrasC25').focus();
+            }else if(barC25 != ''){
+                $('#filaC26').show();
+                $('#filaC26P').show();
+                $('.addCC26').show();
+                $('.addC25').hide();
+                $('.addCC25').show();
+                $('#barrasC26').focus();
+                sumarC();
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 26
+    $('.addC26').click(function () {
+
+        let cantL = $('#totalL').val();
+        let pesoL = 27.00;
+
+        if (cantL > pesoL){
+            modalC();
+            $('#mensajeC').css('display', 'block');
+            return false;
+        }else{
+
+            let barC26 = $('#barrasC26').val();
+            if (barC26 == ''){
+                $('#barrasC26').focus();
+            }else if(barC26 != ''){
+                $('#filaC27').show();
+                $('#filaC27P').show();
+                //$('.addC26').hide();
+                $('.addCC26').show();
+                //$('#barrasC27').focus();
+                sumarC();
+            }
+        }
+    });
+
+//////////OCULATA EL MENSAJE DE LA CANTIDAD QUE LLEVA EL PACKING-LIST
+/////////////////////////////////////////////////////////////////////
+    function mensajeOcultarC(){
+        let cantC = $('#totalC').val();
+        let pesoC = 27.00;
+
+        if (cantC < pesoC){
+            $('#mensajeC').hide();
+        }
+    }
+
+/////////CADA CAMPO CUANDO RECIBE EL FOCO OCULATA EL MENSAJE DEL PACKING LIST
+/////////////////////////////////////////////////////////////////////////////
+    $('#barrasC0').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC1').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC2').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC3').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC4').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC5').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC6').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC7').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC8').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC9').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC10').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC11').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC12').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC13').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC14').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC15').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC16').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC17').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC18').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC19').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC20').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC21').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC22').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC23').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC24').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC25').focus(function () {
+        mensajeOcultarC();
+    });
+    $('#barrasC26').focus(function () {
+        mensajeOcultarC();
+    });
+
+//////////CADA CAMPO VERIFICA LA CANTIDAD AL ESCRIBIR
+/////////////////////////////////////////////////////
+
+    $('#pesoC0').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC1').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC2').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC3').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC4').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC5').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC6').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC7').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC8').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC9').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC10').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC11').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC12').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC13').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC14').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC15').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC16').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC17').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC18').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC19').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC20').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC21').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC22').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC23').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC24').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC25').keypress(function () {
+        mensajeOcultarC();
+    });
+    $('#pesoC26').keypress(function () {
+        mensajeOcultarC();
+    });
+
+///////////SALTA CON EL ENTER Y CREA LA SIGUENTE FILA
+///////////////////////////////////////////////////// 0
+    $("#pesoC0").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC0 = $('#barrasC0').val();
+                if (barC0 == ''){
+                    $('#barrasC0').focus();
+                }else if(barC0 != ''){
+                    $('#filaC1').show();
+                    $('#filaC1P').show();
+                    $('.addC0').hide();
+                    $('.addCC0').show();
+                    //$('#barrasC1').focus();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 1
+    $("#pesoC1").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC1 = $('#barrasC1').val();
+                if (barC1 == ''){
+                    $('#barrasC1').focus();
+                }else if(barC1 != ''){
+                    $('#filaC2').show();
+                    $('#filaC2P').show();
+                    $('.addC1').hide();
+                    $('.addCC1').show();
+                    //$('#barrasC2').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 2
+    $("#pesoC2").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC2 = $('#barrasC2').val();
+                if (barC2 == ''){
+                    $('#barrasC2').focus();
+                }else if(barC2 != ''){
+                    $('#filaC3').show();
+                    $('#filaC3P').show();
+                    $('.addC2').hide();
+                    $('.addCC2').show();
+                    //$('#barrasC3').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 3
+    $("#pesoC3").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC3 = $('#barrasC3').val();
+                if (barC3 == ''){
+                    $('#barrasC3').focus();
+                }else if(barC3 != ''){
+                    $('#filaC4').show();
+                    $('#filaC4P').show();
+                    $('.addC3').hide();
+                    $('.addCC3').show();
+                    //$('#barrasC4').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 4
+    $("#pesoC4").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC4 = $('#barrasC4').val();
+                if (barC4 == ''){
+                    $('#barrasC4').focus();
+                }else if(barC4 != ''){
+                    $('#filaC5').show();
+                    $('#filaC5P').show();
+                    $('.addC4').hide();
+                    $('.addCC4').show();
+                    //$('#barrasC5').focus();
+                    sumarC();
+                }
+            }
+
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 5
+    $("#pesoC5").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC5 = $('#barrasC5').val();
+                if (barC5 == ''){
+                    $('#barrasC5').focus();
+                }else if(barC5 != ''){
+                    $('#filaC6').show();
+                    $('#filaC6P').show();
+                    $('.addC5').hide();
+                    $('.addCC5').show();
+                    //$('#barrasC6').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 6
+    $("#pesoC6").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC6 = $('#barrasC6').val();
+                if (barC6 == ''){
+                    $('#barrasC6').focus();
+                }else if(barC6 != ''){
+                    $('#filaC7').show();
+                    $('#filaC7P').show();
+                    $('.addC6').hide();
+                    $('.addCC6').show();
+                    //$('#barrasC7').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 7
+    $("#pesoC7").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC7 = $('#barrasC7').val();
+                if (barC7 == ''){
+                    $('#barrasC7').focus();
+                }else if(barC7 != ''){
+                    $('#filaC8').show();
+                    $('#filaC8P').show();
+                    $('.addC7').hide();
+                    $('.addCC7').show();
+                    //$('#barrasC8').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 8
+    $("#pesoC8").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC8 = $('#barrasC8').val();
+                if (barC8 == ''){
+                    $('#barrasC8').focus();
+                }else if(barC8 != ''){
+                    $('#filaC9').show();
+                    $('#filaC9P').show();
+                    $('.addC8').hide();
+                    $('.addCC8').show();
+                    //$('#barrasC9').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 9
+    $("#pesoC9").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC9 = $('#barrasC9').val();
+                if (barC9 == ''){
+                    $('#barrasC9').focus();
+                }else if(barC9 != ''){
+                    $('#filaC10').show();
+                    $('#filaC10P').show();
+                    $('.addC9').hide();
+                    $('.addCC9').show();
+                    //$('#barrasC10').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 10
+    $("#pesoC10").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC10 = $('#barrasC10').val();
+                if (barC10 == ''){
+                    $('#barrasC10').focus();
+                }else if(barC10 != ''){
+                    $('#filaC11').show();
+                    $('#filaC11P').show();
+                    $('.addC10').hide();
+                    $('.addCC10').show();
+                    //$('#barrasC11').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 11
+    $("#pesoC11").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC11 = $('#barrasC11').val();
+                if (barC11 == ''){
+                    $('#barrasC11').focus();
+                }else if(barC11 != ''){
+                    $('#filaC12').show();
+                    $('#filaC12P').show();
+                    $('.addC11').hide();
+                    $('.addCC11').show();
+                    //$('#barrasC12').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 12
+    $("#pesoC12").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC12 = $('#barrasC12').val();
+                if (barC12 == ''){
+                    $('#barrasC12').focus();
+                }else if(barC12 != ''){
+                    $('#filaC13').show();
+                    $('#filaC13P').show();
+                    $('.addC12').hide();
+                    $('.addCC12').show();
+                    //$('#barrasC13').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 13
+    $("#pesoC13").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC13 = $('#barrasC13').val();
+                if (barC13 == ''){
+                    $('#barrasC13').focus();
+                }else if(barC13 != ''){
+                    $('#filaC14').show();
+                    $('#filaC14P').show();
+                    $('.addC13').hide();
+                    $('.addCC13').show();
+                    //$('#barrasC14').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 14
+    $("#pesoC14").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC14 = $('#barrasC14').val();
+                if (barC14 == ''){
+                    $('#barrasC14').focus();
+                }else if(barC14 != ''){
+                    $('#filaC15').show();
+                    $('#filaC15P').show();
+                    $('.addC14').hide();
+                    $('.addCC14').show();
+                    //$('#barrasC15').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 15
+    $("#pesoC15").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC15 = $('#barrasC15').val();
+                if (barC15 == ''){
+                    $('#barrasC15').focus();
+                }else if(barC15 != ''){
+                    $('#filaC16').show();
+                    $('#filaC16P').show();
+                    $('.addC15').hide();
+                    $('.addCC15').show();
+                    //$('#barrasC16').focus();
+                    sumarC();
+                }
+            }  
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 16
+    $("#pesoC16").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC16 = $('#barrasC16').val();
+                if (barC16 == ''){
+                    $('#barrasC16').focus();
+                }else if(barC16 != ''){
+                    $('#filaC17').show();
+                    $('#filaC17P').show();
+                    $('.addC16').hide();
+                    $('.addCC16').show();
+                    //$('#barrasC17').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 17
+    $("#pesoC17").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC17 = $('#barrasC17').val();
+                if (barC17 == ''){
+                    $('#barrasC17').focus();
+                }else if(barC17 != ''){
+                    $('#filaC18').show();
+                    $('#filaC18P').show();
+                    $('.addC17').hide();
+                    $('.addCC17').show();
+                    //$('#barrasC18').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 18
+    $("#pesoC18").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC18 = $('#barrasC18').val();
+                if (barC18 == ''){
+                    $('#barrasC18').focus();
+                }else if(barC18 != ''){
+                    $('#filaC19').show();
+                    $('#filaC19P').show();
+                    $('.addC18').hide();
+                    $('.addCC18').show();
+                    //$('#barrasC19').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 19
+    $("#pesoC19").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC19 = $('#barrasC19').val();
+                if (barC19 == ''){
+                    $('#barrasC19').focus();
+                }else if(barC19 != ''){
+                    $('#filaC20').show();
+                    $('#filaC20P').show();
+                    $('.addC19').hide();
+                    $('.addCC19').show();
+                    //$('#barrasC20').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 20
+    $("#pesoC20").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC20 = $('#barrasC20').val();
+                if (barC20 == ''){
+                    $('#barrasC20').focus();
+                }else if(barC20 != ''){
+                    $('#filaC21').show();
+                    $('#filaC21P').show();
+                    $('.addC20').hide();
+                    $('.addCC20').show();
+                    //$('#barrasC21').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 21
+    $("#pesoC21").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC21 = $('#barrasC21').val();
+                if (barC21 == ''){
+                    $('#barrasC21').focus();
+                }else if(barC21 != ''){
+                    $('#filaC22').show();
+                    $('#filaC22P').show();
+                    $('.addC21').hide();
+                    $('.addCC21').show();
+                    //$('#barrasC22').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 22
+    $("#pesoC22").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC22 = $('#barrasC22').val();
+                if (barC22 == ''){
+                    $('#barrasC22').focus();
+                }else if(barC22 != ''){
+                    $('#filaC23').show();
+                    $('#filaC23P').show();
+                    $('.addC22').hide();
+                    $('.addCC22').show();
+                    //$('#barrasC23').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 23
+    $("#pesoC23").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC23 = $('#barrasC23').val();
+                if (barC23 == ''){
+                    $('#barrasC23').focus();
+                }else if(barC23 != ''){
+                    $('#filaC24').show();
+                    $('#filaC24P').show();
+                    $('.addC23').hide();
+                    $('.addCC23').show();
+                    //$('#barrasC24').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 24
+    $("#pesoC24").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC24 = $('#barrasC24').val();
+                if (barC24 == ''){
+                    $('#barrasC24').focus();
+                }else if(barC24 != ''){
+                    $('#filaC25').show();
+                    $('#filaC25P').show();
+                    $('.addC24').hide();
+                    $('.addCC24').show();
+                    //$('#barrasC25').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 25
+    $("#pesoC25").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantC = $('#totalC').val();
+            let pesoC = 27.00;
+
+            if (cantC > pesoC){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC25 = $('#barrasC25').val();
+                if (barC25 == ''){
+                    $('#barrasC25').focus();
+                }else if(barC25 != ''){
+                    $('#filaC26').show();
+                    $('#filaC26P').show();
+                    $('.addCC26').show();
+                    $('.addC25').hide();
+                    $('.addCC25').show();
+                    //$('#barrasC26').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 26
+    $("#pesoC26").keypress(function(e) {
+        if(e.which == 13) {
+
+            let cantL = $('#totalL').val();
+            let pesoL = 27.00;
+
+            if (cantL > pesoL){
+                modalC();
+                $('#mensajeC').css('display', 'block');
+                return false;
+            }else{
+
+                let barC26 = $('#barrasC26').val();
+                if (barC26 == ''){
+                    $('#barrasC26').focus();
+                }else if(barC26 != ''){
+                    $('#filaC27').show();
+                    $('#filaC27P').show();
+                    //$('.addC26').hide();
+                    $('.addCC26').show();
+                    //$('#barrasC27').focus();
+                    sumarC();
+                }
+            }
+        }
+    });
+
+/////////OCULTA Y BORRA LA ULTIMA FILA QUE LLEVA EL PACKIG LIST
+/////////////////////////////////////////////////////////////// 0
+    $('.addCC0').click(function () {
+        $('#barrasC0').val('');
+        $('#idC0').val('');
+        $('#productoC0').val('');
+        $('#loteC0').val('');
+        $('#pesoC0').val('0.00');
+
+        $('#barrasC1').val('');
+        $('#idC1').val('');
+        $('#productoC1').val('');
+        $('#loteC1').val(''); 
+        $('#pesoC1').val('0.00');
+
+        $('.addCC0').hide();
+        $('.addC0').show();
+        $('#barrasC0').focus();
+
+        $('#filaC1').hide();
+        $('#filaC2').hide();
+        $('#filaC3').hide();
+        $('#filaC4').hide();
+        $('#filaC5').hide();
+        $('#filaC6').hide();
+        $('#filaC7').hide();
+        $('#filaC8').hide();
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        sumarC();
+        $('#totalC').val('0.00');
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 1
+    $('.addCC1').click(function () {
+
+        $('#barrasC1').val('');
+        $('#idC1').val('');
+        $('#productoC1').val('');
+        $('#loteC1').val(''); 
+        $('#pesoC1').val('0.00');
+
+        $('#barrasC2').val('');
+        $('#idC2').val('');
+        $('#productoC2').val('');
+        $('#loteC2').val('');
+        $('#pesoC2').val('0.00');
+
+        $('.addCC1').hide();
+        $('.addC1').show();
+
+        $('#filaC2').hide();
+        $('#filaC3').hide();
+        $('#filaC4').hide();
+        $('#filaC5').hide();
+        $('#filaC6').hide();
+        $('#filaC7').hide();
+        $('#filaC8').hide();
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC1').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 2
+    $('.addCC2').click(function () {
+
+        $('#barrasC2').val('');
+        $('#idC2').val('');
+        $('#productoC2').val('');
+        $('#loteC2').val('');
+        $('#pesoC2').val('0.00');
+
+        $('#barrasC3').val('');
+        $('#idC3').val('');
+        $('#productoC3').val('');
+        $('#loteC3').val('');
+        $('#pesoC3').val('0.00');
+
+        $('.addCC2').hide();
+        $('.addC2').show();
+
+        $('#filaC3').hide();
+        $('#filaC4').hide();
+        $('#filaC5').hide();
+        $('#filaC6').hide();
+        $('#filaC7').hide();
+        $('#filaC8').hide();
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC2').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 3
+    $('.addCC3').click(function () {
+
+        $('#barrasC3').val('');
+        $('#idC3').val('');
+        $('#productoC3').val('');
+        $('#loteC3').val('');
+        $('#pesoC3').val('0.00');
+
+        $('#barrasC4').val('');
+        $('#idC4').val('');
+        $('#productoC4').val('');
+        $('#loteC4').val('');
+        $('#pesoC4').val('0.00');
+
+        $('.addCC3').hide();
+        $('.addC3').show();
+
+        $('#filaC4').hide();
+        $('#filaC5').hide();
+        $('#filaC6').hide();
+        $('#filaC7').hide();
+        $('#filaC8').hide();
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC3').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 4
+    $('.addCC4').click(function () {
+
+        $('#barrasC4').val('');
+        $('#idC4').val('');
+        $('#productoC4').val('');
+        $('#loteC4').val('');
+        $('#pesoC4').val('0.00');
+
+        $('#barrasC5').val('');
+        $('#idC5').val('');
+        $('#productoC5').val('');
+        $('#loteC5').val('');
+        $('#pesoC5').val('0.00');
+
+        $('.addCC4').hide();
+        $('.addC4').show();
+
+        $('#filaC5').hide();
+        $('#filaC6').hide();
+        $('#filaC7').hide();
+        $('#filaC8').hide();
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC4').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 5
+    $('.addCC5').click(function () {
+
+        $('#barrasC5').val('');
+        $('#idC5').val('');
+        $('#productoC5').val('');
+        $('#loteC5').val('');
+        $('#pesoC5').val('0.00');
+
+        $('#barrasC6').val('');
+        $('#idC6').val('');
+        $('#productoC6').val('');
+        $('#loteC6').val('');
+        $('#pesoC6').val('0.00');
+
+        $('.addCC5').hide();
+        $('.addC5').show();
+
+        $('#filaC6').hide();
+        $('#filaC7').hide();
+        $('#filaC8').hide();
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC5').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 6
+    $('.addCC6').click(function () {
+
+        $('#barrasC6').val('');
+        $('#idC6').val('');
+        $('#productoC6').val('');
+        $('#loteC6').val('');
+        $('#pesoC6').val('0.00');
+
+        $('#barrasC7').val('');
+        $('#idC7').val('');
+        $('#productoC7').val('');
+        $('#loteC7').val('');
+        $('#pesoC7').val('0.00');
+
+        $('.addCC6').hide();
+        $('.addC6').show();
+
+        $('#filaC7').hide();
+        $('#filaC8').hide();
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC6').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 7
+    $('.addCC7').click(function () {
+
+        $('#barrasC7').val('');
+        $('#idC7').val('');
+        $('#productoC7').val('');
+        $('#loteC7').val('');
+        $('#pesoC7').val('0.00');
+
+        $('#barrasC8').val('');
+        $('#idC8').val('');
+        $('#productoC8').val('');
+        $('#loteC8').val('');
+        $('#pesoC8').val('0.00');
+
+        $('.addCC7').hide();
+        $('.addC7').show();
+
+        $('#filaC8').hide();
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC7').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 8
+    $('.addCC8').click(function () {
+
+        $('#barrasC8').val('');
+        $('#idC8').val('');
+        $('#productoC8').val('');
+        $('#loteC8').val('');
+        $('#pesoC8').val('0.00');
+
+        $('#barrasC9').val('');
+        $('#idC9').val('');
+        $('#productoC9').val('');
+        $('#loteC9').val('');
+        $('#pesoC9').val('0.00');
+
+        $('.addCC8').hide();
+        $('.addC8').show();
+
+        $('#filaC9').hide();
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC8').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 9
+    $('.addCC9').click(function () {
+
+        $('#barrasC9').val('');
+        $('#idC9').val('');
+        $('#productoC9').val('');
+        $('#loteC9').val('');
+        $('#pesoC9').val('0.00');
+
+        $('#barrasC10').val('');
+        $('#idC10').val('');
+        $('#productoC10').val('');
+        $('#loteC10').val('');
+        $('#pesoC10').val('0.00');
+
+        $('.addCC9').hide();
+        $('.addC9').show();
+
+        $('#filaC10').hide();
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC9').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 10
+    $('.addCC10').click(function () {
+
+        $('#barrasC10').val('');
+        $('#idC10').val('');
+        $('#productoC10').val('');
+        $('#loteC10').val('');
+        $('#pesoC10').val('0.00');
+
+        $('#barrasC11').val('');
+        $('#idC11').val('');
+        $('#productoC11').val('');
+        $('#loteC11').val('');
+        $('#pesoC11').val('0.00');
+
+        $('.addCC10').hide();
+        $('.addC10').show();
+
+        $('#filaC11').hide();
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC10').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 11
+    $('.addCC11').click(function () {
+
+        $('#barrasC11').val('');
+        $('#idC11').val('');
+        $('#productoC11').val('');
+        $('#loteC11').val('');
+        $('#pesoC11').val('0.00');
+
+        $('#barrasC12').val('');
+        $('#idC12').val('');
+        $('#productoC12').val('');
+        $('#loteC12').val('');
+        $('#pesoC12').val('0.00');
+
+        $('.addCC11').hide();
+        $('.addC11').show();
+
+        $('#filaC12').hide();
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC11').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 12
+    $('.addCC12').click(function () {
+
+        $('#barrasC12').val('');
+        $('#idC12').val('');
+        $('#productoC12').val('');
+        $('#loteC12').val('');
+        $('#pesoC12').val('0.00');
+
+        $('#barrasC13').val('');
+        $('#idC13').val('');
+        $('#productoC13').val('');
+        $('#loteC13').val('');
+        $('#pesoC13').val('0.00');
+
+        $('.addCC12').hide();
+        $('.addC12').show();
+
+        $('#filaC13').hide();
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC12').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 13
+    $('.addCC13').click(function () {
+
+        $('#barrasC13').val('');
+        $('#idC13').val('');
+        $('#productoC13').val('');
+        $('#loteC13').val('');
+        $('#pesoC13').val('0.00');
+
+        $('#barrasC14').val('');
+        $('#idC14').val('');
+        $('#productoC14').val('');
+        $('#loteC14').val('');
+        $('#pesoC14').val('0.00');
+
+        $('.addCC13').hide();
+        $('.addC13').show();
+
+        $('#filaC14').hide();
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC13').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 14
+    $('.addCC14').click(function () {
+
+        $('#barrasC14').val('');
+        $('#idC14').val('');
+        $('#productoC14').val('');
+        $('#loteC14').val('');
+        $('#pesoC14').val('0.00');
+
+        $('#barrasC15').val('');
+        $('#idC15').val('');
+        $('#productoC15').val('');
+        $('#loteC15').val('');
+        $('#pesoC15').val('0.00');
+
+        $('.addCC14').hide();
+        $('.addC14').show();
+
+        $('#filaC15').hide();
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC14').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 15
+    $('.addCC15').click(function () {
+
+        $('#barrasC15').val('');
+        $('#idC15').val('');
+        $('#productoC15').val('');
+        $('#loteC15').val('');
+        $('#pesoC15').val('0.00');
+
+        $('#barrasC16').val('');
+        $('#idC16').val('');
+        $('#productoC16').val('');
+        $('#loteC16').val('');
+        $('#pesoC16').val('0.00');
+
+        $('.addCC15').hide();
+        $('.addC15').show();
+
+        $('#filaC16').hide();
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC15').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 16
+    $('.addCC16').click(function () {
+
+        $('#barrasC16').val('');
+        $('#idC16').val('');
+        $('#productoC16').val('');
+        $('#loteC16').val('');
+        $('#pesoC16').val('0.00');
+
+        $('#barrasC17').val('');
+        $('#idC17').val('');
+        $('#productoC17').val('');
+        $('#loteC17').val('');
+        $('#pesoC17').val('0.00');
+
+        $('.addCC16').hide();
+        $('.addC16').show();
+
+        $('#filaC17').hide();
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC16').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 17
+    $('.addCC17').click(function () {
+
+        $('#barrasC17').val('');
+        $('#idC17').val('');
+        $('#productoC17').val('');
+        $('#loteC17').val('');
+        $('#pesoC17').val('0.00');
+
+        $('#barrasC18').val('');
+        $('#idC18').val('');
+        $('#productoC18').val('');
+        $('#loteC18').val('');
+        $('#pesoC18').val('0.00');
+
+        $('.addCC17').hide();
+        $('.addC17').show();
+
+        $('#filaC18').hide();
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC17').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 18
+    $('.addCC18').click(function () {
+
+        $('#barrasC18').val('');
+        $('#idC18').val('');
+        $('#productoC18').val('');
+        $('#loteC18').val('');
+        $('#pesoC18').val('0.00');
+
+        $('#barrasC19').val('');
+        $('#idC19').val('');
+        $('#productoC19').val('');
+        $('#loteC19').val('');
+        $('#pesoC19').val('0.00');
+
+        $('.addCC18').hide();
+        $('.addC18').show();
+
+        $('#filaC19').hide();
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC18').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 19
+    $('.addCC19').click(function () {
+
+        $('#barrasC19').val('');
+        $('#idC19').val('');
+        $('#productoC19').val('');
+        $('#loteC19').val('');
+        $('#pesoC19').val('0.00');
+
+        $('#barrasC20').val('');
+        $('#idC20').val('');
+        $('#productoC20').val('');
+        $('#loteC20').val('');
+        $('#pesoC20').val('0.00');
+
+        $('.addCC19').hide();
+        $('.addC19').show();
+
+        $('#filaC20').hide();
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC19').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 20
+    $('.addCC20').click(function () {
+
+        $('#barrasC20').val('');
+        $('#idC20').val('');
+        $('#productoC20').val('');
+        $('#loteC20').val('');
+        $('#pesoC20').val('0.00');
+
+        $('#barrasC21').val('');
+        $('#idC21').val('');
+        $('#productoC21').val('');
+        $('#loteC21').val('');
+        $('#pesoC21').val('0.00');
+
+        $('.addCC20').hide();
+        $('.addC20').show();
+
+        $('#filaC21').hide();
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC20').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 21
+    $('.addCC21').click(function () {
+
+        $('#barrasC21').val('');
+        $('#idC21').val('');
+        $('#productoC21').val('');
+        $('#loteC21').val('');
+        $('#pesoC21').val('0.00');
+
+        $('#barrasC22').val('');
+        $('#idC22').val('');
+        $('#productoC22').val('');
+        $('#loteC22').val('');
+        $('#pesoC22').val('0.00');
+
+        $('.addCC21').hide();
+        $('.addC21').show();
+
+        $('#filaC22').hide();
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC21').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 22
+    $('.addCC22').click(function () {
+
+        $('#barrasC22').val('');
+        $('#idC22').val('');
+        $('#productoC22').val('');
+        $('#loteC22').val('');
+        $('#pesoC22').val('0.00');
+
+        $('#barrasC23').val('');
+        $('#idC23').val('');
+        $('#productoC23').val('');
+        $('#loteC23').val('');
+        $('#pesoC23').val('0.00');
+
+        $('.addCC22').hide();
+        $('.addC22').show();
+
+        $('#filaC23').hide();
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC22').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 23
+    $('.addCC23').click(function () {
+
+        $('#barrasC23').val('');
+        $('#idC23').val('');
+        $('#productoC23').val('');
+        $('#loteC23').val('');
+        $('#pesoC23').val('0.00');
+
+        $('.addCC23').hide();
+        $('.addC23').show();
+
+        $('#filaC24').hide();
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC23').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 24
+    $('.addCC24').click(function () {
+
+        $('#barrasC24').val('');
+        $('#idC24').val('');
+        $('#productoC24').val('');
+        $('#loteC24').val('');
+        $('#pesoC24').val('0.00');
+
+        $('#barrasC25').val('');
+        $('#idC25').val('');
+        $('#productoC25').val('');
+        $('#loteC25').val('');
+        $('#pesoC25').val('0.00');
+
+        $('.addCC24').hide();
+        $('.addC24').show();
+
+        $('#filaC25').hide();
+        $('#filaC26').hide();
+
+        $('#barrasC24').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 25
+    $('.addCC25').click(function () {
+
+        $('#barrasC25').val('');
+        $('#idC25').val('');
+        $('#productoC25').val('');
+        $('#loteC25').val('');
+        $('#pesoC25').val('0.00');
+
+        /*$('#barrasC26').val('');
+        $('#idC26').val('');
+        $('#productoC26').val('');
+        $('#loteC26').val('');
+        $('#pesoC26').val('0.00');*/
+
+        $('.addCC25').hide();
+        $('.addC25').show();
+
+        $('#filaC26').hide();
+
+        $('#barrasC25').focus();
+        sumarC();
+    });
+//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////// 26
+    $('.addCC26').click(function () {
+
+        $('#barrasC26').val('');
+        $('#idC26').val('');
+        $('#productoC26').val('');
+        $('#loteC26').val('');
+        $('#pesoC26').val('0.00');
+
+        $('.addCC26').hide();
+        $('.addC26').show();
+
+        $('.addCC25').hide();
+        $('.addC25').show();
+
+        $('#filaC26').hide();
+
+        $('#barrasC25').focus();
+        sumarC();
+    });
+
+//////////ALERTA DE LA CAPACIDAD SE QUEDO SOLO DE PRUEBA
+////////////////////////////////////////////////////////
+    function alerta(){
+
+        let cantC = $('#totalC').val();
+        let cantL = $('#totalL').val();
+        let pesoC = 27.00;
+        let pesoL = 19.00;
+
+        if (cantL > pesoL){
+            //alert ('Superaste el Peso recomendado');
+            modalL();
+            $('#mensajeL').css('display', 'block');
+        }else{
+
+        }
+    }
+
+///////////MENSAJE DE LAS TONELADAS SI SE PASAN DE 19.00
+////////////////////////////////////////////////////////
+    function modalL() {
+
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '¡Peso máximo 19.00 Toneladas!',
+            showCancelButton: false,
+            cancelButtonColor: '#a00000',
+            cancelButtonText: 'Aceptar',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            stopKeydownPropagation: true,
+            timer: '2000',
+            confirmButtonColor: '#3085d6',
+            //html: '<a id="aviso"><button class="aviso">Aceptar</button></a>',
+            timerProgressBar: 'true',
+            buttonsStyling: true,
+            showCloseButton: true,
+            closeButtonAriaLabel: 'Cerrar',
+            footer: '<c class="pieModal">Producción | Packing List Local</c>'
+        });
+        $('.aviso').focus();
+    }
+
+//////////MENSAJE DE LAS TONELADAS SISE PASAN DE 26.00
+//////////////////////////////////////////////////////
+    function modalC() {
+
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '¡Peso máximo 27.00 Toneladas!',
+            showCancelButton: false,
+            cancelButtonColor: '#a00000',
+            cancelButtonText: 'Aceptar',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            stopKeydownPropagation: true,
+            timer: '1000',
+            confirmButtonColor: '#3085d6',
+            //html: '<a id="aviso"><button class="aviso">Aceptar</button></a>',
+            timerProgressBar: 'true',
+            buttonsStyling: true,
+            showCloseButton: true,
+            closeButtonAriaLabel: 'Cerrar',
+            footer: '<c class="pieModal">Producción | Packing List Cliente</c>'
+        });
+        $('.aviso').focus();
+    }
+</script>
+<!----------------------------------------------------------------->
+<!----------------------------------------------------------------->
+<script>
+    const inputs=document.querySelectorAll("input.pesoSuma");
+    // creamos el evento keyup para cada input que tiene la clase .pesoSuma
+    for(el of inputs) {
+        el.addEventListener("keyup", sumarC);
+    }
+     
+    function sumarC(){
+        let sum=[...inputs].reduce((acum, el)=>{
+            return (verificar(el)) ? acum+parseFloat(el.value) : acum;
+        },0);
+        document.getElementById("totalC").value=sum.toFixed(2);
+        //document.getElementById("totalCP").value=sum.toFixed(2);
+    }
+     
+    function verificar(el){
+        el.classList.remove("red", "green");
+        if (/^[0-9]*\.?[0-9]+$/.test(el.value)) {
+            el.classList.add("green");
+            return true;
+        } else {
+            if (el.value) {
+                el.classList.add("red");
+            }
+            return false;
+        }
+    }
+</script>
+<!----------------------------------------------------------------->
+<!----------------------------------------------------------------->
+<script>
+    const inputs1=document.querySelectorAll("input.pesoSum");
+    // creamos el evento keyup para cada input que tiene la clase .pesoSumaL
+    for(el of inputs1) {
+        el.addEventListener("keyup", sumarL);
+    }
+     
+    function sumarL(){
+        let sum=[...inputs1].reduce((acum, el)=>{
+            return (verificar(el)) ? acum+parseFloat(el.value) : acum;
+        },0);
+        document.getElementById("totalL").value=sum.toFixed(2);
+        //document.getElementById("totalLP").value=sum.toFixed(2);
+    }
+
+    function verificar(el){
+        el.classList.remove("red", "green");
+        if (/^[0-9]*\.?[0-9]+$/.test(el.value)) {
+            el.classList.add("green");
+            return true;
+        } else {
+            if (el.value) {
+                el.classList.add("red");
+            }
+            return false;
+        }
+    }
+</script>
+<!----------------------------------------------------------------->
+<!----------------------------------------------------------------->
+<script>
+    const inputsL=document.querySelectorAll("input.pesoSum");
+    // creamos el evento keyup para cada input que tiene la clase .pesoSumaL
+    for(el of inputsL) {
+        el.addEventListener("keyup", sumarL);
+    }
+     
+    function sumarL(){
+        let sum=[...inputsL].reduce((acum, el)=>{
+            return (verificar(el)) ? acum+parseFloat(el.value) : acum;
+        },0);
+        document.getElementById("totalLL").value=sum.toFixed(2);
+        //document.getElementById("totalLP").value=sum.toFixed(2);
+    }
+
+    function verificar(el){
+        el.classList.remove("red", "green");
+        if (/^[0-9]*\.?[0-9]+$/.test(el.value)) {
+            el.classList.add("green");
+            return true;
+        } else {
+            if (el.value) {
+                el.classList.add("red");
+            }
+            return false;
+        }
+    }
+</script>
+<!----------------------------------------------------------------->
+<!----------------------------------------------------------------->
+<script>
+    const inputsC=document.querySelectorAll("input.pesoSuma");
+    // creamos el evento keyup para cada input que tiene la clase .pesoSuma
+    for(el of inputsC) {
+        el.addEventListener("keyup", sumarC);
+    }
+     
+    function sumarC(){
+        let sum=[...inputsC].reduce((acum, el)=>{
+            return (verificar(el)) ? acum+parseFloat(el.value) : acum;
+        },0);
+        document.getElementById("totalCC").value=sum.toFixed(2);
+        //document.getElementById("totalCP").value=sum.toFixed(2);
+    }
+     
+    function verificar(el){
+        el.classList.remove("red", "green");
+        if (/^[0-9]*\.?[0-9]+$/.test(el.value)) {
+            el.classList.add("green");
+            return true;
+        } else {
+            if (el.value) {
+                el.classList.add("red");
+            }
+            return false;
+        }
+    }
+</script>
+<!------------------------------------------------------------------->
+<!------------------------------------------------------------------->
+<style type="text/css">
+    .aviso{
+        height: 30px;
+        padding: 5px 20px;
+        border: solid 1px transparent;
+        background-color: darkred;
+        color: #fff;
+    }
+</style>

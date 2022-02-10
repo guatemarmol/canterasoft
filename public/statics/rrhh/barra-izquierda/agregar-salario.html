@@ -1,0 +1,100 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 20px; ">
+    <a class="titulo" style="text-decoration: none;">
+        Salario y Bonificación
+    </a>
+    <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+        <select class="form-control" id="moneda1" name="moneda1" style="padding: 1px; padding-left: 10px; font-weight: 800; font-size: 15px; color: #666666;">
+            <option value="Q">
+                Q
+            </option>
+            <option value="$">
+                $
+            </option>
+        </select>
+        <a class="descripcion">
+            Moneda
+        </a>
+    </div>
+    <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="salarioOrdinario" name="salarioOrdinario" onblur="SalarioCeros();" onfocus="Salario();" onkeypress="return sueldo(event)" onkeyup="saltar(event,'bonificacionDecreto')" placeholder="Salario Ordinario" type="text" value="0.00"/>
+        <a class="descripcion" id="descripcion-salarioOrdinario">
+            Salario Ordinario
+        </a>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+    <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+        <select class="form-control" id="moneda2" name="moneda2" style="padding: 1px; padding-left: 10px; font-weight: 800; font-size: 15px; color: #666666;">
+            <option value="Q">
+                Q
+            </option>
+            <option value="$">
+                $
+            </option>
+        </select>
+        <a class="descripcion">
+            Moneda
+        </a>
+    </div>
+    <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="bonificacionDecreto" name="bonificacionDecreto" onblur="BonificacionCeros();" onkeypress="return sueldo(event)" onkeyup="saltar(event,'bonoProductividad')" placeholder="Bonificación Mensual" type="text" value="250.00"/>
+        <a class="descripcion" id="descripcion-bonificacionDecreto">
+            Bonificación Decreto Ley 78-89
+        </a>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+    <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+        <select class="form-control" id="moneda3" name="moneda3" style="padding: 1px; padding-left: 10px; font-weight: 800; font-size: 15px; color: #666666;">
+            <option value="Q">
+                Q
+            </option>
+            <option value="$">
+                $
+            </option>
+        </select>
+        <a class="descripcion">
+            Moneda
+        </a>
+    </div>
+    <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="bonoProductividad" name="bonoProductividad" onblur="BonoCeros();" onfocus="Bono();" onkeypress="return sueldo(event)" onkeyup="saltar(event,'totalSueldo')" placeholder="Bono de Productividad" type="text" value="0.00"/>
+        <a class="descripcion" id="descripcion-bonoProductividad">
+            Bono de Productividad
+        </a>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+    <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+        <select class="form-control" id="moneda3" name="moneda3" style="padding: 1px; padding-left: 10px; font-weight: 900; font-size: 15px; color: #666666;">
+            <option value="Q">
+                Q
+            </option>
+            <option value="$">
+                $
+            </option>
+        </select>
+        <a class="descripcion">
+            Moneda
+        </a>
+    </div>
+    <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+        <input autocomplete="off" class="form-control" id="totalSueldo" name="totalSueldo" onblur="Sueldo();" onfocus="Sueldo();" onkeypress="return sueldo(event)" onkeyup="saltar(event,'bonificacion1')" placeholder="Total" type="text" value="0.00"/>
+        <a class="descripcion" id="descripcion-totalSueldo">
+            Total
+        </a>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 20px; ">
+    <a class="titulo" style="text-decoration: none;">
+        Cuenta Bancaria
+    </a>
+    <input autocomplete="off" class="form-control capitalizeText" id="cuentaBancaria" name="cuentaBancaria" onkeypress="return numeros(event)" onkeyup="saltar(event,'banco')" placeholder="Cuenta Bancaria" type="text" value="<?php echo $cuentaBancaria;?>"/>
+    <a class="descripcion" id="descripcion-cuentaBancaria">
+        Cuenta Bancaria
+    </a>
+    <input autocomplete="off" class="form-control capitalizeText" id="banco" name="banco" onkeypress="return letras(event)" onkeyup="saltar(event,'tipoSangre')" placeholder="Nombre del Banco" type="text" value="<?php echo $banco;?>"/>
+    <a class="descripcion" id="descripcion-banco">
+        Nombre del Banco
+    </a>
+</div>

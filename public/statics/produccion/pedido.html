@@ -1,0 +1,215 @@
+<form>
+    <div class="contenedor">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+                <a href="pedido.php">
+                    <img class="logo" id="nombreLogo" src="../images/nombre/1_pedidoV.png"/>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>">
+                    <i class="glyphicon glyphicon-user" id="icono">
+                    </i>
+                    <a class="descripcion">
+                        Usuario
+                    </a>
+                    <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>">
+                    </input>
+                </input>
+            </div>
+        </div>
+        <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">
+            <?php 
+                include '../on-database.php';
+                $consulta = "SELECT MAX(numeroPedido) numeroPedido FROM pedido";
+                $ejecutar = mysqli_query($con, $consulta);
+
+                $tabla = mysqli_fetch_array($ejecutar);
+                $numeroPedido = $tabla['numeroPedido'];
+                $numeroPedido++;
+            ?>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="" type="text" value="Número Pedido:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres1" readonly="" type="text" value="NIT del Cliente:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres2" readonly="" type="text" value="Fecha de Emisión:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres3" readonly="" type="text" value="Fecha de Entrega:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres4" readonly="" type="text" value="Direccion Entrega:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <!--<input type="text" id="nombres5" class="form-control" value="Fecha y Hora:" readonly>
+                    <a class="descripcion">.</a>-->
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control" id="numeroPedido" name="numeroPedido" onkeyup="saltar(event,'nitClientePedido')" placeholder="Número Pedido" readonly="off" type="text" value="<?php echo $numeroPedido?>"/>
+                            <a class="descripcion" id="descripcion-numeroPedido">
+                                Número Pedido
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <?php
+                               $consulta = "SELECT * FROM cliente";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                            <input autocomplete="off" class="form-control capitalizeText" id="nitClientePedido" list="np" name="nitClientePedido" onkeyup="saltar(event,'direccionEntregaPedido')" placeholder="NIT del Cliente" type="text" value="<?php echo $nitClientePedido?>"/>
+                            <datalist id="np">
+                                <?php foreach ($ejecutar as $cliente): ?>
+                                <option value="<?php echo $cliente['nitCliente']?>">
+                                </option>
+                                <? endforeach; ?>
+                            </datalist>
+                            <a class="descripcion" id="descripcion-nitClientePedido">
+                                NIT del Cliente
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <a href="../produccion/cliente.php" onclick="window.open(this) return false;" target="newWin">
+                                <button class="button0" type="button">
+                                    <span class="glyphicon glyphicon-edit">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="fechaEmisionPedido" name="fechaEmisionPedido" onkeyup="saltar(event,'fechaEntregaPedido')" placeholder="Fecha de Emisión" type="text" value="<?php echo $fechaEmisionPedido?>"/>
+                            <a class="descripcion" id="descripcion-fechaEmisionPedido">
+                                Fecha de Emisión
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="fechaEntregaPedido" name="fechaEntregaPedido" onkeyup="saltar(event,'cargarPedido')" placeholder="Fecha de Entrega" type="text" value="<?php echo $fechaEntregaPedido?>"/>
+                            <a class="descripcion" id="descripcion-fechaEntregaPedido">
+                                Fecha de Entrega
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+                            <?php
+                               $consulta = "SELECT * FROM cliente";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                            <input autocomplete="off" class="form-control capitalizeText" id="direccionEntregaPedido" list="dp" name="direccionEntregaPedido" onkeyup="saltar(event,'fechaEmisionPedido')" placeholder="Direccion Entrega" type="text" value="<?php echo $direccionEntregaPedido?>"/>
+                            <datalist id="dp">
+                                <?php foreach ($ejecutar as $cliente): ?>
+                                <option value="<?php echo $cliente['direccionEntrega1Cliente']?>">
+                                </option>
+                                <? endforeach; ?>
+                            </datalist>
+                            <a class="descripcion" id="descripcion-direccionEntregaPedido">
+                                Direccion Entrega
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <a href="../produccion/cliente.php" onclick="window.open(this) return false;" target="newWin">
+                                <button class="button0" type="button">
+                                    <span class="glyphicon glyphicon-edit">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <?php date_default_timezone_set("America/Guatemala"); ?>
+                    <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control" id="horaFija" name="horaPedido" value="<?php $timestamp = time()+date("Z"); echo gmdate("H:i:s",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-time" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-horaPedido">Hora</a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control" id="fechaFija" name="fechaPedido" value="   <?php $timestamp = time()+date("Z"); echo gmdate("d/m/Y",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-calendar" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-fechaPedido">Fecha</a>
+                </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+            <?php include '../funciones/produccion/pedido/cargar.php'; ?>
+        </div>
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <button class="button" id="cargarPedido" name="cargarPedido" type="button">
+                    <span class="glyphicon glyphicon-fullscreen">
+                    </span>
+                    Cargar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <button class="button" id="agregarPedido" name="agregarPedido" type="button">
+                    <span class="glyphicon glyphicon-plus">
+                    </span>
+                    Guardar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <a href="pedido.php">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-unchecked">
+                        </span>
+                        Limpiar
+                    </button>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <a href="javascript:window.close();">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-remove">
+                        </span>
+                        Cerrar
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row mensaje" id="mensaje">
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $numeroPedido1;?>' != ""){
+           var numeroPedido = '<?php echo $numeroPedido1;?>'
+           document.getElementById('numeroPedido').value = numeroPedido;
+        }else{
+        }
+
+        if ('<?php echo $fechaPedido ?>' != ""){
+           var fechaPedido = '<?php echo $fechaPedido ?>'
+           document.getElementById('fechaFija').value = fechaPedido;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $horaPedido ?>' != ""){
+           var horaPedido = '<?php echo $horaPedido ?>'
+           document.getElementById('horaFija').value = horaPedido;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+</script>

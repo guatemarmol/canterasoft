@@ -1,0 +1,178 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="transaccion.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_transaccion-bodega.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 5px 20px; margin-bottom: 1px;">
+        <?php 
+            include '../on-database.php';
+            $consulta = "SELECT MAX(numero) numero FROM transacciones";
+            $ejecutar = mysqli_query($con, $consulta);
+
+            $tabla = mysqli_fetch_array($ejecutar);
+            $numero = $tabla['numero'];
+            $numero++;
+        ?>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Número:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Tipo Transacción:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="" type="text" value="Número Placa:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Número Pedido:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="numero" name="numero" onkeyup="saltar(event,'tipoTransaccion')" placeholder="Número" type="text" value="<?php echo $numero ?>"/>
+                        <a class="descripcion" id="descripcion-numero">
+                            Número
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <?php
+                            $consulta = "SELECT * FROM articuloTransaccion";
+                            $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                        <input autocomplete="off" class="form-control" id="tipoTransaccion" list="tp" name="tipoTransaccion" onkeyup="saltar(event,'placa')" placeholder="Tipo Transacción" type="text" value="<?php echo $tipoTransaccion ?>"/>
+                        <datalist id="tp">
+                            <?php foreach ($ejecutar as $articuloTransaccion): ?>
+                            <option value="<?php echo $articuloTransaccion['descripcion']?>">
+                            </option>
+                            <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion" id="descripcion-tipoTransaccion">
+                            Tipo Transacción
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="placa" name="placa" onkeyup="saltar(event,'pedido')" placeholder="Número Placa" type="text" value="<?php echo $placa ?>"/>
+                        <a class="descripcion" id="descripcion-placa">
+                            Número Placa
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                            $consulta = "SELECT * FROM pedido";
+                            $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                        <input autocomplete="off" class="form-control" id="pedido" list="npt" name="pedido" onkeyup="saltar(event,'agregar')" placeholder="Número Pedido" type="text" value="<?php echo $pedido ?>"/>
+                        <datalist id="npt">
+                            <?php foreach ($ejecutar as $pedido): ?>
+                            <option value="<?php echo $pedido['numeroPedido']?>">
+                            </option>
+                            <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion" id="descripcion-pedido">
+                            Número Pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+            <button class="button" id="ocultar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Ocultar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="transaccion.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-erase">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: darkgreen;
+        border-left: solid 3px;
+        border-left-color: darkgreen;
+    }
+    @media (max-width: 767px){
+        #tablaTransacciones_wrapper .dt-buttons{
+            display: none;
+        }
+    }
+</style>

@@ -1,0 +1,91 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="proveedor.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_proveedor.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio"></div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 15px; margin-bottom: 1px;">
+        <?php 
+            $consulta = "SELECT codigo, CONCAT(nombre, ' - ', establecimiento) as nombre FROM proveedor";
+            $proveedores = mysqli_query($con, $consulta);
+
+            $consulta = "SELECT * FROM categoriasuministros";
+            $categorias = mysqli_query($con, $consulta);
+        ?>
+        <div class="col-md-2"></div>
+        <div class="col-md-6 align-self-center text-center">
+            <div class="form-group row">
+                <label for="proveedor" class="col-sm-2 col-md-3 col-form-label text-right">Proveedor</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="proveedor" name="proveedor">
+                        <?php foreach ($proveedores as $descripcion): ?>
+                        <? if ($descripcion['codigo'] == $categoria): ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>" selected>
+                        <? else: ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>">
+                        <? endif; ?>
+                        <?php echo ($descripcion['nombre']);?>
+                        </option>
+                        <? endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="categoria" class="col-sm-2 col-md-3 col-form-label text-right">Categoria</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="categoria" name="categoria">
+                        <?php foreach ($categorias as $descripcion): ?>
+                        <? if ($descripcion['codigo'] == $categoria): ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>" selected>
+                        <? else: ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>">
+                        <? endif; ?>
+                        <?php echo ($descripcion['categoria']);?>
+                        </option>
+                        <? endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="claseProveedor" class="col-sm-2 col-md-3 col-form-label text-right">Clase Proveedor</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="claseProveedor" name="claseProveedor">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 col-md-7 col-xs-6"></div>
+                <div class="col-sm-4 col-xs-6">
+                    <button class="button" id="guardar" type="submit">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        Guardar
+                    </button>        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="documento.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_documento.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+            <input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+            <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user" id="icono">
+            </i>
+            <a class="descripcion">
+                Usuario
+            </a>
+            <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <?php 
+        $consulta = "SELECT MAX(codigoDocumento) codigoDocumento FROM documento";
+        $ejecutar = mysqli_query($con, $consulta);
+
+        $tabla = mysqli_fetch_array($ejecutar);
+        $codigoDocumento = $tabla['codigoDocumento'];
+        $codigoDocumento++;
+    ?>
+    <div class="row thumbnail" style="padding: 20px; margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Código:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Descripción:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Fecha y Hora:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="codigoDocumento" name="codigoDocumento" onkeyup="saltar(event,'descripcionDocumento')" placeholder="Código Documento" readonly="off" type="text" value="<?php echo $codigoDocumento;?>"/>
+                    <a class="descripcion" id="descripcion-codigoDocumento">
+                        Código Documento
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="descripcionDocumento" name="descripcionDocumento" onkeyup="saltar(event,'cargar')" placeholder="Descripción del Documento" type="text" value="<?php echo $descripcionDocumento;?>"/>
+                    <a class="descripcion" id="descripcion-descripcionDocumento">
+                        Descripción del Documento
+                    </a>
+                </div>
+                <?php date_default_timezone_set("America/Guatemala"); ?>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input class="form-control usuario-contador" id="horaFija" name="horaDocumento" readonly="true" type="text" value="<?php $timestamp = time()+date('Z'); echo gmdate('H:i:s',$timestamp); ?>">
+                        <i class="glyphicon glyphicon-time" id="icono">
+                        </i>
+                        <a class="descripcion" id="descripcion-horaDivision">
+                            Hora
+                        </a>
+                    </input>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input class="form-control usuario-contador" id="fechaFija" name="fechaDocumento" readonly="true" type="text" value="   <?php $timestamp = time()+date('Z'); echo gmdate('d/m/Y',$timestamp); ?>"/>
+                    <i class="glyphicon glyphicon-calendar" id="icono">
+                    </i>
+                    <a class="descripcion" id="descripcion-fechaDivision">
+                        Fecha
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-fullscreen">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+            <a href="documento.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-unchecked">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+            <button class="button" onclick="window.close();" type="button">
+                <span class="glyphicon glyphicon-remove">
+                </span>
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .has-error{
+  border-color: darkred;
+  border-left: solid 3px;
+  border-left-color: darkred;
+}
+
+.has-succes{
+  border-color: darkgreen;
+  border-left: solid 3px;
+  border-left-color: darkgreen;
+}
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#datagrid').load('../funciones/rrhh/documento/cargar.php');
+
+        if ('<?php echo $codigoDocumento1;?>' != ""){
+           var codigoDocumento1 = '<?php echo $codigoDocumento1;?>'
+           document.getElementById('codigoDocumento').value = codigoDocumento1;
+        }else{
+        }
+
+        if ('<?php echo $fechaDocumento ?>' != ""){
+           var fechaDocumento = '<?php echo $fechaDocumento ?>'
+           document.getElementById('fechaFija').value = fechaDocumento;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $horaDocumento ?>' != ""){
+           var horaDocumento = '<?php echo $horaDocumento ?>'
+           document.getElementById('horaFija').value = horaDocumento;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+</script>

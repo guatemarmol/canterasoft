@@ -1,0 +1,190 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="encargado.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_encargado.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+            <input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+            <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user" id="icono">
+            </i>
+            <a class="descripcion">
+                Usuario
+            </a>
+            <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <?php  
+        $consulta = "SELECT MAX(codigoEncargado) codigoEncargado FROM encargado";
+        $ejecutar = mysqli_query($con, $consulta);
+
+        $tabla = mysqli_fetch_array($ejecutar);
+        $codigoEncargado = $tabla['codigoEncargado'];
+        $codigoEncargado++;
+    ?>
+    <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Código:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Nombre:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Teléfono:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Correo:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="" type="text" value="Domicilio:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Fecha y Hora:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="codigoEncargado" name="codigoEncargado" onkeyup="saltar(event,'nombreEncargado')" placeholder="Código Encargado" readonly="off" type="text" value="<?php echo $codigoEncargado;?>"/>
+                    <a class="descripcion" id="descripcion-codigoEncargado">
+                        Código Encargado
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="nombreEncargado" name="nombreEncargado" onkeyup="saltar(event,'telefonoEncargado')" placeholder="Nombre del Encargado" type="text" value="<?php echo $nombreEncargado;?>"/>
+                    <a class="descripcion" id="descripcion-nombreEncargado">
+                        Nombre del Encargado
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="telefonoEncargado" name="telefonoEncargado" onblur="validarTel();" oninput="validarTel();" onkeypress="return numeros(event)" onkeyup="saltar(event,'correoEncargado')" placeholder="Teléfono Encargado" type="text" value="<?php echo $telefonoEncargado;?>"/>
+                    <a class="descripcion" id="descripcion-telefonoEncargado">
+                        Teléfono Encargado
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control" id="correoEncargado" name="correoEncargado" onblur="validarCorreo();" oninput="validarCorreo();" onkeyup="saltar(event,'domicilioEncargado')" placeholder="Correo del Encargado" type="email" value="no-tiene@canterasoft.com"/>
+                    <a class="descripcion" id="descripcion-correoEncargado">
+                        Correo del Encargado
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="domicilioEncargado" name="domicilioEncargado" onkeyup="saltar(event,'cargar')" placeholder="Domicilio del Encargado" type="text" value="<?php echo $domicilioEncargado;?>"/>
+                    <a class="descripcion" id="descripcion-domicilioEncargado">
+                        Domicilio del Encargado
+                    </a>
+                </div>
+                <?php date_default_timezone_set("America/Guatemala"); ?>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input class="form-control usuario-contador" id="horaFija" name="horaEncargado" readonly="" type="text" value="<?php $timestamp = time()+date('Z'); echo gmdate('H:i:s',$timestamp); ?>"/>
+                    <i class="glyphicon glyphicon-time" id="icono">
+                    </i>
+                    <a class="descripcion" id="descripcion-horaDepartamento">
+                        Hora
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input class="form-control usuario-contador" id="fechaFija" name="fechaEncargado" readonly="" type="text" value="   <?php $timestamp = time()+date('Z'); echo gmdate('d/m/Y',$timestamp); ?>"/>
+                    <i class="glyphicon glyphicon-calendar" id="icono">
+                    </i>
+                    <a class="descripcion" id="descripcion-fechaDepartamento">
+                        Fecha
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/rrhh/encargado/cargar.php'; ?>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-fullscreen">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+            <a href="encargado.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-unchecked">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+            <button class="button" onclick="window.close();" type="button">
+                <span class="glyphicon glyphicon-remove">
+                </span>
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .has-error{
+  border-color: darkred;
+  border-left: solid 3px;
+  border-left-color: darkred;
+}
+
+.has-succes{
+  border-color: darkgreen;
+  border-left: solid 3px;
+  border-left-color: darkgreen;
+}
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $codigoEncargado1;?>' != ""){
+           var codigoEncargado1 = '<?php echo $codigoEncargado1;?>'
+           document.getElementById('codigoEncargado').value = codigoEncargado1;
+        }else{
+        }
+        
+        if ('<?php echo $correoEncargado;?>' != ""){
+           var correoEncargado = '<?php echo $correoEncargado;?>'
+           document.getElementById('correoEncargado').value = correoEncargado;
+        }else{
+        }
+
+        if ('<?php echo $fechaEncargado ?>' != ""){
+           var fechaEncargado = '<?php echo $fechaEncargado ?>'
+           document.getElementById('fechaFija').value = fechaEncargado;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $horaEncargado ?>' != ""){
+           var horaEncargado = '<?php echo $horaEncargado ?>'
+           document.getElementById('horaFija').value = horaEncargado;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+    });
+</script>

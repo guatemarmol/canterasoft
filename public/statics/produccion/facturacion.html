@@ -1,0 +1,266 @@
+<form>
+    <div class="contenedor">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+                <a href="facturacion.php">
+                    <img class="logo" id="nombreLogo" src="../images/nombre/1_facturacion.png"/>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>">
+                    <i class="glyphicon glyphicon-user" id="icono">
+                    </i>
+                    <a class="descripcion">
+                        Usuario
+                    </a>
+                    <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>">
+                    </input>
+                </input>
+            </div>
+        </div>
+        <div class="row thumbnail" style="padding: 20px; margin-bottom: 1px;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="" type="text" value="Número Factura:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres1" readonly="" type="text" value="Empresa:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres2" readonly="" type="text" value="Divición:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres3" readonly="" type="text" value="Código Flete:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres4" readonly="" type="text" value="NIT Cliente:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Fecha Facturación:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <!--<input type="text" id="nombres6" class="form-control" value="Fecha y Hora:" readonly>
+                        <a class="descripcion">.</a>-->
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <?php
+                                   $consulta = "SELECT * FROM lineaFacturacion";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                            <input autocomplete="off" class="form-control" id="numeroFactura" list="nf" name="numeroFactura" onkeyup="saltar(event,'empresa')" placeholder="Número Factura" type="text" value="<?php echo $numeroFactura ?>"/>
+                            <datalist id="nf">
+                                <?php foreach ($ejecutar as $lineaFacturacion): ?>
+                                <option value="<?php echo $lineaFacturacion['numeroFactura']?>">
+                                </option>
+                                <? endforeach; ?>
+                            </datalist>
+                            <a class="descripcion" id="descripcion-numeroFactura">
+                                Número Factura
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <a href="linea-facturacion.php" onclick="window.open(this) return false;" target="newWin">
+                                <button class="button0" type="button">
+                                    <span class="glyphicon glyphicon-edit">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <?php
+                                   $consulta = "SELECT * FROM empresa";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                            <input autocomplete="off" class="form-control capitalizeText" id="empresa" list="ef" name="empresa" onkeyup="saltar(event,'division')" placeholder="Empresa" type="text" value="<?php echo $empresa ?>"/>
+                            <datalist id="ef">
+                                <?php foreach ($ejecutar as $empresa): ?>
+                                <option value="<?php echo $empresa['razonSocialEmpresa']?>">
+                                </option>
+                                <? endforeach; ?>
+                            </datalist>
+                            <a class="descripcion" id="descripcion-empresa">
+                                Empresa
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <a href="../rrhh/empresa.php" onclick="window.open(this) return false;" target="newWin">
+                                <button class="button0" type="button">
+                                    <span class="glyphicon glyphicon-edit">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <?php
+                                   $consulta = "SELECT * FROM division";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                            <input autocomplete="off" class="form-control capitalizeText" id="division" list="fd" name="division" onkeyup="saltar(event,'numeroFacturaFacturacion')" placeholder="Divición" type="text" value="<?php echo $division ?>"/>
+                            <datalist id="fd">
+                                <?php foreach ($ejecutar as $division): ?>
+                                <option value="<?php echo $division['nombreDivision']?>">
+                                </option>
+                                <? endforeach; ?>
+                            </datalist>
+                            <a class="descripcion" id="descripcion-division">
+                                Divición
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <a href="../rrhh/division.php" onclick="window.open(this) return false;" target="newWin">
+                                <button class="button0" type="button">
+                                    <span class="glyphicon glyphicon-edit">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <?php
+                                   $consulta = "SELECT * FROM flete";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                            <input autocomplete="off" class="form-control" id="codigoFlete" list="ff" name="codigoFlete" onkeyup="saltar(event,'cargarFacturacion')" placeholder="Código Flete" type="text" value="<?php echo $codigoFlete ?>"/>
+                            <datalist id="ff">
+                                <?php foreach ($ejecutar as $flete): ?>
+                                <option value="<?php echo $flete['codigoFlete']?>">
+                                </option>
+                                <? endforeach; ?>
+                            </datalist>
+                            <a class="descripcion" id="descripcion-codigoFlete">
+                                Código Flete
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <a href="../logistica/flete.php" onclick="window.open(this) return false;" target="newWin">
+                                <button class="button0" type="button">
+                                    <span class="glyphicon glyphicon-edit">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <?php
+                                   $consulta = "SELECT * FROM cliente";
+                                   $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                            <input autocomplete="off" class="form-control capitalizeText" id="nitCliente" list="fn" name="nitCliente" onkeyup="saltar(event,'fechaFacturacion')" placeholder="NIT Cliente" type="text" value="<?php echo $nitCliente ?>"/>
+                            <datalist id="fn">
+                                <?php foreach ($ejecutar as $cliente): ?>
+                                <option value="<?php echo $cliente['nitCliente']?>">
+                                </option>
+                                <? endforeach; ?>
+                            </datalist>
+                            <a class="descripcion" id="descripcion-nitCliente">
+                                NIT Cliente
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                            <a href="cliente.php" onclick="window.open(this) return false;" target="newWin">
+                                <button class="button0" type="button">
+                                    <span class="glyphicon glyphicon-edit">
+                                    </span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="fechaFacturacion" name="fechaFacturacion" onkeyup="saltar(event,'codigoFleteFacturacion')" placeholder="Fecha Facturación" type="text" value="<?php echo $fechaFacturacion ?>"/>
+                            <a class="descripcion" id="descripcion-fechaFacturacion">
+                                Fecha Facturación
+                            </a>
+                        </div>
+                    </div>
+                    <?php date_default_timezone_set("America/Guatemala"); ?>
+                    <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control usuario-contador" id="horaFija" name="hora" value="<?php $timestamp = time()+date("Z"); echo gmdate("H:i:s",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-time" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-horaBodega">Hora</a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control usuario-contador" id="fechaFija" name="fecha" value="   <?php $timestamp = time()+date("Z"); echo gmdate("d/m/Y",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-calendar" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-fechaBodega">Fecha</a>
+                </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+            <?php include '../funciones/produccion/facturacion/cargar.php'; ?>
+        </div>
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <button class="button" id="cargarFacturacion" name="cargarFacturacion" type="button">
+                    <span class="glyphicon glyphicon-fullscreen">
+                    </span>
+                    Cargar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <button class="button" id="agregarFacturacion" name="agregarFacturacion" type="button">
+                    <span class="glyphicon glyphicon-plus">
+                    </span>
+                    Guardar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <a href="facturacion.php">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-unchecked">
+                        </span>
+                        Limpiar
+                    </button>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <a href="javascript:window.close();">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-remove">
+                        </span>
+                        Cerrar
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row mensaje" id="mensaje">
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $fecha ?>' != ""){
+           var fechaBodega = '<?php echo $fecha?>'
+           document.getElementById('fechaFija').value = fechaBodega;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $hora ?>' != ""){
+           var horaBodega = '<?php echo $hora ?>'
+           document.getElementById('horaFija').value = horaBodega;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+</script>

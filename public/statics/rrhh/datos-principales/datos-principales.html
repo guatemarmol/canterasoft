@@ -1,0 +1,238 @@
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+    <input autocomplete="off" class="form-control calendario" id="fechaIngreso" maxlength="10" name="fechaIngreso" onkeypress="return fecha(event)" onkeyup="saltar(event,'fechaEgreso')" placeholder="Fecha Ingreso" style="text-align: center;" type="text" value="<?php echo $fechaIngreso;?>"/>
+    <a class="descripcion" id="descripcion-fechaIngreso">
+        Fecha Ingreso
+    </a>
+</div>
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+    <input autocomplete="off" class="form-control calendario" id="fechaEgreso" maxlength="10" name="fechaEgreso" onkeypress="return fecha(event)" onkeyup="saltar(event,'fechaNacimiento')" placeholder="Fecha Egreso" style="text-align: center;" type="text" value="<?php echo $fechaEgreso;?>"/>
+    <!--<i class="glyphicon glyphicon-calendar" style="cursor: pointer; color: #ff8a65; font-size: 16px; margin-top: -25px; margin-left: 10px;"></i>-->
+    <a class="descripcion" id="descripcion-fechaEgreso">
+        Fecha Egreso
+    </a>
+</div>
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+    <input autocomplete="off" class="form-control capitalizeText" id="nombreEmpleado" name="nombreEmpleado" onkeypress="return letras(event)" onkeyup="saltar(event,'apellidoEmpleado')" placeholder="Nombres" type="text" value="<?php echo $nombreEmpleado;?>"/>
+    <a class="descripcion" id="descripcion-nombreEmpleado">
+        Nombres
+    </a>
+</div>
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+    <input autocomplete="off" class="form-control capitalizeText" id="apellidoEmpleado" name="apellidoEmpleado" onkeypress="return letras(event)" onkeyup="saltar(event,'fechaIngreso')" placeholder="Apellidos" type="text" value="<?php echo $apellidoEmpleado;?>"/>
+    <a class="descripcion" id="descripcion-apellidoEmpleado">
+        Apellidos
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <input autocomplete="off" class="form-control calendario" id="fechaNacimiento" maxlength="10" name="fechaNacimiento" onkeypress="return fecha(event)" onkeyup="saltar(event,'tipoContrato')" placeholder="Fecha Nacimiento" style="text-align: center;" type="text" value="<?php echo $fechaNacimiento;?>"/>
+    <!--<i class="glyphicon glyphicon-calendar" style="cursor: pointer; color: #ff8a65; font-size: 16px; margin-top: -25px; margin-left: 10px;"></i>-->
+    <a class="descripcion" id="descripcion-fechaNacimiento">
+        Fecha Nacimiento
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <input autocomplete="off" class="form-control" id="tipoDocumento" name="tipoDocumento" onblur="validar4();" oninput="validar4();" onkeyup="saltar(event,'documentoIdentificacion0')" placeholder="Tipo Documento" type="text"/>
+    <a class="descripcion" id="descripcion-tipoDocumento">
+        Tipo Documento
+    </a>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio">
+        <input autocomplete="off" class="form-control" id="documentoIdentificacion0" maxlength="4" name="documentoIdentificacion0" onkeypress="return numeros(event)" onkeyup="saltar(event,'documentoIdentificacion1')" placeholder="Cuatro" style="text-align: center;" type="text" value="<?php echo $documentoIdentificacion0;?>"/>
+        <a class="descripcion" id="descripcion-documentoIdentificacion0">
+            Número Documento
+        </a>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio">
+        <input autocomplete="off" class="form-control" id="documentoIdentificacion1" maxlength="5" name="documentoIdentificacion1" onkeypress="return numeros(event)" onkeyup="saltar(event,'documentoIdentificacion2')" placeholder="Cinco" style="text-align: center;" type="text" value="<?php echo $documentoIdentificacion1;?>"/>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio">
+        <input autocomplete="off" class="form-control" id="documentoIdentificacion2" maxlength="4" name="documentoIdentificacion2" onkeypress="return numeros(event)" onkeyup="saltar(event,'direccionActual')" placeholder="Cuatro" style="text-align: center;" type="text" value="<?php echo $documentoIdentificacion2;?>"/>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+    <input autocomplete="off" class="form-control capitalizeText" id="direccionActual" name="direccionActual" onkeyup="saltar(event,'region')" placeholder="Direccion actual" type="text" value="<?php echo $direccionActual;?>"/>
+    <a class="descripcion" id="descripcion-direccionActual">
+        Direccion actual
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_departamento";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control" id="departamentos" list="depto" name="departamentos" onkeypress="return letras(event)" onkeyup="saltar(event,'municipio')" placeholder="Departamento" type="text" value="<?php echo $departamentos;?>"/>
+    <datalist id="depto">
+        <?php foreach ($ejecutar as $select_departamento): ?>
+        <option value="<?php echo $select_departamento['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-departamentos">
+        Departamento
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_municipio";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control" id="municipio" list="muni" name="municipio" onkeyup="saltar(event,'correo')" placeholder="Municipio" type="text" value="<?php echo $municipio;?>"/>
+    <datalist id="muni">
+        <?php foreach ($ejecutar as $select_municipio): ?>
+        <option value="<?php echo $select_municipio['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-municipio">
+        Municipio
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_nacionalidad";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control" id="nacionalidad" list="nac" name="nacionalidad" onkeyup="saltar(event,'nit')" placeholder="Nacionalidad" type="text" value="<?php echo $nacionalidad;?>"/>
+    <datalist id="nac">
+        <?php foreach ($ejecutar as $select_nacionalidad): ?>
+        <option value="<?php echo $select_nacionalidad['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-nacionalidad">
+        Nacionalidad
+    </a>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+    <input autocomplete="off" class="form-control" id="correo" name="correo" onblur="validar4();" oninput="validar4();" onkeyup="saltar(event,'telefono')" placeholder="Correo Electronico" type="email" value="no-tiene@canterasoft.com"/>
+    <a class="descripcion" id="descripcion-correo">
+        Correo Electronico
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <input autocomplete="off" class="form-control capitalizeText" id="telefono" maxlength="9" name="telefono" onblur="validar5();" oninput="validar5();" onkeypress="return numeros(event)" onkeyup="saltar(event,'etnia')" placeholder="Teléfono / Celular" style="text-align: center;" type="tel" value="<?php echo $telefono;?>"/>
+    <a class="descripcion" id="descripcion-telefono">
+        Teléfono / Celular
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_genero";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control capitalizeText" id="genero" list="gen" name="genero" onkeypress="return letras(event)" onkeyup="saltar(event,'estadoCivil')" placeholder="Género" type="text" value="<?php echo $genero;?>"/>
+    <datalist id="gen">
+        <?php foreach ($ejecutar as $select_genero): ?>
+        <option value="<?php echo $select_genero['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-genero">
+        Género
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <input autocomplete="off" class="form-control" id="estadoCivil" name="estadoCivil" onkeyup="saltar(event,'hijos')" placeholder="Estado Civil" type="text"/>
+    <a class="descripcion" id="descripcion-estadoCivil">
+        Estado Civil
+    </a>
+</div>
+<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+    <input autocomplete="off" class="form-control capitalizeText" id="hijos" name="hijos" onkeypress="return numeros(event)" onkeyup="saltar(event,'profesion')" placeholder="Hijos" style="text-align: center;" type="text" value="<?php echo $hijos;?>"/>
+    <a class="descripcion" id="descripcion-hijos">
+        Hijos
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <input autocomplete="off" class="form-control capitalizeText" id="nit" name="nit" onkeyup="saltar(event,'numeroAfiliacionIgss')" placeholder="NIT" type="text" value="<?php echo $nit;?>"/>
+    <a class="descripcion" id="descripcion-nit">
+        NIT
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <input autocomplete="off" class="form-control capitalizeText" id="profesion" name="profesion" onkeypress="return letras(event)" onkeyup="saltar(event,'nivelAcademico')" placeholder="Profesión" type="text" value="<?php echo $profesion;?>"/>
+    <a class="descripcion" id="descripcion-profesion">
+        Profesión
+    </a>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_nivelacademico";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control capitalizeText" id="nivelAcademico" list="nivel" name="nivelAcademico" onkeypress="return letras(event)" onkeyup="saltar(event,'tipoDocumento')" placeholder="Nivel Academico" type="text" value="<?php echo $nivelAcademico;?>"/>
+    <datalist id="nivel">
+        <?php foreach ($ejecutar as $select_nivelacademico): ?>
+        <option value="<?php echo $select_nivelacademico['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-nivelAcademico">
+        Nivel Academico
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_contrato";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control capitalizeText" id="tipoContrato" list="tipoC" name="tipoContrato" onkeypress="return letras(event)" onkeyup="saltar(event,'genero')" placeholder="Tipo Contrato" type="text" value="<?php echo $tipoContrato;?>"/>
+    <datalist id="tipoC">
+        <?php foreach ($ejecutar as $select_contrato): ?>
+        <option value="<?php echo $select_contrato['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-tipoContrato">
+        Tipo Contrato
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_region";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control" id="region" list="reg" name="region" onkeypress="return letras(event)" onkeyup="saltar(event,'departamentos')" placeholder="Región" type="text" value="<?php echo $region;?>"/>
+    <datalist id="reg">
+        <?php foreach ($ejecutar as $select_region): ?>
+        <option value="<?php echo $select_region['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-region">
+        Región
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_etnia";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control" id="etnia" list="etna" name="etnia" onkeyup="saltar(event,'idioma')" placeholder="ETNIA" type="text" value="<?php echo $etnia;?>"/>
+    <datalist id="etna">
+        <?php foreach ($ejecutar as $select_etnia): ?>
+        <option value="<?php echo $select_etnia['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-etnia">
+        ETNIA
+    </a>
+</div>
+<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+    <?php
+                        $consulta = "SELECT * FROM select_idioma";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <input autocomplete="off" class="form-control" id="idioma" list="idio" name="idioma" onkeyup="saltar(event,'nacionalidad')" placeholder="Idioma" type="text" value="<?php echo $idioma;?>"/>
+    <datalist id="idio">
+        <?php foreach ($ejecutar as $select_idioma): ?>
+        <option value="<?php echo $select_idioma['codigo']?>">
+        </option>
+        <? endforeach; ?>
+    </datalist>
+    <a class="descripcion" id="descripcion-idioma">
+        Idioma
+    </a>
+</div>

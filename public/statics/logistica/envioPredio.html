@@ -1,0 +1,192 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="cargacarbonato.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    Envío a Predio
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio"> </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    
+    <div class="row thumbnail SelloAgua" style="padding: 20px 10px 10px 10px; margin-bottom: 1px;">
+        <div class="row tablet">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-3 espacio"></div>
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-6 espacio">
+                <center>
+                    <h3 style="font-weight: 700;">
+                        REGISTRO DE CARGA
+                    </h3>
+                </center>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-3 espacio"></div>
+        </div>
+        <br>
+        <br>
+        
+        <div class="row">    
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-5 espacio"></div>
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 espacio">
+                <?php
+                    $consulta = "SELECT COUNT(id) numero FROM envioPredio;";
+                    $ejecutar = mysqli_query($con, $consulta);
+
+                    $fila = mysqli_fetch_array($ejecutar);
+                    $numero = ($fila['numero'] + 1);
+                ?>
+                <input id="envio" name="envio" style="display: none;" value="<?php echo $numero?>"/>
+                <input id="kilos" name="kilos" style="display: none;"/>
+                <label for="camion"><strong>Jumbo(s): </strong></label>
+                <input autocomplete="off" class="form-control" id="jumbos" name="jumbos" placeholder="Jumbos a Cargar" type="text" autofocus/>
+                <a class="descripcion">
+                    Jumbos a Cargar
+                </a>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+    <div class="col-xs-6 col-sm-3 col-md-6 col-lg-3 espacio ocultar">
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="agregar" type="button">
+            <span class="glyphicon glyphicon-plus">
+            </span>
+            Agregar
+        </button>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="guardar" type="button">
+            <span class="glyphicon glyphicon-floppy-disk">
+            </span>
+            Guardar
+        </button>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <a href="envioPredio.php">
+            <button class="button" type="button">
+                <span class="glyphicon glyphicon-unchecked">
+                </span>
+                Limpiar
+            </button>
+        </a>
+    </div>
+</div>
+
+<div class="row tablet">
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-6 espacio"></div>
+    <div class="col-xs-12 col-sm-9 col-md-6 col-lg-6 espacio" id="divPeso" style="display: none;">
+        <center>
+            <h3 style="font-weight: 700;" id="pesoTotal"> </h3>
+        </center>
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+    <div class="table-responsive" id="tabla">
+        <table class="list" id="cargas" width="100%">
+            <thead>
+                <tr>
+                    <th><center>Código</center></th>
+                    <th><center>Producto</center></th>
+                    <th><center>Peso (kg)</center></th>
+                    <th><center><span class="glyphicon glyphicon-trash"></span></center></th> 
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<style type="text/css">
+    th {
+        position: sticky;
+        top: 0;
+        background: black;
+        
+    }
+
+    #tabla {
+        overflow: auto;
+        height:350px;
+        width:100%;
+    }
+    #tabla table {
+        width:100%;;
+    }
+
+    .button{
+        margin-bottom:2px;
+    }
+    
+    .list{
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    /*Colocamos bordes a nuestra tabla*/
+    .list td{
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        color: black;
+    }
+
+    .list th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        color: white;
+    }
+
+    /*Colocamos color a los hijos pares de la tabla y al encabezado*/
+    .list tr:nth-child(even), .list thead>tr {
+        background-color: #dddddd;
+    }
+
+    /*CAMBIAMOS EL CURSOS A NUESTRAS CELDAS ELIMINAR Y MODIFICAR CREADAS DINAMICAMENTE*/
+    .modificarcelda, .eliminarcelda{
+        cursor: pointer;
+    }
+
+
+    /*CAMBIAMOS EL COLOR A LOS ICONOS A NUESTRAS CELDAS ELIMINAR Y MODIFICAR CREADAS DINAMICAMENTE*/
+    .modificarcelda:hover{
+        color: blue;
+    }
+    .eliminarcelda:hover{
+        color: red;
+    }
+    
+</style>

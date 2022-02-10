@@ -1,0 +1,479 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="../produccion/produccion.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_produccion.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--VACIO--->
+            <!---------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <!-------------------------MUESTRA EL CORRETATIVO----------------------------->
+    <!---------------------------------------------------------------------------->
+    <?php 
+        include '../on-database.php';
+        $consulta = "SELECT MAX(correlativo) correlativo FROM produccion";
+        $ejecutar = mysqli_query($con, $consulta);
+
+        $tabla = mysqli_fetch_array($ejecutar);
+        $correlativo = $tabla['correlativo'];
+        $correlativo++;
+    ?>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 5px 20px; margin-bottom: 1px;">
+        <!-------------------------NOMBRES DERECHA------------------------------->
+        <!----------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Correlativo:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Producto:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" style="display: none;" type="text" value="Estado de Jumbo:"/>
+                <a class="descripcion" style="display: none;">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Turno:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres6" readonly="" type="text" value="Peso:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <!-------------------------CORRELATIVO-------------------------->
+                <!-------------------------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="correlativo" name="correlativo" onkeyup="saltar(event,'lote')" placeholder="Correlativo" readonly="" type="text" value="<?php echo $correlativo ?>"/>
+                        <a class="descripcion" id="descripcion-correlativo">
+                            Correlativo Producción
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+                    </div>
+                    <!---------------------------LOTE------------------------------->
+                    <!-------------------------------------------------------------->
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="lote" name="lote" onkeyup="saltar(event,'peso')" placeholder="Lote" value="3" readonly="" style="text-align: center; color: darkred; font-weight: bold; font-size: 16px;" type="text" value="<?php echo $lote ?>"/>
+                        <a class="descripcion" id="descripcion-lote">
+                            Lote
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <!-------------------------PRODUCTO------------------------------->
+                    <!-------------------------------------------------------------->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                            $consulta = "SELECT * FROM productos";
+                            $ejecutar = mysqli_query($con, $consulta);
+                        ?>
+                        <select class="form-control" id="productos" name="productos" onkeyup="saltar(event,'turno')">
+                            <option value="Productos">
+                                Productos
+                            </option>
+                            <?php foreach ($ejecutar as $productos): ?>
+                            <option value="<?php echo $productos['nombreEspecifico']?>">
+                                <?php echo $productos['nombreEspecifico']?>
+                            </option>
+                            <? endforeach; ?>
+                            <option>325</option>
+                        </select>
+                        <a class="descripcion" id="descripcion-productos">
+                            Producto
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 espacio">
+                    </div>
+                    <!-------------------------ESTADO JUMBO------------------------->
+                    <!-------------------------------------------------------------->
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 espacio">
+                        <li id="jumbo">
+                            <span class="glyphicon glyphicon-record" id="estado">
+                            </span>
+                            Estado Jumbo
+                        </li>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <?php
+                            $consulta = "SELECT * FROM estadoJumbo";
+                            $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                        <input autocomplete="off" class="form-control" id="estadoJumbo" list="codej" name="estadoJumbo" onkeyup="saltar(event,'turno')" placeholder="Estado de Jumbo" type="hidden" value="Activo"/>
+                        <datalist id="codej">
+                            <?php foreach ($ejecutar as $estadoJumbo): ?>
+                            <option value="<?php echo $estadoJumbo['descripcion']?>">
+                            </option>
+                            <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion" id="descripcion-estadoJumbo" style="display: none;">
+                            Estado de Jumbo
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <?php
+                            $consulta = "SELECT * FROM turno ORDER BY codigo";
+                            $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                        <select class="form-control" id="turno" name="turno" onkeyup="saltar(event,'peso')">
+                            <option value="Turno">
+                                Turno
+                            </option>
+                            <?php foreach ($ejecutar as $turno): ?>
+                            <option value="<?php echo $turno['nombre']?>">
+                                <?php echo $turno['nombre']?>
+                            </option>
+                            <? endforeach; ?>
+                            <option>2 </option>
+                        </select>
+                        <a class="descripcion" id="descripcion-turno">
+                            Turno
+                        </a>
+                    </div>
+                </div>
+                <!---------------------------PESO------------------------------->
+                <!-------------------------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-1 espacio">
+                        <input class="form-control" id="simbolo" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="t">
+                            <a class="descripcion">
+                                Medida
+                            </a>
+                        </input>
+                    </div>
+                    <div class="col-xs-8 col-sm-4 col-md-4 col-lg-5 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="peso" name="peso" onkeyup="saltar(event,'agregar')" placeholder="Peso" type="tel" value="<?php echo $peso ?>"/>
+                        <a class="descripcion" id="descripcion-peso">
+                            Peso
+                        </a>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio">
+                        <button class="button-1" id="agregar" onclick="javascript:imprimir();" type="button">
+                            <span class="glyphicon glyphicon-plus">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                        <a href="produccion.php">
+                            <button class="button" id="clear" type="button">
+                                <span class="glyphicon glyphicon-erase">
+                                </span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-------------------------FECHA Y HORA------------------------->
+            <!-------------------------------------------------------------->
+            <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <!-------------------------CARGAR------------------------------->
+        <!-------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <!-------------------------IMPRIMIR----------------------------->
+        <!-------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="print" onclick="javascript:imprimir();" type="button">
+                <span class="glyphicon glyphicon-print">
+                </span>
+                Imprimir
+            </button>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+        </div>
+        <!-------------------------GUARDAR------------------------------>
+        <!-------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar1" onclick="javascript:imprimir();" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <!-------------------------LIMPIAR------------------------------>
+        <!-------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="produccion.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-erase">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-------------------------BOTON ARRIBA------------------------->
+<!-------------------------------------------------------------->
+<div class="row mensaje" id="mensaje">
+</div>
+<!-------------------------TICKET------------------------------->
+<!-------------------------------------------------------------->
+<center class="ticket">
+    <div class="fecha">
+        <?php date_default_timezone_set("America/Guatemala"); ?>
+    </div>
+    <!--------------------LOGO-Y CODIGO DE BARRAS------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <img class="logo-guate" src="../images/logo/logoG.png"/>
+        <br/>
+        <input class="barras" id="correlativo-ticket-barras" type="tex"/>
+    </div>
+    <!--------------------NOMBRE DEL PRODUCTO----------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <p class="datos-t-t-t" style="font-weight: 900; margin-bottom: 2px;">
+            CARBONATO DE CALCIO
+        </p>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <p class="datos-t-t-t" style="border-bottom:solid 1px #000; margin-bottom: 5px;">
+        </p>
+    </div>
+    <!-------------------------CORRELATIVO-------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <p class="datos-t-t">
+            Correlativo:
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <input class="datos-t" id="correlativo-ticket" type="tex"/>
+    </div>
+    <!-------------------------PRODUCTO----------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <p class="datos-t-t">
+            Producto:
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <input class="datos-t" id="producto-ticket" type="tex"/>
+    </div>
+    <!---------------------------LOTE------------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <p class="datos-t-t">
+            Lote:
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <input class="datos-t" id="lote-ticket" type="tex"/>
+    </div>
+    <!--------------------------PESO-------------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <p class="datos-t-t">
+            Peso:
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <input class="datos-t" id="peso-ticket" type="tex"/>
+    </div>
+    <!--------------------------TURNO------------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <p class="datos-t-t">
+            Turno:
+        </p>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+        <input class="datos-t" id="turno-ticket" type="tex"/>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <p class="datos-t-t-t" style="border-top:solid 1px #000; margin-top: 5px; margin-bottom: 5px;">
+        </p>
+    </div>
+    <!-------------------------HORA Y FECHA------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+            <input class="datos-h" id="hora-ticket" type="tex"/>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+            <input class="datos-f" id="fecha-ticket" type="tex"/>
+        </div>
+        <p class="datos-t-t-t" style="margin-top: 30px;">
+            .
+        </p>
+    </div>
+</center>
+<script type="text/javascript">
+    function imprimir(){
+        let lote = $('#lote').val();
+        if (lote == ''){
+            modalPrint();
+        }else{
+            
+            if(window.print)window.print()
+            else alert("Puede utilizar Ctrl + P") 
+        }
+    }
+</script>
+<style type="text/css">
+    @import url("https://fonts.googleapis.com/css?family=Indie+Flower");
+
+    @font-face {
+    font-family: "3Of9Barcode";
+    src: url("../assets/fonts/3Of9Barcode.woff");
+    }
+    .barras{
+        font-family: "3Of9Barcode";
+        text-align: center;
+        font-size: 20px;
+        margin-top: -2px;
+        margin-bottom: -1px;
+        border: solid 1px transparent;
+        letter-spacing: .1em;
+    }
+    .button{
+        margin-bottom: 3px;
+    }
+    .ticket{
+        display: none;
+    }
+    .logo-guate{ 
+        height: 50px;
+        width: 220px;
+    }
+    .datos-t-t-t{
+        text-align: center;
+        margin-bottom: -3px;
+    }
+    .datos-t-t{
+        text-align: left;
+        margin-bottom: -3px;
+    }
+    .datos-t{
+        text-align: left;
+        margin-bottom: -3px;
+        border: solid 1px transparent;
+    }
+    .datos-h{
+        text-align: right;
+        margin-bottom: -3px;
+        border: solid 1px transparent;
+    }
+    .datos-f{
+        text-align: center;
+        margin-bottom: -3px;
+        border: solid 1px transparent;
+    }
+    .datos{
+        text-align: center;
+        margin-bottom: -3px;
+        border: solid 1px transparent;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: #cccccc;
+        border-left: solid 1px;
+        border-left-color: #cccccc;
+    }
+    .button{
+        margin-bottom:2px;
+    }
+    div.dataTables_wrapper div.dataTables_paginate {
+        margin: 0;
+        white-space: nowrap;
+        text-align: right;
+        margin-top: 20px;
+    }
+    @media (max-width: 767px){
+        #jumbo{
+            margin-bottom: 6px;
+            text-align: right;
+        }
+        #estado{
+            margin-left: 5px;
+        }
+        #tablaBodega_wrapper .dt-buttons{
+            display: none;
+        }
+    }
+    @media print {
+        @font-face {
+            font-family: "3Of9Barcode";
+            src: url("../assets/fonts/3Of9Barcode.woff");
+        }
+        .ticket{
+            display: block;
+        }
+        #lineas-n{
+            display: none !important;
+        }
+        #correlativo-ticket-barras{
+            margin-left: -25px;
+        }
+        .contenedor{
+            display: none !important;
+        }
+        .ir-arriba{
+            display: none !important;
+        }
+        footer{
+            display: none !important;
+        }
+        .fecha{
+            display: none !important;
+        }
+    }
+</style>

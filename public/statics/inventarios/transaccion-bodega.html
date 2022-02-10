@@ -1,0 +1,166 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="transaccion-bodega.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_transaccion-bodega.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!---VACIO--->
+            <!----------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 10px 20px; margin-bottom: 1px;">
+        <?php 
+                $consulta = "SELECT MAX(numeroTransaccion) numeroTransaccion FROM transaccionBodegaInventarios";
+                $ejecutar = mysqli_query($con, $consulta);
+
+                $tabla = mysqli_fetch_array($ejecutar);
+                $numeroTransaccion = $tabla['numeroTransaccion'];
+                $numeroTransaccion++;
+            ?>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Transaccion:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Suministro:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Tipo Transacción:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres6" readonly="" type="text" value="Cantidad:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="numeroTransaccion" name="numeroTransaccion" onkeyup="saltar(event,'suministro')" placeholder="Número Transaccion" readonly="" type="text" value="<?php echo $numeroTransaccion;?>"/>
+                    <a class="descripcion" id="descripcion-numeroTransaccion">
+                        Número Transaccion
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <?php
+                               $consulta = "SELECT *
+                                            FROM   producto
+                                            WHERE  EXISTS (SELECT producto 
+                                            FROM   inventario
+                                            WHERE  producto.codigo = inventario.producto);";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                    <input autocomplete="off" class="form-control" id="suministro" list="des" name="suministro" onkeyup="saltar(event,'tipoTransaccion')" placeholder="Suministro" type="text"/>
+                    <datalist id="des">
+                        <?php foreach ($ejecutar as $descripcion): ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>">
+                            <?php echo strtoupper ($descripcion['descripcion']);?>
+                        </option>
+                        <? endforeach; ?>
+                    </datalist>
+                    <a class="descripcion" id="descripcion-suministro">
+                        Suministros
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <select class="form-control" id="tipoTransaccion" name="tipoTransaccion">
+                        <option value="Tipo Transaccion">
+                            Tipo Transaccion
+                        </option>
+                        <option value="Entrada">
+                            Entrada
+                        </option>
+                        <option value="Salida">
+                            Salida
+                        </option>
+                    </select>
+                    <a class="descripcion" id="descripcion-suministro">
+                        Tipo de Transacción
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="cantidadTransaccion" min="0" name="cantidadTransaccion" onkeyup="saltar(event,'agregar')" placeholder="Cantidad" style="background-color: transparent;" type="number"/>
+                        <a class="descripcion" id="descripcion-cantidadTransaccion">
+                            Cantidad
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!------------------FECHA Y HORA---------------->
+            <!---------------------------------------------->
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/inventarios/transaccion-bodega/cargar.php' ?>
+        <!--<div class="datostabla">
+        </div>-->
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="transaccion-bodega.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-refresh">
+                    </span>
+                    Refrescar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .button{
+        margin-bottom: 3px;
+    }
+</style>

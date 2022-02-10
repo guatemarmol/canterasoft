@@ -1,0 +1,1005 @@
+<!--<?php  error_reporting(0); ?>-->
+<?php error_reporting(E_ALL); ?>
+<?php 
+    session_start();
+    if (empty ($_SESSION['active'])){
+        header('location: ../');
+    }	require '../partials/funciones-js.php';
+    require '../partials/funciones-css.php';	
+?>
+<body>
+    <div class="container-fluid" id="ocultar-menu">
+        <header>
+            <nav class="navbar navbar-dark navbar-fixed-top" id="nav">
+                <img data-pushbar-target="pushbar-menu-left" height="50px" id="lineas-b" src="../images/menu-logo/lineas-b.png" width="50px"/>
+                <span>
+                    <a data-pushbar-target="pushbar-menu-top" id="nombre">
+                        CanteraSoft
+                    </a>
+                </span>
+            </nav>
+            <img data-pushbar-target="pushbar-menu-left" height="50px" id="lineas-n" src="../images/menu-logo/lineas-n.png" width="50px;"/>
+            <!-- ---------------------MENU LEFT----------------------- -->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 20px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <!-- 
+                    <li data-pushbar-target="pushbar-menu-left-10" id="metas">
+                        <img height="40px" src="../images/menu-icono/bc.png"/>
+                        <span class="pushbar-nombre-left">
+                            Metas
+                        </span>
+                    </li>
+                    -->
+                    <li data-pushbar-target="pushbar-menu-left-0" id="produccion">
+                        <img height="40px" src="../images/menu-icono/produccionn.png"/>
+                        <span class="pushbar-nombre-left">
+                            Producción
+                        </span>
+                    </li>
+                    <li data-pushbar-target="pushbar-menu-left-1" id="logistica">
+                        <img height="40px" src="../images/menu-icono/logisticaa.png"/>
+                        <span class="pushbar-nombre-left">
+                            Logística
+                        </span>
+                    </li>
+                    <li data-pushbar-target="pushbar-menu-left-2" id="compras">
+                        <img height="40px" src="../images/menu-icono/comprass.png"/>
+                        <span class="pushbar-nombre-left">
+                            Compras
+                        </span>
+                    </li>
+                    <li data-pushbar-target="pushbar-menu-left-3" id="inventarios">
+                        <img height="40px" src="../images/menu-icono/inventarioo.png"/>
+                        <span class="pushbar-nombre-left">
+                            Bodega
+                        </span>
+                    </li>
+                    <li data-pushbar-target="pushbar-menu-left-4" id="contabilidad">
+                        <img height="40px" src="../images/menu-icono/contabilidadd.png"/>
+                        <span class="pushbar-nombre-left">
+                            Contabilidad
+                        </span>
+                    </li>
+                    <!--<li data-pushbar-target="pushbar-menu-left-5" id="facturacion">
+                        <img height="40px" src="../images/menu-icono/facturaa.png"/>
+                        <span class="pushbar-nombre-left">
+                            Facturación
+                        </span>
+                    </li>-->
+                    <li data-pushbar-target="pushbar-menu-left-6" id="ventas">
+                        <img height="40px" src="../images/menu-icono/ventass.png"/>
+                        <span class="pushbar-nombre-left">
+                            Ventas
+                        </span>
+                    </li>
+                    <li data-pushbar-target="pushbar-menu-left-7" id="rrhh">
+                        <img height="40px" src="../images/menu-icono/rrhhh.png"/>
+                        <span class="pushbar-nombre-left">
+                            R.R.H.H.
+                        </span>
+                    </li>
+                    <!--<li data-pushbar-target="pushbar-menu-left-8" id="bodegas">
+                        <img height="40px" src="../images/menu-icono/boleta.png"/>
+                        <span class="pushbar-nombre-left">
+                            Pedidos
+                        </span>
+                    </li>-->
+                    <li data-pushbar-target="pushbar-menu-left-9" id="laboratorio">
+                        <img height="40px" src="../images/menu-icono/laboratorioo.png"/>
+                        <span class="pushbar-nombre-left">
+                            Laboratorio
+                        </span>
+                    </li>
+                    <!--<li data-pushbar-target="pushbar-menu-left-9" id="administracion">
+                        <img height="40px" src="../images/menu-icono/administracionn.png"/>
+                        <span class="pushbar-nombre-left">
+                            Administración
+                        </span>
+                    </li>-->
+                    <li style="margin-top: 20px;">
+                        <a href="../form/dashboard.php">
+                            <img height="40px" src="../images/menu-icono/homee.png"/>
+                        </a>
+                        <a class="pushbar-nombre-left" href="../form/dashboard.php" style="padding: 15px 130px 15px 27px;">
+                            Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../partials/salir.php">
+                            <img height="40px" src="../images/menu-icono/salirr.png"/>
+                        </a>
+                        <a class="pushbar-nombre-left" href="../partials/salir.php" style="padding: 15px 130px 15px 27px;">
+                            Salir
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-----------------------MENU TOP-------------------------->
+            <div class="pushbar from_top pushbar-menu-top" data-pushbar-id="pushbar-menu-top" id="top">
+                <div class="pushbar-cuadros-top">
+                    <table class="pushbar-iconos-top">
+                        <tr>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="../form/dashboard.php">
+                                    <img alt="" height="105px" src="../images/menu-icono/home.png"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="/">
+                                    <img alt="" height="105px" src="../images/menu-icono/agregar-mas-top.png"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="../contabilidad/cuentasXpagar.php">
+                                    <img alt="" height="105px" src="../images/menu-icono/inventario.png"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="/">
+                                    <img alt="" height="105px" src="../images/menu-icono/agregar-mas-top.png"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="/form/usuario.php">
+                                    <img alt="" height="105px" src="../images/menu-icono/acceso.png"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="/">
+                                    <img alt="" height="105px" src="../images/menu-icono/agregar-mas-top.png"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="/">
+                                    <img alt="" height="105px" src="../images/menu-icono/agregar-mas-top.png"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="/">
+                                    <img alt="" height="105px" src="../images/menu-icono/agregar-mas-top.png"/>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="top-icono pushbar-icono-top-1" href="../partials/salir.php">
+                                    <img alt="" height="105px" src="../images/menu-icono/salir.png"/>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-----------------------MENU PRODUCCION-------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-0">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <a class="menos" href="../produccion/baja-jumbo.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Baja de Jumbo
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/bodega.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Bodega
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/estado-jumbo.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Estado del Jumbo
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/ingreso-materia-prima.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Ingereso Materia Prima
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/materia-prima.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Materia Prima
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/packing-list.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Packing List
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/planta-carbonato.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Planta Carbonato
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/productos.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Producto Final
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/produccion.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Producción
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/turno.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/produccionn.png"/>
+                            Turno
+                        </li>
+                    </a>
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img height="30px" src="../images/menu-icono/regresarr.png" style="float: right; padding-right: 15px; padding-top: 5px;" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!-----------------------MENU LOGISTICA-------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-1">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <a class="menos" href="../logistica/articulo-transaccion.php" id="lArticulo">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Artículo Transacciones
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/arriboPredio.php" id="lArribo">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Arribos a Predio
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/camion-tractor.php" id="lCamion">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Camion o Tractor
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/cargacarbonato.php" id="lCamionada">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Camionada a Planta Carbonato
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/control-camiones.php" id="lControl">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Control de Camiones
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/envioCliente.php" id="lEnvioC">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Envío a Cliente
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/envioPredio.php" id="lEnvioP">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Envío a Predio
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/flete.php" id="lFlete">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Flete
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/planta-carbonato.php" id="lTolva">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Planta Carbonato
+                        </li>
+                    </a>
+                    <a class="menos" href="../logistica/tipo-transporte.php" id="lTipo">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Tipo de Transporte
+                        </li>
+                    </a>
+                    <!--<a class="menos" href="../logistica/transaccion.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Transacciones
+                        </li>
+                    </a>-->
+                    <a class="menos" href="../logistica/transportista.php" id="lTransportista">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Transportista
+                        </li>
+                    </a>
+                    <!--<a class="menos" href="../logistica/tracking.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/logisticaa.png"/>
+                            Tracking
+                        </li>
+                    </a>-->
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!------------------------------COMPRAS--------------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-2">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <a class="menos" href="../compras/proveedor-categoria.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/comprass.png"/>
+                            Asignar Categoria a Proveedor
+                        </li>
+                    </a>
+                    <a class="menos" href="../compras/cotizacion.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/comprass.png"/>
+                            Cotizacion
+                        </li>
+                    </a>
+                    <a class="menos" href="../compras/moneda.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/comprass.png"/>
+                            Moneda
+                        </li>
+                    </a>
+                    <a class="menos" href="../compras/orden-compra.php?estado=cotizado" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/comprass.png"/>
+                            Orden de Compra
+                        </li>
+                    </a>
+                    <a class="menos" href="../compras/proveedor.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/comprass.png"/>
+                            Proveedor
+                        </li>
+                    </a>
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!----------------------------CONTABILIDAD------------------------------>
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-4">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <!--
+                        <a href="../contabilidad/orden-compra.php" class="menos" id="">
+                            <li>
+                                <img src="../images/menu-icono/ordenCompra.png" height="40px" alt="" />
+                                Orden de Compra
+                            </li>
+                        </a>
+                        <a href="../contabilidad/lista-pedidos.php" class="menos" id="">
+                            <li>
+                                <img src="../images/menu-icono/listadoo.png" height="40px" alt="" />
+                                Lista de Pedidos
+                            </li>
+                        </a>
+                    -->
+                    <a class="menos" href="../contabilidad/banco.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/contabilidadd.png"/>
+                            Banco
+                        </li>
+                    </a>
+                    <a class="menos" href="../contabilidad/cheque.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/contabilidadd.png"/>
+                            Cheque
+                        </li>
+                    </a>
+                    <a class="menos" href="../contabilidad/contrasena.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/contabilidadd.png"/>
+                            Contraseña
+                        </li>
+                    </a>
+                    <a class="menos" href="../contabilidad/ingreso-bodega.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/contabilidadd.png"/>
+                            Ingreso de Bodega
+                        </li>
+                    </a>
+                    <a class="menos" href="../contabilidad/numero-cuenta.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/contabilidadd.png"/>
+                            Número de Cuenta
+                        </li>
+                    </a>
+                    <a class="menos" href="../contabilidad/ingreso-orden-compra.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/contabilidadd.png"/>
+                            Ingreso Orden de Compra
+                        </li>
+                    </a>
+                    <a class="menos" href="../contabilidad/cuentasXpagar.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/contabilidadd.png"/>
+                            Cuentas por Pagar
+                        </li>
+                    </a>
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!-----------------------------FACTURACION------------------------------>
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-5">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <!--<a href="../facturacion/factura-proveedor.php" class="menos" id=""><li><img src="../images/menu-icono/facturaProveedorr.png" height="40px" alt="" />Factura Proveedor</li></a>-->
+                    <a class="menos" href="../facturacion/impresion-factura.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/facturaProveedorr.png"/>
+                            Impresión Factura
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/costo.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/facturaProveedorr.png"/>
+                            Costo
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/facturacion.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/facturaProveedorr.png"/>
+                            Facturación
+                        </li>
+                    </a>
+                    <!--<a href="../produccion/linea-facturacion.php" class="menos" id=""><li><img src="../images/menu-icono/facturaProveedorr.png" height="40px" alt="" />Línea Facturación</li></a>-->
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!-------------------------------VENTAS--------------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-6">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <a class="menos" href="../produccion/cliente.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/ventass.png"/>
+                            Cliente
+                        </li>
+                    </a>
+                    <a class="menos" href="../produccion/pedido.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/ventass.png"/>
+                            Pedido
+                        </li>
+                    </a>										<a class="menos" href="../produccion/pedido_temp.php" id="">                        <li>                            <img alt="" height="40px" src="../images/menu-icono/ventass_temp.png"/>                            Pedido (temporal)                        </li>                    </a>
+                    <!--<a href="../produccion/linea-pedido.php" class="menos" id=""><img src="../images/menu-icono/ventass.png" height="40px" alt="" /><li>Linea de Pedido</li></a>-->
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!-----------------------MENU RECURSOS HUMANOS-------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-7">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <a class="menos" href="../rrhh/empleado.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/rrhhh.png"/>
+                            Empleados
+                        </li>
+                    </a>
+                    <a class="menos" href="../Qr/impresion-Qr.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/rrhhh.png"/>
+                            Impresión Qr
+                        </li>
+                    </a>
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!-----------------------MENU METAS-------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-10">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <a class="menos" href="../metas/programacion-bloques.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/procesos.png"/>
+                            Programacion Bloques
+                        </li>
+                    </a>
+                    <a class="menos" href="../metas/meta-bloques.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/procesos.png"/>
+                            Meta Entregas Marfisa
+                        </li>
+                    </a>
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!-----------------------------------INVENTARIO-------------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-3">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <!--<a class="menos" href="../produccion/articulo-bodega.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Artículo Bodega
+                        </li>
+                    </a>-->
+                    <a class="menos" href="../inventarios/bodega.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Bodega
+                        </li>
+                    </a>
+                    <a class="menos" href="../bodegas/orden-pedido.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Orden de Pedido
+                        </li>
+                    </a>
+                    <a class="menos" href="../bodegas/ingreso-producto.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Ingreso Producto
+                        </li>
+                    </a>
+                    <a class="menos" href="../bodegas/ingreso-inventario.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Ingresar a Inventario
+                        </li>
+                    </a>
+                    <a class="menos" href="../bodegas/consumo-suministro.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Asignar Consumo de Producto
+                        </li>
+                    </a>
+                    <a class="menos" href="../bodegas/minmax-suministro.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Asignar Minimo y Maximo
+                        </li>
+                    </a>
+                    <a class="menos" href="../inventarios/categoria.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Categoria
+                        </li>
+                    </a>
+                    <!--<a class="menos" href="../inventarios/suministros.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Suministros
+                        </li>
+                    </a>
+                    <a class="menos" href="../inventarios/tipo-transaccion.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Tipo de Transaccion
+                        </li>
+                    </a>-->
+                    <a class="menos" href="../inventarios/transaccion-bodega.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Transaccion de Bodega
+                        </li>
+                    </a>
+                    <a class="menos" href="../inventarios/unidad-medida.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Unidad de Medida
+                        </li>
+                    </a>
+                    <a class="menos" href="../inventarios/lugaruso-maquinaria.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/inventarioo.png"/>
+                            Maquinaria
+                        </li>
+                    </a>
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!-----------------------MENU RECURSOS HUMANOS-------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-9">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <a class="menos" href="../logistica/laboratorio.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/laboratorio.png"/>
+                            Laboratorio
+                        </li>
+                    </a>
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+            <!-------------------------------------BODEGAS--------------------------------->
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-8">
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+                    X
+                </span>
+                <img alt="" class="pushbar-logo" src="../images/logo/menu.png" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+                <ul class="pushbar-menu-padre-left">
+                    <a class="menos" href="../bodegas/tipo-pedido.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/boletaa.png"/>
+                            Tipo Pedido
+                        </li>
+                    </a>
+                    <a class="menos" href="../bodegas/orden-pedido.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/boletaa.png"/>
+                            Orden de Pedido
+                        </li>
+                    </a>
+                    <a class="menos" href="../bodegas/pedido.php" id="">
+                        <li>
+                            <img alt="" height="40px" src="../images/menu-icono/boletaa.png"/>
+                            Pedido
+                        </li>
+                    </a>
+                    <li data-pushbar-target="pushbar-menu-left">
+                        <img class="back" height="30px" src="../images/menu-icono/regresarr.png" width="40px"/>
+                    </li>
+                </ul>
+            </div>
+        </header>
+    </div>
+   
+</body>
+<style type="text/css">
+    header {
+    background: transparent;
+    height: 50px;
+    }
+
+    .navbar {
+        background-color: #272727;
+        position: fixed;
+        left: 0;
+        z-index: 1000;
+        height: 50px;
+        width: 100%;
+    }
+    #lineas-b {
+        margin-top: -10px;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+    }
+    #lineas-n {
+        display: none;
+        
+    }
+    a:hover {
+        text-decoration: none;
+    }
+
+    ul a li{
+        color: #ffffff;
+        list-style: none;
+    }
+
+    ul a li img{
+        margin-right: 0px;
+    }
+    #nombre {
+        color: white;
+        padding: auto;
+        margin: auto;
+        cursor: pointer;
+        line-height: 50px;
+        height: 100vh;
+    }
+    .top-icono{
+        padding: 3px;
+    }
+    .back{
+    float: right; 
+    padding-right: 15px; 
+    padding-top: 5px;
+    }
+
+  .pushbar-span {
+    background-color: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 800;
+    float: right;
+    padding: 10px;
+    border: transparent;
+  }
+
+  .pushbar-span:hover {
+    color: #FF0000;
+  }
+
+  .menu-opciones {
+    margin-top: 30px;
+    padding: 0;
+  }
+  .icono-menu {
+    float: right;
+    padding-top: 10px;
+    font-size: 10px;
+  }
+
+  .icono-menu-exit {
+    float: right;
+    font-size: 20px;
+  }
+
+  @media (max-width: 767px) {
+    #nav{
+        display: none;
+    }
+    #lineas-n{
+        display: block;
+        float: right;
+        margin-right: -10px;
+        cursor: pointer;
+        z-index: 2000;
+    }
+    form{
+        margin-top: -15px;
+    }
+    #lineas-b{
+        margin-top: -12;
+    }
+}
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    if ("<?php echo $_SESSION['rol']; ?>" == 2) { //PRODUCCION
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        //$('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        //$('#laboratorio').css('display', 'none');
+
+    } else if ("<?php echo $_SESSION['rol']; ?>" == 3) { //LOGISTICA
+
+        $('#top').css('display', 'none');
+        //$('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        //$('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 4) { //COMPRAS
+
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        //$('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 5) { //INVENTARIOS
+
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        //$('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 6) { //CONTABILIDAD
+
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        //$('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 7) { //FACTURACION
+
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        //$('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 8) { //VENTAS
+
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        //$('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 9) { //R.R.H.H.
+
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        //$('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 10) { //BODEGAS
+
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        //$('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 11) { //ADMINISTRACION
+
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#logistica').css('display', 'none');
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        //$('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 12) { //Cargas De Piedra
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#metas').css('display', 'none');
+        
+        //$('#logistica').css('display', 'none');
+        $('#lArticulo').css('display','none');
+        $('#lArribo').css('display','none');
+        $('#lCamion').css('display','none');
+        //$('#lCamionada').css('display','none');
+        $('#lControl').css('display','none');
+        $('#lEnvioC').css('display','none');
+        $('#lEnvioP').css('display','none');
+        $('#lFlete').css('display','none');
+        $('#lTolva').css('display','none');
+        $('#lTransportista').css('display','none');
+        $('#lTipo').css('display','none');
+
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+    }else if ("<?php echo $_SESSION['rol']; ?>" == 13) { //Tolva
+        $('#top').css('display', 'none');
+        $('#produccion').css('display', 'none');
+        $('#metas').css('display', 'none');
+        
+        //$('#logistica').css('display', 'none');
+        $('#lArticulo').css('display','none');
+        $('#lArribo').css('display','none');
+        $('#lCamion').css('display','none');
+        $('#lCamionada').css('display','none');
+        $('#lControl').css('display','none');
+        $('#lEnvioC').css('display','none');
+        $('#lEnvioP').css('display','none');
+        $('#lFlete').css('display','none');
+        $('#lTransportista').css('display','none');
+        //$('#lTolva').css('display','none');
+        $('#lTipo').css('display','none');
+        
+        $('#compras').css('display', 'none');
+        $('#inventarios').css('display', 'none');
+        $('#contabilidad').css('display', 'none');
+        $('#facturacion').css('display', 'none');
+        $('#ventas').css('display', 'none');
+        $('#rrhh').css('display', 'none');
+        $('#bodegas').css('display', 'none');
+        $('#administracion').css('display', 'none');
+        $('#laboratorio').css('display', 'none');
+    }
+    
+});
+</script>

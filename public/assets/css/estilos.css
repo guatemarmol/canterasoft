@@ -1,0 +1,589 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: #ffffff;
+}
+.desaparecer {
+    display: none;
+}
+.ir-arriba {
+    display: none;
+    padding: 10px;
+    background-color: #4F4E4E;
+    font-size: 20px;
+    color: #ffffff;
+    cursor: pointer;
+    position: fixed;
+    bottom: 15px;
+    right: 16px;
+}
+.has-error {
+    border-color: darkred;
+    border-left: solid 3px;
+    border-left-color: darkred;
+}
+.has-succes {
+    border-color: darkgreen;
+    border-left: solid 3px;
+    border-left-color: darkgreen;
+}
+form {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    /*background-color: #ecf0f1;*/
+}
+.SelloAgua::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    opacity: 0.6;
+}
+.SelloAgua {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../images/fondo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#nicknameBitacora {
+    color: #272727;
+    font-size: 16px;
+    padding: 15px;
+    text-align: center;
+    background-color: transparent;
+    outline: none;
+    border: 0px;
+    border-bottom: 1px solid #272727;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    cursor: pointer;
+}
+#departamentoBitacora {
+    color: #272727;
+    font-size: 16px;
+    padding: 1px 1px 15px 1px;
+    text-align: center;
+    background-color: transparent;
+    outline: none;
+    border: 0px;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    margin-top: -13px;
+    cursor: pointer;
+}
+#linea {
+    font-size: 16px;
+    padding: 15px 1px 15px 1px;
+    border-radius: 0px;
+    border-color: transparent;
+    border-bottom-color: #cccccc;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+#lineaBotones {
+    font-size: 1px;
+    padding: 0;
+    border-radius: 0;
+    border-color: transparent;
+    border-bottom-color: #cccccc;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+#icono {
+    cursor: pointer;
+    color: green;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-top: -25px;
+}
+#estado {
+    cursor: pointer;
+    color: green;
+    font-size: 25px;
+    float: right;
+    line-height: 25px
+}
+#jumbo {
+    line-height: 25px;
+    font-size: 15px;
+    font-weight: 800;
+    list-style: none;
+}
+#calendario, #reloj {
+    display: block;
+    cursor: pointer;
+    color: #cccccc;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-top: -25px;
+}
+#fecha {
+    color: #cccccc;
+    font-size: 14px;
+    padding: 15px;
+    text-align: center;
+    background-color: transparent;
+    outline: none;
+    border: 0px;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    margin-left: 5px;
+}
+#hora {
+    color: #cccccc;
+    font-size: 14px;
+    padding: 15px;
+    text-align: center;
+    background-color: transparent;
+    outline: none;
+    border: 0px;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    margin-left: -5px;
+}
+/*PENDIENTE DE ELIMINAR*/
+
+#horaFija, #fechaFija {
+    color: #272727;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+div .espacio {
+    padding-right: 1px;
+    padding-left: 1px;
+}
+.form .descripcion {
+    display: block;
+    text-align: left;
+    font-size: 10px;
+    margin-left: 5px;
+    color: #a7a4a4;
+    text-decoration: none;
+}
+.form .descripcion:hover {
+    color: #a7a4a4;
+}
+.form a {
+    margin-top: 0px;
+    float: center;
+    text-decoration: none;
+}
+.form input[type="text"], .form input[type="tel"], .form input[type="email"], .form input[type="password"], .form input[type="date"], .form input[type="search"], .form textarea {
+    font-size: 14px;
+    color: #000000;
+    width: 100%;
+    outline: none;
+    background: none;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    padding: 5px;
+}
+.form input[type="email"] {
+    text-transform: lowercase;
+}
+.form input[type="text"]:focus, .form input[type="text"]:active, .form input[type="text"]:hover, .form input[type="search"]:focus, .form input[type="search"]:active, .form input[type="search"]:hover, .form input[type="tel"]:focus, .form input[type="tel"]:active, .form input[type="tel"]:hover, .form input[type="email"]:focus, .form input[type="email"]:active, .form input[type="email"]:hover, .form input[type="password"]:focus, .form input[type="password"]:active, .form input[type="password"]:hover, .form input[type="date"]:focus, .form input[type="date"]:active, .form input[type="date"]:hover, .form textarea:focus, .form textarea:active, .form textarea:hover, .form select:focus, .form select:active, .form select:hover {
+    outline: none;
+    border: 1px solid #000000;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+.form textarea {
+    height: 100px;
+    max-height: 100px;
+    min-height: 100px;
+    max-width: 100%;
+    min-width: 100%;
+}
+.form select {
+    margin-top: 0px;
+    color: #949393;
+    height: 34px;
+    font-size: 14px;
+    background-color: transparent;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    border: 1px solid #bababa;
+}
+.form select:focus {
+    color: #000000;
+}
+.form option {
+    margin-top: 0px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #ffffff;
+}
+.form .button {
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    background-color: #515151;
+    border: none;
+    letter-spacing: .1em;
+    border-radius: 2px;
+}
+.form .button-c {
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    background-color: #848484;
+    border: none;
+    letter-spacing: .1em;
+    border-radius: 2px;
+}
+.form .button:hover {
+    background: #2d2d30;
+    color: rgb(255, 255, 255);
+}
+.form .button-c:hover {
+    background: #404044;
+    color: rgb(255, 255, 255);
+    font-weight: normal;
+}
+.form .button-1 {
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    background-color: #515151;
+    border: none;
+    letter-spacing: .1em;
+    border-radius: 2px;
+}
+.form .button-1:active {
+    background: green;
+    color: rgb(255, 255, 255);
+}
+.form .button-1:hover {
+    background: green;
+    color: rgb(255, 255, 255);
+}
+.form .button-1:focus {
+    background: green;
+    color: rgb(255, 255, 255);
+}
+.form .button0 {
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    background-color: #aaaaaa;
+    border: none;
+    letter-spacing: .1em;
+    border-radius: 2px;
+}
+.form .button0:hover {
+    background: #2d2d30;
+    color: rgb(255, 255, 255);
+}
+/*EMPLEADO******************************/
+
+#codigoEmpleado, #codigoEmpresa, #codigoEmpresaM, #codigoDivision, #codigoDivisionM, #codigoSubDivision, #codigoSubDivisionM, #codigoDepartamento, #codigoDepartamentoM, #codigoSeccion, #codigoSeccionM, #codigoPuesto, #codigoPuestoM, #codigoDocumento, #codigoDocumentoM, #codigoEstadoCivil, #codigoEstadoCivilM, #codigoProfesion, #codigoProfesionM, #codigoEncargado, #codigoEncargadoM, #codigoEncargadoMD, #codigoPlanilla {
+    display: block;
+    color: darkred;
+    font-weight: 600;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+#codigo, #numero, #correlativoLaboratorio, #correlativo, #numeroTransaccion, #numeroTransaccion {
+    display: block;
+    color: darkred;
+    font-weight: 600;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+.form .titulo {
+    display: block;
+    font-size: 22px;
+    color: #272727;
+    font-weight: 600;
+    width: 100%;
+}
+.form .titulo:hover {
+    color: #272727;
+}
+.tituloTabla {
+    height: 28px;
+    background-color: #7F7F7F;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 6px;
+    border-color: #000000;
+    text-decoration: none;
+}
+.tituloTabla a {
+    font-size: 15px;
+}
+a {
+    color: #000000;
+    text-decoration: none;
+}
+a:hover {
+    color: #000000;
+}
+td {
+    height: 20px;
+    color: #ffffff;
+    text-align: center;
+}
+td a {
+    height: 20px;
+    text-align: center;
+    font-size: 13px;
+}
+.letrasEditar {
+    color: #105a73;
+    font-weight: 300;
+}
+.letrasEditar:hover {
+    color: #105a73;
+}
+#header {
+    margin: auto;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.nav>li {
+    height: 35px;
+    float: left;
+    text-align: center;
+    border-right: 1px solid;
+    border-right-color: #fff;
+}
+.nav li a {
+    background-color: #cccccc;
+    color: #000000;
+    text-decoration: none;
+    padding: 5px 16px;
+    display: block;
+}
+.nav li a:hover {
+    background-color: #434343;
+    color: #000000;
+    font-weight: 500;
+}
+/*BOTON CERRAR MODAL*********************/
+
+#xEmpresa, #xDivision, #xSubDivision, #xDepartamento, #xSeccion, #xPuesto, #xDocumento, #xEstadoCivil, #xProfesion, #xEncargado {
+    margin-bottom: -30px;
+}
+/*FILA TABLAS*******************************/
+
+#fila0, #fila1, #fila2, #fila3, #fila4, #fila5, #fila6, #fila7, #fila8, #fila9, #fila10, #fila11, #fila12, #fila13, #fila14, #fila15, #fila16, #fila17, #fila18, #fila19, #fila20, #fila21, #fila22, #fila23, #fila24, #fila25, #fila26, #fila27, #fila28, #fila29, #fila30, #fila31, #fila32, #fila33, #fila34, #fila35, #fila36, #fila37, #fila38, #fila39, #fila40, #fila41, #fila42, #fila43, #fila44, #fila45, #fila46, #fila47, #fila48, #fila49, #fila50, #fila51, #fila52, #fila53, #fila54, #fila55, #fila56, #fila57, #fila58, #fila59, #fila60 {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 2px 10px;
+}
+/*BUSCAR***********************************/
+
+#buscarEmpleado, #buscarEmpresa, #buscarDivision, #buscarSubDivision, #buscarDepartamento, #buscarSeccion, #buscarPuesto, #buscarDocumento, #buscarEstadoCivil, #buscarProfesion, #buscarEncagado {
+    color: #272727;
+    font-size: 16px;
+    padding: 15px 1px 15px 1px;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    border-right-color: #fff;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    margin-top: -25px;
+}
+#caja_busqueda, .input-sm {
+    color: #272727;
+    font-size: 16px;
+    padding: 15px 1px 15px 1px;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    border-right-color: #fff;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    margin-top: 15px;
+}
+#menuRRHH {
+    height: 35px;
+    margin-bottom: 5px;
+    background-color: #cccccc;
+    padding: 0px;
+}
+#lEmpleado a, #lEmpresa a, #lDivision a, #lSubDivision a, #lDepartamento a, #lSeccion a, #lPuesto a, #lDocumento a, #lEstadoCivil a, #lProfesion a, #lEncargado a {
+    height: 30px;
+    padding-top: 6px;
+    background-color: transparent;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+#lEmpleado:hover, #lEmpresa:hover, #lDivision:hover, #lSubDivision:hover, #lDepartamento:hover, #lSeccion:hover, #lPuesto:hover, #lDocumento:hover, #lEstadoCivil:hover, #lProfesion:hover, #lEncargado:hover {
+    background: #2d2d30;
+    color: rgb(255, 255, 255);
+}
+#lEmpleado a:hover, #lEmpresa a:hover, #lDivision a:hover, #lSubDivision a:hover, #lDepartamento a:hover, #lSeccion a:hover, #lPuesto a:hover, #lDocumento a:hover, #lEstadoCivil a:hover, #lProfesion a:hover, #lEncargado a:hover {
+    color: rgb(255, 255, 255);
+}
+#buscarEmpleado, #buscarEmpresa, #buscarDivision, #buscarSubDivision, #buscarDepartamento, #buscarSeccion, #buscarPuesto, #buscarDocumento, #buscarEstadoCivil, #buscarProfesion, #buscarEncagado {
+    color: #272727;
+    font-size: 15px;
+    padding: 15px 1px 15px 1px;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    border-right-color: #fff;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    margin-top: -25px;
+}
+#marcoTransaccionBodega {
+    margin-top: 85px;
+    padding: 0px 10px
+}
+#marcoCampos {
+    padding: 20px 10px 10px;
+}
+#marcoSuministros {
+    padding: 40px 10px 1px 10px;
+}
+#marcoFacturacion, #marcoProduccion {
+    padding: 90px 10px 1px 10px;
+}
+#nombreLogo {
+    margin-bottom: -50px;
+}
+.logo {
+    width: 50%;
+    cursor: pointer;
+}
+#search {
+    display: none;
+}
+.oculto {
+    border-color: transparent;
+    color: #ffffff;
+}
+#moneda0, #moneda1, #moneda2, #moneda3, #moneda4, #moneda5, #moneda6, #moneda7, #moneda8, #moneda9, #moneda10, #moneda11, #moneda12, #moneda13, #moneda14, #moneda15, #moneda16, #moneda17, #moneda18, #moneda19, #moneda20 {
+    padding: 1px;
+    padding-left: 10px;
+    font-weight: 800;
+    font-size: 15px;
+    color: #666666;
+}
+#nombres0, #nombres1, #nombres2, #nombres3, #nombres4, #nombres5, #nombres6, #nombres7, #nombres8, #nombres9, #nombres10, #nombres11, #nombres12, #nombres13, #nombres14, #nombres15, #nombres16, #nombres17, #nombres18, #nombres19, #nombres20, #nombres21, #nombres22, #nombres23, #nombres24, #nombres25, #nombres26, #nombres27, #nombres28, #nombres29, #nombres30 {
+    font-size: 14px;
+    font-weight: 900;
+    text-align: right;
+    margin-right: 10px;
+    outline: none;
+    border: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+#nombres0:hover, #nombres1:hover, #nombres2:hover, #nombres3:hover, #nombres4:hover, #nombres5:hover, #nombres6:hover, #nombres7:hover, #nombres8:hover, #nombres9:hover, #nombres10:hover, #nombres11:hover, #nombres12:hover, #nombres13:hover, #nombres14:hover, #nombres15:hover, #nombres16:hover, #nombres17:hover, #nombres18:hover, #nombres19:hover, #nombres20:hover, #nombres21:hover, #nombres22:hover, #nombres23:hover, #nombres24:hover, #nombres25:hover, #nombres26:hover, #nombres27:hover, #nombres28:hover, #nombres29:hover, #nombres30:hover {
+    border: none;
+    cursor: pointer;
+}
+#dias40, #dias60 {
+    font-size: 15px;
+    font-weight: 700;
+    text-align: right;
+    margin-right: 10px;
+    outline: none;
+    border: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.horasExtras {
+    display: block;
+    padding: 1px;
+    padding-left: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #272727;
+}
+#datagridBuscar {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+@media (max-width: 991px) {
+    #nombres {
+        display: none;
+    }
+    .ocultarr, #menuRRHH {
+        display: none;
+    }
+}
+@media (max-width: 767px) {
+    .input-sm {
+        margin-left: -20px;
+    }
+    .logo {
+        width: 70%;
+        margin-bottom: 30px;
+    }
+    .ocultar {
+        display: none;
+    }
+    #nombreLogo {
+        margin-bottom: 10px;
+    }
+    #datagrid {
+        display: none;
+    }
+    #localTabla, #clienteTabla {
+        padding: 0px;
+    }
+    #search {
+        display: block;
+    }
+    #nombreLogoUsuario {
+        margin-bottom: -10px;
+    }
+    #tablaDinamicaLoad_wrapper .dt-buttons, #tablaEmpresa_wrapper .dt-buttons, #tablaDivision_wrapper .dt-buttons, #tablaSubDivision_wrapper .dt-buttons, #tablaDepartamento_wrapper .dt-buttons, #tablaSeccion_wrapper .dt-buttons, #tablaPuesto_wrapper .dt-buttons, #tablaDocumento_wrapper .dt-buttons, #tablaEstadoCivil_wrapper .dt-buttons, #tablaProfesion_wrapper .dt-buttons, #tablaEncargado_wrapper .dt-buttons, #tablaCliente_wrapper .dt-buttons {
+        display: none;
+    }
+    #oculto0, #oculto1, #oculto2, #oculto3, #oculto4, #oculto5, #oculto6 {
+        display: none;
+    }
+}
+@media (max-width: 600px) {
+    .logo {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 400px) {
+    #fecha {
+        margin-left: 10px;
+    }
+    #hora {
+        margin-left: 0px;
+    }
+}
+@media screen and (max-width: 350px) {
+    .tablaEmpresa_filter label {
+        display: none;
+    }
+}
+/*==PIE MODAL=================*/
+
+.eModal {
+    font-weight: 600;
+    font-size: 12px;
+}

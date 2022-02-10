@@ -1,0 +1,396 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="empleado.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_empleados.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <?php
+        $consulta = "SELECT MAX(codigoEmpleado) codigoEmpleado FROM empleado";
+        $ejecutar = mysqli_query($con, $consulta);
+
+        $tabla = mysqli_fetch_array($ejecutar);
+        $codigoEmpleado = $tabla['codigoEmpleado'];
+        $codigoEmpleado++;
+    ?>
+    <div class="row thumbnail SelloAgua" style="margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="background-color: #f7f7f7; padding-top: 20px; padding-bottom: 10px;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocapitalize="characters" class="form-control" id="codigoEmpleado" name="codigoEmpleado" onchange="javascript:this.value=this.value.toUpperCase();" placeholder="Código Empleado" style="color: darkred; font-weight: 600; text-align: center; font-size: 16px;" type="text" value="<?php echo $codigoEmpleado;?>"/>
+                    <a class="descripcion" id="descripcion-codigo">
+                        Código Empleado
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 5px; margin-bottom: 5px; text-align: center">
+                    <input checked="" class="flat-red" id="activo" name="estado" type="radio" value="Activo"/>
+                    <label for="activo" id="act">
+                        Activo
+                    </label>
+                    <input class="flat-red" id="suspendido" name="estado" type="radio" value="Suspendido"/>
+                    <label for="suspendido" id="sus">
+                        Suspendido
+                    </label>
+                </div>
+            </div>
+            <!---------------------------------------------------------------->
+            <!---------------------------------------------------------------->
+            <?php include 'barra-izquierda/agregar-sub.html' ?>
+            <!---------------------------------------------------------------->
+            <!---------------------------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ocultar" id="espacioGris">
+                <!---------------------ESPACIO VERTICAL GRIS------------------------>
+            </div>
+            <!---------------------------------------------------------------->
+            <!---------------------------------------------------------------->
+            <?php include 'barra-izquierda/agregar-salario.html' ?>
+            <!---------------------------------------------------------------->
+            <!---------------------------------------------------------------->
+            <?php include 'barra-izquierda/contacto.html' ?>
+            <!---------------------------------------------------------------->
+            <!---------------------------------------------------------------->
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" style="padding-top: 20px;">
+            <div class="col-xs-0 col-sm-0 col-md-3 col-lg-3 espacio ocultar" id="nombres">
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Ingreso y Egreso:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Nombres y Apellidos:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Nacimiento:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres8" readonly="" type="text" value="Tipo Documento:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres8" readonly="" type="text" value="Identificación:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres9" readonly="" type="text" value="Direccion:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres11" readonly="" type="text" value="Departamento:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres12" readonly="" type="text" value="Municipio:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres17" readonly="" type="text" value="Nacionalidad:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres13" readonly="" type="text" value="Correo:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres14" readonly="" type="text" value="Teléfono:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Género:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Estado Civil:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres18" readonly="" type="text" value="NIT:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres6" readonly="" type="text" value="Profesión:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres7" readonly="" type="text" value="Nivel Academico:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="" type="text" value="Tipo Contrato:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres10" readonly="" type="text" value="Region:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres15" readonly="" type="text" value="ETNIA:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres16" readonly="" type="text" value="Idioma:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres19" readonly="" type="text" value="IGSS:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres20" readonly="" type="text" value="IRTRA:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres21" readonly="" type="text" value="Licencia:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres22" readonly="" type="text" value="Tipo Licencia:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres24" readonly="" type="text" value="Tipo Sangre:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 espacio">
+                <!---------------------------------------------------------------->
+                <!---------------------------------------------------------------->
+                <?php include 'datos-principales/datos-principales.html' ?>
+                <!---------------------------------------------------------------->
+                <!---------------------------------------------------------------->
+                <?php include 'afiliaciones/afiliaciones.html' ?>
+                <!---------------------------------------------------------------->
+                <!---------------------------------------------------------------->
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="tipoSangre" list="tipoS" name="tipoSangre" onkeyup="saltar(event,'emergenciaAvisar')" placeholder="Ttipo Sangre" type="text" value="<?php echo $tipoSangre;?>"/>
+                    <datalist id="tipoS">
+                        <option value="A -">
+                            A -
+                        </option>
+                        <option value="A +">
+                            A +
+                        </option>
+                        <option value="B -">
+                            B -
+                        </option>
+                        <option value="B +">
+                            B +
+                        </option>
+                        <option value="AB -">
+                            AB -
+                        </option>
+                        <option value="AB +">
+                            AB +
+                        </option>
+                        <option value="O -">
+                            O -
+                        </option>
+                        <option value="O +">
+                            O +
+                        </option>
+                    </datalist>
+                    <a class="descripcion" id="descripcion-tipoSangre">
+                        Tipo Sangre
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <?php date_default_timezone_set("America/Guatemala"); ?>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                        <input class="form-control usuario-contador" id="horaFija" name="horaEmpleado" readonly="" type="hidden" value="<?php $timestamp = time()+date('Z'); echo gmdate('H:i:s',$timestamp); ?>"/>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                        <input class="form-control usuario-contador" id="fechaFija" name="fechaEmpleado" readonly="" type="hidden" value="   <?php $timestamp = time()+date('Z'); echo gmdate('d/m/Y',$timestamp); ?>"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3 col-sm-7 col-md-7 col-lg-6 espacio">
+                    </div>
+                    <div class="col-xs-9 col-sm-5 col-md-5 col-lg-6 espacio">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                            <i class="glyphicon glyphicon-time" id="reloj">
+                            </i>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                            <i class="glyphicon glyphicon-calendar" id="calendario">
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/rrhh/empleado/cargar.php'; ?>
+    </div>
+    <div class="row" style="padding-top: 10px; padding-bottom: 15px;">
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="empleado.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-erase">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="row mensaje" id="mensaje">
+    </div>
+</div>
+<style type="text/css">
+    #empresaSub{
+        margin-bottom: 15px;
+    }
+    .has-error{
+      border-color: darkred;
+      border-left: solid 3px;
+      border-left-color: darkred;
+    }
+
+    .has-succes{
+      border-color: darkgreen;
+      border-left: solid 3px;
+      border-left-color: darkgreen;
+    }
+    .agregar{
+        display: block;
+        font-size: 20px;
+        line-height: 30px;
+        font-weight: 900;
+        text-align: center;
+        color: #cccccc;
+        cursor: pointer;
+    }
+    .agregar:hover{
+        color: #515151;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        if('<?php echo $estado; ?>' == "Activo"){
+            $("#activo").attr('checked', true);
+        }else if('<?php echo $estado; ?>' == "Suspendido"){
+            $("#suspendido").attr('checked', true);
+        }
+        
+        if ('<?php echo $codigoEmpleado1;?>' != ""){
+           var codigoEmpleado = '<?php echo $codigoEmpleado1;?>'
+           document.getElementById('codigoEmpleado').value = codigoEmpleado;
+        }else{
+        }
+        
+        if ('<?php echo $numeroIdentificacion ?>' != ""){
+            
+             var doc = '<?php echo $numeroIdentificacion ?>';
+             var arr = doc.split(" ");
+             var doc0 = (arr[0]);
+             var doc1 = (arr[1]);
+             var doc2 = (arr[2]);
+                           
+            document.getElementById('documentoIdentificacion0').value = doc0;
+            document.getElementById('documentoIdentificacion0').style.textAlign = 'center';
+                
+            document.getElementById('documentoIdentificacion1').value = doc1;
+            document.getElementById('documentoIdentificacion1').style.textAlign = 'center';
+                
+            document.getElementById('documentoIdentificacion2').value = doc2;
+            document.getElementById('documentoIdentificacion2').style.textAlign = 'center';
+        }else{
+            
+        }
+        
+        if ('<?php echo $correo;?>' != ""){
+           var correo = '<?php echo $correo;?>'
+           document.getElementById('correo').value = correo;
+        }else{
+        }
+        
+        if ('<?php echo $salarioOrdinario;?>' != ""){
+           var salarioOrdinario = '<?php echo $salarioOrdinario;?>'
+           document.getElementById('salarioOrdinario').value = salarioOrdinario;
+        }else{
+        }
+        
+         if ('<?php echo $bonificacionDecreto;?>' != ""){
+           var bonificacionDecreto = '<?php echo $bonificacionDecreto;?>'
+           document.getElementById('bonificacionDecreto').value = bonificacionDecreto;
+        }else{
+        }
+        
+        if ('<?php echo $bonoProductividad;?>' != ""){
+           var bonoProductividad = '<?php echo $bonoProductividad;?>'
+           document.getElementById('bonoProductividad').value = bonoProductividad;
+        }else{
+        }
+        
+        if ('<?php echo $totalSueldo;?>' != ""){
+           var totalSueldo = '<?php echo $totalSueldo;?>'
+           document.getElementById('totalSueldo').value = totalSueldo;
+        }else{
+        }
+
+        if ('<?php echo $fechaEmpleado ?>' != ""){
+           var fechaEmpleado = '<?php echo $fechaEmpleado ?>'
+           document.getElementById('fechaFija').value = fechaEmpleado;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $horaEmpleado ?>' != ""){
+           var horaEmpleado = '<?php echo $horaEmpleado ?>'
+           document.getElementById('horaFija').value = horaEmpleado;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+    $('#agregarE').click(function () {
+        $('#empresaSub').toggle("low");
+        $('#razonSocialEmpresa').focus();
+    });
+    $('#agregarD').click(function () {
+        $('#divisionSub').toggle("low");
+        $('#nombreDivision').focus();
+    });
+    $('#agregarS').click(function () {
+        $('#subDivisionSub').toggle("low");  
+        $('#nombreSubDivision').focus();
+    });
+</script>

@@ -1,0 +1,229 @@
+<form>
+    <div class="contenedor">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+                <a href="cliente.php">
+                    <img class="logo" id="nombreLogo" src="../images/nombre/1_cliente.png"/>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>">
+                    <i class="glyphicon glyphicon-user" id="icono">
+                    </i>
+                    <a class="descripcion">
+                        Usuario
+                    </a>
+                    <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>">
+                    </input>
+                </input>
+            </div>
+        </div>
+        <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">
+            <?php 
+                include '../on-database.php';
+                $consulta = "SELECT MAX(codigoCliente) codigoCliente FROM cliente";
+                $ejecutar = mysqli_query($con, $consulta);
+
+                $tabla = mysqli_fetch_array($ejecutar);
+                $codigoCliente = $tabla['codigoCliente'];
+                $codigoCliente++;
+            ?>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="" type="text" value="Código:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres1" readonly="" type="text" value="Nombre Comercial:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres2" readonly="" type="text" value="NIT:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres3" readonly="" type="text" value="Nombre Contacto:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres4" readonly="" type="text" value="Teléfono:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Correo:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Dirección Fiscal:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Dirección Entrega 1:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Dirección Entrega 2:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Dirección Entrega 3:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <!--<input type="text" id="nombres6" class="form-control" value="Fecha y Hora:" readonly>
+                    <a class="descripcion">.</a>-->
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control" id="codigoCliente" name="codigoCliente" onkeyup="saltar(event,'nombreComercialCliente')" placeholder="Código Cliente" readonly="off" type="text" value="<?php echo $codigoCliente;?>"/>
+                            <a class="descripcion" id="descripcion-codigoCliente">
+                                Código
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="nombreComercialCliente" name="nombreComercialCliente" onkeyup="saltar(event,'nitCliente')" placeholder="Nombre Comercial" type="text" value="<?php echo $nombreComercialCliente;?>"/>
+                        <a class="descripcion" id="descripcion-nombreComercialCliente">
+                            Nombre Comercial
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control capitalizeText" id="nitCliente" name="nitCliente" onkeyup="saltar(event,'nombreContactoCliente')" placeholder="NIT" type="text" value="<?php echo $nitCliente;?>"/>
+                            <a class="descripcion" id="descripcion-nitCliente">
+                                NIT
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="nombreContactoCliente" name="nombreContactoCliente" onkeyup="saltar(event,'telefonoCliente')" placeholder="Nombre Contacto" type="text" value="<?php echo $nombreContactoCliente;?>"/>
+                        <a class="descripcion" id="descripcion-nombreContactoCliente">
+                            Nombre Contacto
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="telefonoCliente" name="telefonoCliente" onkeyup="saltar(event,'pbxCliente')" placeholder="Teléfono" type="text" value="<?php echo $telefonoCliente;?>"/>
+                        <a class="descripcion" id="descripcion-telefonoCliente">
+                            Teléfono
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="pbxCliente" name="pbxCliente" onkeyup="saltar(event,'correoCliente')" placeholder="PBX" type="text" value="<?php echo $pbxCliente;?>"/>
+                        <a class="descripcion" id="descripcion-pbxCliente">
+                            PBX
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="correoCliente" name="correoCliente" onkeyup="saltar(event,'direccionFiscalCliente')" placeholder="Correo Electronico" type="text" value="<?php echo $correoCliente;?>"/>
+                        <a class="descripcion" id="descripcion-correoCliente">
+                            Correo Electronico
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="direccionFiscalCliente" name="direccionFiscalCliente" onkeyup="saltar(event,'direccionEntrega1Cliente')" placeholder="Dirección Fiscal" type="text" value="<?php echo $direccionFiscalCliente;?>"/>
+                        <a class="descripcion" id="descripcion-direccionFiscalCliente">
+                            Dirección Fiscal
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="direccionEntrega1Cliente" name="direccionEntrega1Cliente" onkeyup="saltar(event,'direccionEntrega2Cliente')" placeholder="Dirección Entrega 1" type="text" value="<?php echo $direccionEntrega1Cliente;?>"/>
+                        <a class="descripcion" id="descripcion-direccionEntrega1Cliente">
+                            Dirección Entrega 1
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="direccionEntrega2Cliente" name="direccionEntrega2Cliente" onkeyup="saltar(event,'direccionEntrega3Cliente')" placeholder="Dirección Entrega 2" type="text" value="<?php echo $direccionEntrega2Cliente;?>"/>
+                        <a class="descripcion" id="descripcion-direccionEntrega2Cliente">
+                            Dirección Entrega 2
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="direccionEntrega3Cliente" name="direccionEntrega3Cliente" onkeyup="saltar(event,'cargar')" placeholder="Dirección Entrega 3" type="text" value="<?php echo $direccionEntrega3Cliente;?>"/>
+                        <a class="descripcion" id="descripcion-direccionEntrega3Cliente">
+                            Dirección Entrega 3
+                        </a>
+                    </div>
+                    <?php date_default_timezone_set("America/Guatemala"); ?>
+                    <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control" id="horaFija" name="horaCliente" value="<?php $timestamp = time()+date("Z"); echo gmdate("H:i:s",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-time" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-horaCliente">Hora</a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control" id="fechaFija" name="fechaCliente" value="   <?php $timestamp = time()+date("Z"); echo gmdate("d/m/Y",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-calendar" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-fechCliente">Fecha</a>
+                </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+            <?php include '../funciones/produccion/cliente/cargar.php'; ?>
+        </div>
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ">
+                <button class="button" id="cargar" type="button">
+                    <span class="glyphicon glyphicon-fullscreen">
+                    </span>
+                    Cargar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <button class="button" id="agregar" type="button">
+                    <span class="glyphicon glyphicon-plus">
+                    </span>
+                    Guardar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <a href="cliente.php">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-unchecked">
+                        </span>
+                        Limpiar
+                    </button>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <a href="javascript:window.close();">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-remove">
+                        </span>
+                        Cerrar
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row mensaje" id="mensaje">
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $codigoCliente1;?>' != ""){
+           var codigoCliente = '<?php echo $codigoCliente1;?>'
+           document.getElementById('codigoCliente').value = codigoCliente;
+        }else{
+        }
+
+        if ('<?php echo $fechaCliente ?>' != ""){
+           var fechaCliente = '<?php echo $fechaCliente ?>'
+           document.getElementById('fechaFija').value = fechaCliente;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $horaCliente ?>' != ""){
+           var horaCliente = '<?php echo $horaCliente ?>'
+           document.getElementById('horaFija').value = horaCliente;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+</script>

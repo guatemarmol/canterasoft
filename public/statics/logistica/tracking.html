@@ -1,0 +1,447 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="tracking.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_tracking.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 5px 20px; margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Producto:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Toneladas:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Estatus:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Aplica Horario de Restricción:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Chequeo No. 1:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Chequeo No. 2:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Chequeo No. 3:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Chequeo No. 4:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Fecha y Hora:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <!-------------------------------->
+                    <!-------------------------------->
+                    <?php
+                        $consulta = "SELECT * FROM productos";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+                    <select class="form-control" id="producto" name="producto" onkeyup="saltar(event,'toneladas')" placeholder="Producto" type="text" value="<?php echo $producto ?>">
+                        <option value="Producto">
+                            Producto
+                        </option>
+                        <?php foreach ($ejecutar as $productos): ?>
+                        <option value="<?php echo $productos['nombreEspecifico']?>">
+                            <?php echo $productos['nombreEspecifico']?>
+                        </option>
+                        <? endforeach; ?>
+                    </select>
+                    <a class="descripcion" id="descripcion-productos">
+                        Producto
+                    </a>
+                    <!-------------------------------->
+                    <!-------------------------------->
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <input class="form-control" id="peso" name="peso" readonly="on" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="t">
+                            <a class="descripcion">
+                                Peso
+                            </a>
+                        </input>
+                    </div>
+                    <div class="col-xs-10 col-sm-5 col-md-5 col-lg-5 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="toneladas" name="toneladas" onkeyup="saltar(event,'estatus')" placeholder="Toneladas" type="text" value="<?php echo $toneladas ?>"/>
+                        <a class="descripcion" id="descripcion-toneladas">
+                            Toneladas
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="toneladas1" name="toneladas1" onkeyup="saltar(event,'estatus')" placeholder="Placa" type="text" value="<?php echo $toneladas1 ?>"/>
+                        <a class="descripcion" id="descripcion-toneladas1">
+                            Placa
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <select class="form-control capitalizeText" id="estatus" name="estatus" onkeyup="saltar(event,'valorPorJumbo')" placeholder="Estatus" type="text" value="<?php echo $estatus ?>">
+                            <option value="Seleccionar">
+                                Seleccionar
+                            </option>
+                            <option value="Descargada">
+                                Descargada
+                            </option>
+                            <option value="Pendiente de Descarga">
+                                Pendiente de Descarga
+                            </option>
+                            <option value="Cargada en Transito">
+                                Cargada en Transito
+                            </option>
+                            <option value="Programada Jueves">
+                                Programada Jueves
+                            </option>
+                        </select>
+                        <a class="descripcion" id="descripcion-estatus">
+                            Estatus
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                            <div class="form-group" style="margin-bottom: -1px;">
+                                <div class="input-group date" id="datetimepicker3">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                                    <input class="form-control" placeholder="Día Carga" type="text"/>
+                                </div>
+                                <a class="descripcion">
+                                    Día Carga
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                            <div class="form-group" style="margin-bottom: -1px;">
+                                <div class="input-group date" id="datetimepicker3">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time">
+                                        </span>
+                                    </span>
+                                    <input class="form-control" placeholder="Hora Salida" type="text"/>
+                                </div>
+                                <a class="descripcion">
+                                    Hora Salida
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <select class="form-control" name="select">
+                            <option value="Seleccionar">
+                                Seleccionar
+                            </option>
+                            <option value="Si">
+                                Si
+                            </option>
+                            <option value="No">
+                                No
+                            </option>
+                        </select>
+                        <a class="descripcion" id="descripcion-estatus">
+                            Aplica Horario de Restricción
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                            <input class="form-control" id="nombres0" readonly="" type="text" value="ETA:"/>
+                            <a class="descripcion">
+                                .
+                            </a>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                            <div class="form-group" style="margin-bottom: -1px;">
+                                <div class="input-group date" id="datetimepicker3">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar">
+                                        </span>
+                                    </span>
+                                    <input class="form-control" placeholder="ETA Dia" type="text"/>
+                                </div>
+                                <a class="descripcion">
+                                    ETA Dia
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                            <div class="form-group" style="margin-bottom: -1px;">
+                                <div class="input-group date" id="datetimepicker3">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time">
+                                        </span>
+                                    </span>
+                                    <input class="form-control" placeholder="ETA Hora" type="text"/>
+                                </div>
+                                <a class="descripcion">
+                                    ETA Hora
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <div class="form-group" style="margin-bottom: -1px;">
+                            <div class="input-group date" id="horaChequeo1">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time">
+                                    </span>
+                                </span>
+                                <input class="form-control" placeholder="Hora Chequeo #1" type="text"/>
+                            </div>
+                            <a class="descripcion">
+                                Hora Chequeo #1
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" placeholder="Ubicación" type="text"/>
+                        <a class="descripcion" id="descripcion-horaSalida">
+                            Ubicación
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <div class="form-group" style="margin-bottom: -1px;">
+                            <div class="input-group date" id="horaChequeo2">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time">
+                                    </span>
+                                </span>
+                                <input class="form-control" placeholder="Hora Chequeo #2" type="text"/>
+                            </div>
+                            <a class="descripcion">
+                                Hora Chequeo #2
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" placeholder="Ubicación" type="text"/>
+                        <a class="descripcion" id="descripcion-horaSalida">
+                            Ubicación
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <div class="form-group" style="margin-bottom: -1px;">
+                            <div class="input-group date" id="horaChequeo3">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time">
+                                    </span>
+                                </span>
+                                <input class="form-control" placeholder="Hora Chequeo #3" type="text"/>
+                            </div>
+                            <a class="descripcion">
+                                Hora Chequeo #3
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" placeholder="Ubicación" type="text"/>
+                        <a class="descripcion" id="descripcion-horaSalida">
+                            Ubicación
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <div class="form-group" style="margin-bottom: -1px;">
+                            <div class="input-group date" id="horaChequeo4">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time">
+                                    </span>
+                                </span>
+                                <input class="form-control" placeholder="Hora Chequeo #4" type="text"/>
+                            </div>
+                            <a class="descripcion">
+                                Hora Chequeo #4
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" placeholder="Ubicación" type="text"/>
+                        <a class="descripcion" id="descripcion-horaSalida">
+                            Ubicación
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 espacio">
+                        <div class="form-group" style="margin-bottom: -1px;">
+                            <div class="input-group date" id="fechaLlegada">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                <input class="form-control" placeholder="Fecha Llegada" type="text"/>
+                            </div>
+                            <a class="descripcion">
+                                Fecha Llegada
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 espacio">
+                        <div class="form-group" style="margin-bottom: -1px;">
+                            <div class="input-group date" id="horaLlegada">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time">
+                                    </span>
+                                </span>
+                                <input class="form-control" placeholder="Hora Llegada" type="text"/>
+                            </div>
+                            <a class="descripcion">
+                                Hora Llegada
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 espacio">
+                        <div class="form-group" style="margin-bottom: -1px;">
+                            <div class="input-group date" id="fechaDescarga">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar">
+                                    </span>
+                                </span>
+                                <input class="form-control" placeholder="Fecha Descarga" type="text"/>
+                            </div>
+                            <a class="descripcion">
+                                Fecha Descarga
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 espacio">
+                        <div class="form-group" style="margin-bottom: -1px;">
+                            <div class="input-group date" id="horaDescarga">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time">
+                                    </span>
+                                </span>
+                                <input class="form-control" placeholder="Hora Descarga" type="text"/>
+                            </div>
+                            <a class="descripcion">
+                                Hora Descarga
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-612col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="flete.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-erase">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: darkgreen;
+        border-left: solid 3px;
+        border-left-color: darkgreen;
+    }
+    .button{
+        margin-bottom: 2px;
+    }
+    @media (max-width: 767px){
+        #tablaFlete_wrapper .dt-buttons{
+            display: none;
+        }
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+       $('#fechaDescarga').datetimepicker({
+           locale: 'ru'
+       });
+    });
+    $(function () {
+       $('#horaDescarga').datetimepicker({
+           format: 'LT'
+       });
+    });
+</script>

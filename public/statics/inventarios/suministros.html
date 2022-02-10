@@ -1,0 +1,274 @@
+<form>
+    <div class="contenedor">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+                <a href="suministros.php">
+                    <img class="logo" id="nombreLogo" src="../images/nombre/1_suministro.png"/>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+                <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+                <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+                <i class="glyphicon glyphicon-user " id="icono">
+                </i>
+                <a class="descripcion" style="color: green">
+                    Usuario
+                </a>
+                <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+            </div>
+        </div>
+        <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">
+            <?php 
+                include '../on-database.php';
+                $consulta = "SELECT MAX(codigo) codigo FROM suministrosInventarios";
+                $ejecutar = mysqli_query($con, $consulta);
+
+                $tabla = mysqli_fetch_array($ejecutar);
+                $codigo = $tabla['codigo'];
+                $codigo++;
+            ?>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                    <input class="form-control" id="nombres0" readonly="" type="text" value="Código:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres1" readonly="" type="text" value="Descripción:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres2" readonly="" type="text" value="Bodega:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres3" readonly="" type="text" value="Categoria:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres4" readonly="" type="text" value="Unidad de Medida:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Existencia:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Ubicación :"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Equivalente 1:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Equivalente 2:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <input class="form-control" id="nombres5" readonly="" type="text" value="Fecha Último Ingreso:"/>
+                    <a class="descripcion">
+                        .
+                    </a>
+                    <!--<input type="text" id="nombres6" class="form-control" value="Fecha y Hora:" readonly/>
+                        <a class="descripcion">.</a>-->
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="codigo" name="codigo" onkeyup="saltar(event,'descripcion')" placeholder="Código" readonly="" type="text" value="<?php echo $codigo;?>"/>
+                        <a class="descripcion" id="descripcion-codigo">
+                            Código
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control" id="descripcion" name="descripcion" onkeyup="saltar(event,'bodega')" placeholder="Descripción" type="text" value="<?php echo $descripcion;?>"/>
+                        <a class="descripcion" id="descripcion-descripcion">
+                            Descripción
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+                        <?php
+                               $consulta = "SELECT * FROM bodegaInventarios";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                        <input autocomplete="off" class="form-control" data-target="#Bodega" data-toggle="modal" id="bodega" list="sb" name="bodega" onkeyup="saltar(event,'categoria')" placeholder="Bodega" type="text" value="<?php echo $bodega;?>"/>
+                        <datalist id="sb">
+                            <?php foreach ($ejecutar as $bodegaInventarios): ?>
+                            <option value="<?php echo $bodegaInventarios['nombre']?>">
+                            </option>
+                            <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion" id="descripcion-bodega">
+                            Bodega
+                        </a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="bodega.php" onclick="window.open(this) return false;" target="newWin">
+                            <button class="button0" type="button">
+                                <span class="glyphicon glyphicon-edit">
+                                </span>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+                        <?php
+                               $consulta = "SELECT * FROM categoriaInventarios";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                        <input autocomplete="off" class="form-control" data-target="#Categoria" data-toggle="modal" id="categoria" list="sc" name="categoria" onkeyup="saltar(event,'unidadMedida')" placeholder="Categoria" type="text" value="<?php echo $categoria;?>"/>
+                        <datalist id="sc">
+                            <?php foreach ($ejecutar as $categoriaInventarios): ?>
+                            <option value="<?php echo $categoriaInventarios['nombre']?>">
+                            </option>
+                            <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion" id="descripcion-categoria">
+                            Categoria
+                        </a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="categoria.php" onclick="window.open(this) return false;" target="newWin">
+                            <button class="button0" type="button">
+                                <span class="glyphicon glyphicon-edit">
+                                </span>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+                        <?php
+                               $consulta = "SELECT * FROM unidadMedidaInventarios";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                        <input autocomplete="off" class="form-control" data-target="#UnidadMedida" data-toggle="modal" id="unidadMedida" list="us" name="unidadMedida" onkeyup="saltar(event,'existencia')" placeholder="Unidad de Medida" type="text" value="<?php echo $unidadMedida;?>"/>
+                        <datalist id="us">
+                            <?php foreach ($ejecutar as $unidadMedidaInventarios): ?>
+                            <option value="<?php echo $unidadMedidaInventarios['nombre']?>">
+                            </option>
+                            <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion" id="descripcion-unidadMedida">
+                            Unidad de Medida
+                        </a>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+                        <a href="unidad-medida.php" onclick="window.open(this) return false;" target="newWin">
+                            <button class="button0" type="button">
+                                <span class="glyphicon glyphicon-edit">
+                                </span>
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="existencia" name="existencia" onkeyup="saltar(event,'ubicacion')" placeholder="Existencia" type="text" value="<?php echo $existencia;?>"/>
+                        <a class="descripcion" id="descripcion-existencia">
+                            Existencia
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control" id="ubicacion" name="ubicacion" onkeyup="saltar(event,'equivalente1')" placeholder="Ubicación" type="text" value="<?php echo $ubicacion;?>"/>
+                        <a class="descripcion" id="descripcion-ubicacion">
+                            Ubicación
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control" id="equivalente1" name="equivalente1" onkeyup="saltar(event,'equivalente2')" placeholder="Equivalente 1" type="text" value="<?php echo $equivalente1;?>"/>
+                        <a class="descripcion" id="descripcion-equivalente1">
+                            Equivalente 1
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <input autocomplete="off" class="form-control" id="equivalente2" name="equivalente2" onkeyup="saltar(event,'fechaUltimoIngreso')" placeholder="Equivalente 2" type="text" value="<?php echo $equivalente2;?>"/>
+                        <a class="descripcion" id="descripcion-equivalente2">
+                            Equivalente 2
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                            <input autocomplete="off" class="form-control" id="fechaUltimoIngreso" name="fechaUltimoIngreso" onkeyup="saltar(event,'cargar')" placeholder="Fecha Último Ingreso" type="text" value="<?php echo $fechaUltimoIngreso;?>"/>
+                            <a class="descripcion" id="descripcion-fechaUltimoIngreso">
+                                Fecha Último Ingreso
+                            </a>
+                        </div>
+                    </div>
+                    <?php date_default_timezone_set("America/Guatemala"); ?>
+                    <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control" id="horaFija" name="hora" value="<?php $timestamp = time()+date("Z"); echo gmdate("H:i:s",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-time" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-horaSuministro">Hora</a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input type="text" class="form-control" id="fechaFija" name="fecha" value="   <?php $timestamp = time()+date("Z"); echo gmdate("d/m/Y",$timestamp); ?>" readonly>
+                    <i class="glyphicon glyphicon-calendar" id="icono"></i>
+                    <a class="descripcion"  id="descripcion-fechaSuministro">Fecha</a>
+                </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+            <?php include '../funciones/inventarios/suministros/cargar.php'; ?>
+        </div>
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <button class="button" id="cargar" type="button">
+                    <span class="glyphicon glyphicon-fullscreen">
+                    </span>
+                    Cargar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <button class="button" id="agregar" type="button">
+                    <span class="glyphicon glyphicon-plus">
+                    </span>
+                    Guardar
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <a href="suministros.php">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-unchecked">
+                        </span>
+                        Limpiar
+                    </button>
+                </a>
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <a href="javascript:window.close();">
+                    <button class="button" type="button">
+                        <span class="glyphicon glyphicon-remove">
+                        </span>
+                        Cerrar
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row mensaje" id="mensaje">
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $codigo1;?>' != ""){
+           var codigo = '<?php echo $codigo1;?>'
+           document.getElementById('codigo').value = codigo;
+        }else{
+        }
+
+        if ('<?php echo $fecha ?>' != ""){
+           var fecha = '<?php echo $fecha ?>'
+           document.getElementById('fechaFija').value = fecha;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $hora ?>' != ""){
+           var hora = '<?php echo $hora ?>'
+           document.getElementById('horaFija').value = hora;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+</script>

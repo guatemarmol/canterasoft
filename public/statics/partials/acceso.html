@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<?php require 'acceso.php'?>
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+        <link href="images/icono.ico" rel="shortcut icon" type="image/x-icon"/>
+        <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" name="viewport"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="../assets/css/bootstrap.css" rel="stylesheet"/>
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../assets/css/acceso.css" rel="stylesheet"/>
+    </head>
+    <body class="fondo" onload="fondoMensaje();">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2">
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="form" style="padding: 10px;">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <img alt="" class="img-responsive logo-login" onclick="javascript:location.reload()" src="../images/logo/logo.png"/>
+                            </div>
+                        </div>
+                        <form action="" class="form-login" id="form" method="post">
+                            <div class="row" style=" padding: 20px 20px 0px 20px;">
+                                <span class="fa fa-user" id="user" style="display: block; margin-left: 10px; margin-bottom: -35px; color: #c4c4c4; font-size: 22px;">
+                                </span>
+                                <input class="form-control" id="usuario" name="usuario" onchange="javascript:this.value=this.value.toUpperCase();" oninput="validar0();" placeholder="Usuario" required="required" style="text-align: center;" type="text"/>
+                                <a class="descripcion" id="descripcion-usuario" style=" margin-top: 4px; margin-bottom: 20px;">
+                                    Usuario
+                                </a>
+                                <span class="fa fa-key" id="key" style="display: block; margin-left: 10px; margin-bottom: -35px; color: #c4c4c4; font-size: 22px;">
+                                </span>
+                                <input class="form-control" id="password" name="contrasena" oninput="validar1();" placeholder="Contraseña" required="required" style="text-align: center;" type="password"/>
+                                <a class="descripcion" id="descripcion-contrasena" style=" margin-top: 4px; margin-bottom: 20px;">
+                                    Contraseña
+                                </a>
+                                <div class="alert" id="alert" style="width: 100%; text-align: center;  margin-bottom: 15px; margin-top: -15px;">
+                                    <?php echo isset($alert)? $alert: ''; ?>
+                                </div>
+                            </div>
+                            <button class="button button-block" id="ingresar" name="ingresar" style="margin-top: -20px;" type="submit">
+                                <span class="fa fa-check">
+                                </span>
+                                Ingresar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 ">
+                </div>
+            </div>
+        </div>
+        <?php require 'funciones-js.php'?>
+    </body>
+</html>
+<script type="text/javascript">
+    function validar(e) { // 1
+        tecla = (document.all) ? e.keyCode : e.which; // 2
+        if (tecla==8) return true; // 3
+        patron =/[A-Za-z\s]/; // 4
+        te = String.fromCharCode(tecla); // 5
+        return patron.test(te); // 6
+     }
+</script>
+<style type="text/css">
+    .forgot-link:hover{
+        color: yellow;
+    }
+    .logo-login{
+        cursor: pointer; 
+        width: 100%; 
+    }
+    @media (max-width: 750px){
+
+    }
+</style>

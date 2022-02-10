@@ -1,0 +1,218 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="control-camiones.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    INGRESO DE PRODUCTOS
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+
+    <?php 
+        $consulta = "SELECT * FROM categoriasuministros ORDER BY 2";
+        $categorias = mysqli_query($con, $consulta);
+
+        $consulta = "SELECT * FROM unidadsuministros ORDER BY 2";
+        $medidas = mysqli_query($con, $consulta);
+    ?>
+
+    <div class="row thumbnail SelloAgua" style="padding: 15px; margin-bottom: 1px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-6 align-self-center text-center">
+            <div class="form-group row" id="divCodigo">
+                <label for="codigo" class="col-sm-2 col-md-3 col-form-label text-right">Codigo</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="codigo"  name="codigo" placeholder="Codigo" value="<?php echo $codigo;?>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="descripcion" class="col-sm-2 col-md-3 col-form-label text-right">Descripcion</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion" value="<?php echo $descripcion;?>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="color" class="col-sm-2 col-md-3 col-form-label text-right">Color</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="color" name="color" placeholder="Color" value="<?php echo $color;?>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="categoria" class="col-sm-2 col-md-3 col-form-label text-right">Categoria</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="categoria" name="categoria">                        
+                        <?php foreach ($categorias as $descripcion): ?>
+                        <? if ($descripcion['codigo'] == $categoria): ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>" selected>
+                        <? else: ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>">
+                        <? endif; ?>
+                        <?php echo ($descripcion['categoria']);?>
+                        </option>
+                        <? endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="medida" class="col-sm-2 col-md-3 col-form-label text-right">Unidad de Medida</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="medida" name="medida">
+                        <?php foreach ($medidas as $descripcion): ?>
+                        <? if ($descripcion['codigo'] == $unidad): ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>" selected>
+                        <? else: ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>">
+                        <? endif; ?>
+                        <?php echo ($descripcion['unidad']);?>
+                        </option>
+                        <? endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="equivalente1" class="col-sm-2 col-md-3 col-form-label text-right">Equivalente 1</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="equivalente1" name="equivalente1" placeholder="Equivalente 1" value="<?php echo $equivalente1;?>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="equivalente2" class="col-sm-2 col-md-3 col-form-label text-right">Equivalente 2</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="equivalente2" name="equivalente2" placeholder="Equivalente 2" value="<?php echo $equivalente2;?>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2 col-md-3 col-xs-2"></div>
+                <div class="col-sm-4 col-xs-5">
+                    <button class="button" id="agregar" type="button" value="Guardar">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        Guardar
+                    </button>        
+                </div>
+                <div class="col-sm-4 col-xs-5">
+                    <button class="button" id="limpiar" type="button">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        Limpiar
+                    </button>        
+                </div>
+            </div>
+        </div>
+        <!-- HORA Y FECHA -->
+        <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+        </div>
+        <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                <i class="glyphicon glyphicon-time" id="reloj">
+                </i>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                <i class="glyphicon glyphicon-calendar" id="calendario">
+                </i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de Usuario -->
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/bodegas/ingreso-producto/cargar.php'; ?>
+    </div>
+
+</div>
+<style type="text/css">
+    .button, .button-1{
+        margin-bottom:2px;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    } 
+    .has-succes {
+        border-color: #cccccc;
+        border-left: solid 1px;
+        border-color: black;
+    }
+    .eModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .list{
+    margin-top: 10px;
+    width: 100%;
+    }
+    .list td, .list th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        color: black;
+        
+    }
+    .list tr:nth-child(even), .list thead>tr {
+        background-color: #dddddd;
+    }
+    .modificarcelda, .eliminarcelda{
+        cursor: pointer;
+        color: black;
+    }
+    .modificarcelda:hover{
+        color: blue;
+    }
+    .eliminarcelda:hover{
+        color: red;
+    }
+    @media (min-width: 992px) and (max-width: 1200px) { 
+        .codigobarra{
+            position: absolute;
+            left: 550px;
+            top: 200px;
+            text-align: center;
+        
+        }
+    }
+    @media (min-width: 1200px) { 
+        .codigobarra{
+            position: absolute;
+            left: 650px;
+            top: 200px;
+        }
+
+    }
+    @media (min-width: 1500px) { 
+        .codigobarra{
+            position: absolute;
+            left: 800px;
+            top: 200px;
+        }
+
+    }
+    @media (min-width: 1750px) { 
+        .codigobarra{
+            position: absolute;
+            left: 950px;
+            top: 200px;
+        }
+    }
+    @media (max-width: 1200px){
+        #codigobarra, #imprimirbarcode{
+            display: none;
+        }
+    }
+</style>

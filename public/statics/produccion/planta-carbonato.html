@@ -1,0 +1,164 @@
+<div class="contenedor">
+    <div class="row" id="titulo">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="planta-carbonato.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    Planta Carbonato
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="row" id="usuarioyeso">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+            <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>">
+                <i class="glyphicon glyphicon-user" id="icono">
+                </i>
+                <a class="descripcion">
+                    Usuario
+                </a>
+                <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>">
+                </input>
+            </input>
+        </div>
+    </div>
+
+    <div class="row thumbnail SelloAgua" id="formulario" style="padding: 20px; margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-4 espacio ocultar"></div>
+
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                            $consulta = "SELECT COUNT(id) numero FROM inventarioCarbonato WHERE fecha = (SELECT CURDATE());";
+                            $ejecutar = mysqli_query($con, $consulta);
+
+                            $fila = mysqli_fetch_array($ejecutar);
+                            $numero = formatoCodigo($fila['numero']);   
+
+                            function formatoCodigo($numero){
+                                $numero++;
+                                $fecha = date("Ymd");
+                                $codigo = "";
+                                if($numero < 10){
+                                    $codigo = $fecha."00".$numero;
+                                }else if($numero < 100){
+                                    $codigo = $fecha."0".$numero;
+                                }else{
+                                    $codigo = $fecha.$numero;
+                                }
+                                return $codigo;
+                            }
+                        ?>
+                        <input id="unidad" name="unidad" style="display: none;" value="<?php echo $numero?>"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <label for="producto"><strong>Producto: </strong></label>
+                        <select style="width: 100%;" id="producto" name="producto">
+                            <option value="0" selected>Seleccione un Producto</option>
+                            <option value="3/8">3/8</option>
+                            <option value="5">5</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="325">325</option>
+                        </select>
+                        <a class="descripcion" id="descripcion-peso">
+                            Producto
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <label for="peso"><strong>Peso: </strong></label>
+                        <input autocomplete="off" class="form-control" id="peso"  min="0" name="peso" placeholder="Peso (kg)" type="number"/>
+                        <a class="descripcion" id="descripcion-peso">
+                            Peso (kg)
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 espacio">
+                </div>
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 espacio">
+                    <button class="button" id="guardar" type="button">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="codigos" class="codigos">
+        <div class="row">
+            <!-- <img src="../images/logo/logo-guatemarmol.png" style="width: 250px; height: 75px;"> -->
+            
+            <svg id="barcode2"></svg>
+            <svg id="barcode"></svg>
+            <a class="descripcion" id="descripcion-peso">
+                Código Generado
+            </a>
+        </div>
+    </div>
+    
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        
+    </div>
+    
+    <!--
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 espacio ocultar">
+            <button class="button" id="cargarPlanta" name="cargarPlanta" type="button">
+                <span class="glyphicon glyphicon-fullscreen">
+                </span>
+                Cargar
+            </button>
+        </div>
+    </div>
+    -->
+</div>
+<style type="text/css">
+    /*div{
+        border-style: solid;
+        border-color: olive;
+    }*/
+</style>
+
+<style type="text/css" media="print">
+    @media print{
+        #usuarioyeso{display: none;}
+        #formulario{display: none;}
+        #titulo{display: none;}
+        #descripcion-peso{display: none;}
+        header, footer, nav, aside, title{
+            display: none;
+        }
+        @page{
+            margin: 20;
+            size: auto  ;
+        }
+    }
+</style>
+

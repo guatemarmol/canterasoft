@@ -1,0 +1,600 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="orden-pedido.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_orden-pedido.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!---VACIO- -->
+            <!-- ------- -->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <!-- ----------------------- MUESTRA EL CORRELATIVO --------------------------- -->
+    <!-- ------------------------------------------------------------------------ -->
+    <?php 
+        if($_REQUEST['codigo']){
+            $codigo = $_REQUEST['codigo'];
+            $consulta = "SELECT * FROM ordenPedido WHERE codigo = $codigo;";
+            $ejecutar = mysqli_query($con, $consulta);
+
+            $pedido = mysqli_fetch_array($ejecutar);
+            $numero = $pedido['codigo'];
+
+        } else {
+            $consulta = "SELECT MAX(idPedido) numero FROM ordenPedido WHERE fecha = (SELECT CURDATE());";
+            $ejecutar = mysqli_query($con, $consulta);
+
+            $fila = mysqli_fetch_array($ejecutar);
+            $numero = formatoCodigo($fila['numero']);
+        }   
+
+        function formatoCodigo($numero){
+            $numero++;
+            $fecha = date("Ymd");
+            $codigo = "";
+            if($numero < 10){
+                $codigo = $fecha."00".$numero;
+            }else if($numero < 100){
+                $codigo = $fecha."0".$numero;
+            }else{
+                $codigo = $fecha.$numero;
+            }
+            return $codigo;
+        }
+    ?>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 10px 10px 10px; margin-bottom: 1px;">
+        <!-------------------------TITULO 1 : ORDEN DE COMPRA------------------------------>
+        <div class="row pegartablet">
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-6 espacio">
+                <center>
+                    <h3 style="font-weight: 700;">
+                        ORDEN DE PEDIDO
+                    </h3>
+                </center>
+            </div>
+        </div>
+        <!-- -----------------------NOMBRES IZQUIERDA---------------------------- -->
+        <!-- -------------------------------------------------------------------- -->
+        <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar tablet">
+            <input class="form-control" disabled="" id="nombres0" type="text" value="Código:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" disabled="" id="nombres1" type="text" value="Usuario:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" disabled="" id="nombres2" type="text" value="Empresa:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" disabled="" id="nombres0" type="text" value="Área:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" disabled="" id="nombres4" type="text" value="Solicitante:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" disabled="" id="nombres5" type="text" value="Encargado de Área:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" disabled="" id="nombres5" type="text" value="Nota de Pedido:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" disabled="" id="nombres3" type="text" value="Status:"/>
+            <a class="descripcion">
+                .
+            </a>
+            <input class="form-control" disabled="" id="nombres5" type="text" value="Autorización:"/>
+            <a class="descripcion">
+                .
+            </a>
+        </div>
+        <div class="col-xs-12 col-sm-9 col-md-6 col-lg-6 espacio">
+            <!------------------NUMERO---------------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="numero" name="numero" onkeyup="saltar(event,'fechaIngreso')" placeholder="Número de Pedido" readonly="" type="text" value="<?php echo $numero?>"/>
+                    <a class="descripcion" id="descripcion-numero">
+                        Número de Pedido
+                    </a>
+                </div>
+            </div>
+            <!------------------USUARIO DEL SISTEMA------------------->
+            <!-------------------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="usuario" name="usuario" readonly="" type="text" value="<?php echo $_SESSION['username'].' '.$_SESSION[username0];?>"/>
+                    <a class="descripcion" id="descripcion-usuario">
+                        Usuario del Sistema
+                    </a>
+                </div>
+            </div>
+            <!------------EMPRESA-------------->
+            <!------------------------------- -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="empresa" name="empresa" readonly="" type="text" value="Guatemarmol S.A."/>
+                    <a class="descripcion" id="descripcion-usuario">
+                        Empresa que solicita la compra
+                    </a>
+                </div>
+            </div>
+            <!-- ----------------BODEGA-------------------- -->
+            <!-- ------------------------------------------ -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <!--<select class="form-control" id="bodega" name="bodega" onchange="VerificarBodega(this.value)">-->
+                    <select class="form-control" id="bodega" name="bodega">
+                        <option value="">
+                            Seleccione el Área
+                        </option>
+                        <!-----------Se importa la clase php para colocar dentro de este div lo que hay en ese archivo php--------->
+                        <!------------------------------------------------------------------------------------------------>
+                        <?php include '../funciones/bodegas/orden-pedido/cargar-bodega.php'?>
+                    </select>
+                    <a class="descripcion" id="descripcion-lineaIngreso">
+                        Área
+                    </a>
+                </div>
+            </div>
+            <!-------------SOLICITANTE------------>
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="solicitante" name="solicitante" onkeyup="saltar(event,'factura')" placeholder="Solicitante" type="text"/>
+                    <a class="descripcion" id="descripcion-lineaOrden">
+                        Solicitante
+                    </a>
+                </div>
+            </div>
+            <!--------------REFERENCIA PRODUCTO------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="referencia" name="referencia" onkeyup="saltar(event,'cargar')" placeholder="Encargado de Área" type="text"/>
+                    <a class="descripcion" id="descripcion-factura">
+                        Encargado
+                    </a>
+                </div>
+            </div>
+            <!-------------COMENTARIO O NOTA------------>
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="comentariopedido" name="comentariopedido" onkeyup="saltar(event,'factura')" placeholder="Nota de Pedido" type="text"/>
+                    <a class="descripcion" id="descripcion-cantidadPedido">
+                        Nota de Pedido
+                    </a>
+                </div>
+            </div>
+            <!----------------STATUS DE ORDEN-------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="status" name="status" placeholder="Status" readonly="" type="text" value="Activo"/>
+                    <a class="descripcion" id="descripcion-ordenCompra">
+                        Status de la Orden
+                    </a>
+                </div>
+            </div>
+            <!------------------AUTORIZACION-------------->
+            <!---------------------------------------------->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="autorizacion" name="autorizacion" onkeyup="saltar(event,'cargar')" placeholder="Número de Autorización" readonly="" type="text" value="Pendiente"/>
+                    <a class="descripcion" id="descripcion-factura">
+                        Autorización
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-------------------------TITULO 2 : LISTAR PRODUCTO------------------------------>
+        <div class="centrar">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 espacio">
+                    <center>
+                        <h3 style="font-weight: 700;">
+                            LISTAR PRODUCTO
+                        </h3>
+                    </center>
+                </div>
+            </div>
+            <!-------------------------NOMBRES IZQUIERDA------------------------------>
+            <!------------------------------------------------------------------------>
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar tablet">
+                <input class="form-control" disabled="" id="nombres0" type="text" value="Código:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled="" id="nombres2" type="text" value="Unidad:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled="" id="nombres3" type="text" value="Descripción:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled="" id="nombres6" type="text" value="Saldo Actual:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled="" id="nombres6" type="text" value="Consumo Mensual:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled="" id="nombres1" type="text" value="Cantidad:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled="" id="nombres4" type="text" value="Máquina:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled="" id="nombres5" type="text" value="Observación: "/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled="" id="nombres6" type="text" value="Horómetro:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 espacio">
+                <!------------------CODIGO---------------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <?php
+                               $consulta = "SELECT * FROM   producto;";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                    <input autocomplete="off" class="form-control" id="codigoproducto" list="pro" name="codigoproductoproducto" onkeyup="saltar(event,'tipoTransaccion')" placeholder="Producto" type="text"/>
+                    <datalist id="pro">
+                        <?php foreach ($ejecutar as $descripcion): ?>
+                        <option value="<?php echo ($descripcion['codigo']);?>">
+                            <?php echo $descripcion['descripcion'];?>
+                        </option>
+                        <? endforeach; ?>
+                    </datalist>
+                    <a class="descripcion" id="descripcion-producto">
+                        Producto
+                    </a>
+                </div>
+                <!------------UNIDAD DE PRODUCTO-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="unidadproducto" name="unidadproducto" onkeyup="saltar(event,'ordenCompra')" placeholder="Unidad de Producto" type="text"/>
+                        <a class="descripcion" id="descripcion-unidadproducto">
+                            Unidad de Producto
+                        </a>
+                    </div>
+                </div>
+                <!-----------------ORDEN DE COMPRA-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="descripcionproducto" name="descripcionproducto" onkeyup="saltar(event,'lineaOrden')" placeholder="Descripción Producto" type="text"/>
+                        <a class="descripcion" id="descripcion-producto">
+                            Descripción de producto
+                        </a>
+                    </div>
+                </div>
+                <!-----------------SALDO ACTUAL-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="saldo" name="saldo" placeholder="Saldo Actual" type="number"/>
+                        <a class="descripcion" id="descripcion-horometro">
+                            Saldo Actual
+                        </a>
+                    </div>
+                </div>
+                <!-------------CONSUMO MENSUAL------------>
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="consumo" name="consumo" placeholder="Consumo Mensual" type="number"/>
+                        <a class="descripcion" id="descripcion-horometro">
+                            Consumo Mensual
+                        </a>
+                    </div>
+                </div>
+                <!------------------Cantidad de Producto---------------------->
+                <!-------------------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="cantidadproducto" name="cantidadproducto" onkeyup="saltar(event,'lineaIngreso')" placeholder="Cantidad de producto" type="number"/>
+                        <a class="descripcion" id="descripcion-cantidadproducto">
+                            Cantidad de Producto
+                        </a>
+                    </div>
+                </div>
+                <!-------------LINEA ORDEN DE COMPRA------------>
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="maquinaproducto" min="1" name="maquinaproducto" onkeyup="saltar(event,'factura')" placeholder="Máquina" type="text"/>
+                        <a class="descripcion" id="descripcion-cantidadproducto">
+                            Máquina
+                        </a>
+                    </div>
+                </div>
+                <!-------------COMENTARIO O NOTA------------>
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="observacionproducto" name="observacionproducto" onkeyup="saltar(event,'factura')" placeholder="Observación" type="text"/>
+                        <a class="descripcion" id="descripcion-observacionproducto">
+                            Observación de producto
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="horometro" name="horometro" placeholder="Horometro" type="number"/>
+                        <a class="descripcion" id="descripcion-horometro">
+                            Horómetro
+                        </a>
+                    </div>
+                </div>
+                <!--CAMPOS DE TABLA SIN NECESIDAD DE INGRESO -->
+                <!--------------------------------------------->
+                <input hidden="" id="minimo"/>
+                <input hidden="" id="maximo"/>
+            </div>
+        </div>
+        <!--Vamos a realizar una division para nuestra tabla de previsualizacion de lor producos, esta tendra las 12 columnas (Osea 100% de utilizacion dentro del mapeo (Este esta medito dentro de un thumbail) asi se ocupara todo el espacio-->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <!--Usaremos una clase de bootsrap para realizar nuestra table responsivo-->
+            <div class="table-responsive">
+                <!--Creamos nuestra table, el width esta al 100% ya que tambien tiene que cazar con el div que nos habilita el espacio dentro del grid-->
+                <table class="list" id="listaproducto" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                Código
+                            </th>
+                            <th>
+                                Cantidad
+                            </th>
+                            <th>
+                                U/Med.
+                            </th>
+                            <th>
+                                Descripción
+                            </th>
+                            <th>
+                                Máquina
+                            </th>
+                            <th>
+                                Consumo Mensual
+                            </th>
+                            <th>
+                                Saldo Actual
+                            </th>
+                            <th>
+                                Mínimo
+                            </th>
+                            <th>
+                                Máximo
+                            </th>
+                            <th>
+                                Horómetro
+                            </th>
+                            <th>
+                                Observación
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <!--Crearemos solo el cuerpo de la tabla, con la clase cuerpoTabla usaremos Jquery para recorrer sus datos y propiamente, ingresar aqui los datos dinamicamente con javascript-->
+                    <tbody class="cuerpoTabla">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">  </div>
+        
+        <div class="row">
+            <!------------------FECHA Y HORA---------------->
+            <!---------------------------------------------->
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row datagrid" id="dataIngresados" style="padding-top: 15px; padding-bottom: -20px">
+    <?php include '../funciones/bodegas/orden-pedido/cargar-pedidos.php' ?>
+</div>
+
+<div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+    <!------------------CARGAR---------------------->
+    <!---------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="cargar" type="button">
+            <a href="#datosIngresados">
+            </a>
+            <span class="glyphicon glyphicon-th-list">
+            </span>
+            Cargar
+        </button>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-6 col-lg-4 espacio ocultar">
+    </div>
+    <!------------------AGREGAR PRODUCTO---------------------->
+    <!---------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="agregarproducto" onclick="guardarProducto()" type="button">
+            <span class="glyphicon glyphicon-plus">
+            </span>
+            Agregar
+        </button>
+    </div>
+    <!------------------GUARDAR---------------------->
+    <!---------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="guardarOrden" type="button">
+            <span class="glyphicon glyphicon-plus">
+            </span>
+            Guardar
+        </button>
+    </div>
+    <!------------------LIMPIAR--------------------->
+    <!---------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <a href="orden-pedido.php">
+            <button class="button" type="button">
+                <span class="glyphicon glyphicon-unchecked">
+                </span>
+                Limpiar
+            </button>
+        </a>
+    </div>
+</div>
+<script src="../js/bodegas/orden-pedido.js">
+</script>
+<script src="../librerias/sheetjs/xlsx.full.min.js" type="text/javascript">
+</script>
+<script src="../librerias/filesaver/FileSaver.min.js" type="text/javascript">
+</script>
+<style type="text/css">
+    .button{
+        margin-bottom:2px;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: #cccccc;
+        border-left: solid 1px;
+        border-color: black;
+    }
+    .eModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+    
+    /*El nombre de nuestra clase de table es list, Extendemos las propiedades de la clase table de Bootstrap*/
+    .list{
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    /*Colocamos bordes a nuestra tabla*/
+    .list td, .list th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        color: black;
+        
+    }
+
+    /*Colocamos color a los hijos pares de la tabla y al encabezado*/
+    .list tr:nth-child(even), .list thead>tr {
+        background-color: #dddddd;
+    }
+
+    /*CAMBIAMOS EL CURSOS A NUESTRAS CELDAS ELIMINAR Y MODIFICAR CREADAS DINAMICAMENTE*/
+    .modificarcelda, .eliminarcelda{
+        cursor: pointer;
+    }
+
+
+    /*CAMBIAMOS EL COLOR A LOS ICONOS A NUESTRAS CELDAS ELIMINAR Y MODIFICAR CREADAS DINAMICAMENTE*/
+    .modificarcelda:hover{
+        color: blue;
+    }
+    .eliminarcelda:hover{
+        color: red;
+    }
+
+    /*vamos a hacer un quiebre justo en 992 para posicionar los divs a la derecha para pantalla grande*/
+    @media (min-width: 768px) and (max-width: 992px){ 
+        .centrar {  /*Esta clase es para centrar los divs de Producto a la izquierda*/
+            position: absolute;
+            top: 20px;
+            left: 400px;
+        }  
+        .tablet{ /*Esta clase esconden los nombres tipo label*/
+            display: none;
+        }
+        .pegartablet{ /*Esta clase va a correr el titulo a la izquierda*/
+            position: relative;
+            margin-left: -200px;
+        }
+    }
+    
+    /*vamos a hacer un quiebre justo en 992 para posicionar los divs a la derecha para pantalla grande*/
+    @media (min-width: 992px) { 
+        .centrar {
+            position: absolute;
+            top: 20px;
+            left: 496px;
+        } 
+    }
+
+    /*vamos a hacer un quiebre justo en 1200 para posicionar los divs a la derecha para pantalla extra grande*/
+    @media (min-width: 1200px) { 
+        .centrar {
+            position: absolute;
+            top: 20px;
+            left: 600px;
+        } 
+    }
+
+    @media (min-width: 1500px) { 
+        .centrar {
+            position: absolute;
+            top: 20px;
+            left: 700px;
+        }
+    }
+
+
+    /*vamos a hacer un quiebre justo en 1500 para posicionar los divs a la derecha para pantalla extra grande*/
+    @media (min-width: 1750px) { 
+        .centrar {
+            position: absolute;
+            top: 20px;
+            left: 800px;
+        }
+    }
+</style>

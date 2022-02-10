@@ -1,0 +1,248 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="cargacarbonato.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    Carga de Materia Prima
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!---VACIO- -->
+            <!-- ------- -->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    
+    <div class="row thumbnail SelloAgua" style="padding: 20px 10px 10px 10px; margin-bottom: 1px;">
+        <div class="row tablet">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-3 espacio"></div>
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-6 espacio">
+                <center>
+                    <h3 style="font-weight: 700;">
+                        REGISTRO DE CARGA
+                    </h3>
+                </center>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-3 espacio"></div>
+        </div>
+        <br>
+        <br>
+<!--
+        <div class="row">    
+            <div class="col-xs-12 col-sm-9 col-md-6 col-lg-5 espacio"></div>
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 espacio">
+                <label for="camion"><strong>Camión: </strong></label>
+                <select class="selectpicker" id="camion" name="camion">
+                    <option value="1">Camión 1</option>
+                    <option value="2">Camión 2</option>
+                </select>
+            </div>
+        </div>
+-->
+        <div class="row">    
+            <center>
+                <div class="col-xs-12 col-sm-9 col-md-6 col-lg-5 espacio"></div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 espacio">
+                    <label for="camion"><strong>Camión: </strong></label>
+                    <?php
+                        $consulta = "SELECT * FROM maquinaria WHERE codigotipo = 2;";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+                    <!--    <select class="selectpicker" id="camion" name="camion" >    -->
+                    <select id="camion" name="camion" style="width: 85%;">
+                        <option value="0">
+                            Seleccione Camión
+                        </option>
+                        <?php foreach ($ejecutar as $camion): ?>
+                        <option value="<?php echo $camion['id']?>">
+                            <?php echo $camion['descripcion']. ' - ' .$camion['placa']?>
+                        </option>
+                        <? endforeach; ?>
+                    </select>
+                    <a class="descripcion" id="camion">
+                        .
+                    </a>
+                </div>
+            </center>
+        </div>
+
+        <div class="row">    
+            <center>
+                <div class="col-xs-11 col-sm-9 col-md-5 col-lg-5 espacio"></div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4 espacio">
+                    <label for="piedra"><strong>Piedra:  </strong></label>
+                    <select id="piedra" name="piedra" style="width: 85%;">
+                        <option value="Carbonato de Calcio">Carbonato de Calcio</option>
+                        <option value="Dolomita">Dolomita</option>
+                        <option value="Esquiato">Esquisto</option>
+                    </select>
+                </div>
+            </center>
+        </div>
+        <br>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <!--Usaremos una clase de bootsrap para realizar nuestra table responsivo-->
+            <div class="table-responsive">
+                <!--Creamos nuestra table, el width esta al 100% ya que tambien tiene que cazar con el div que nos habilita el espacio dentro del grid-->
+                <table class="list" id="cargas" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Camión</th>
+                            <th>Piedra</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th><span class="glyphicon glyphicon-trash"></span></th>
+                            
+                        </tr>
+                    </thead>
+                    <!--Crearemos solo el cuerpo de la tabla, con la clase cuerpoTabla usaremos Jquery para recorrer sus datos y propiamente, ingresar aqui los datos dinamicamente con javascript-->
+                    <tbody class="cuerpoTabla">
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <!------------------FECHA Y HORA---------------->
+            <!---------------------------------------------->
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+    
+    <div class="col-xs-6 col-sm-3 col-md-6 col-lg-3 espacio ocultar">
+    </div>
+    <!------------------AGREGAR PRODUCTO---------------------->
+    <!---------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="agregar" type="button">
+            <span class="glyphicon glyphicon-plus">
+            </span>
+            Agregar
+        </button>
+    </div>
+    <!------------------GUARDAR---------------------->
+    <!---------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="guardar" type="button">
+            <span class="glyphicon glyphicon-floppy-disk">
+            </span>
+            Guardar
+        </button>
+    </div>
+    <!------------------LIMPIAR--------------------->
+    <!---------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <a href="cargacarbonato.php">
+            <button class="button" type="button">
+                <span class="glyphicon glyphicon-unchecked">
+                </span>
+                Limpiar
+            </button>
+        </a>
+    </div>
+</div>
+
+<script src="../js/sweetalert.js"></script>
+
+<style type="text/css">
+
+    /*div {
+        border-style: solid;
+        border-color: rgb(66, 163, 107);
+    }*/
+
+    tbody {
+        display: block;
+        height: 200px;
+        overflow: auto;
+    }
+    thead, tbody tr {
+        display: table;
+        width: 100%;
+    }
+
+    .button{
+        margin-bottom:2px;
+    }
+    
+    
+    .list{
+        margin-top: 10px;
+        width: 100%;
+    }
+
+
+    .list td, .list th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        color: black;
+        
+    }
+    
+    .list tr:nth-child(even), .list thead>tr {
+        background-color: #dddddd;
+    }
+
+    /*CAMBIAMOS EL CURSOS A NUESTRAS CELDAS ELIMINAR Y MODIFICAR CREADAS DINAMICAMENTE*/
+    .eliminarcelda{
+        cursor: pointer;
+    }
+
+    .eliminarcelda:hover{
+        color: red;
+    }
+
+    .btn2 {
+        background-color: rgb(255, 30, 0); /* Blue background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 10px 10px; /* Some padding */
+        font-size: 16px; /* Set a font size */
+        cursor: pointer; /* Mouse pointer on hover */
+    }
+
+@media (min-width: 768px) and (max-width: 992px){ 
+    
+    .tablet{
+        display: none;
+    }
+    .pegartablet{
+        position: relative;
+        margin-left: -200px;
+    }
+}
+</style>

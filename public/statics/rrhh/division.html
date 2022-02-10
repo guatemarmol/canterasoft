@@ -1,0 +1,190 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="division.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_division.png">
+                </img>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+            <input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+            <input class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>">
+                <i class="glyphicon glyphicon-user" id="icono">
+                </i>
+                <a class="descripcion">
+                    Usuario
+                </a>
+                <input class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>">
+                </input>
+            </input>
+        </div>
+    </div>
+    <?php 
+      $consulta = "SELECT MAX(codigoDivision) codigoDivision FROM division";
+      $ejecutar = mysqli_query($con, $consulta);
+
+      $tabla = mysqli_fetch_array($ejecutar);
+      $codigoDivision = $tabla['codigoDivision'];
+      $codigoDivision++;
+    ?>
+    <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px; ">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Código:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Nombre:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Descripción:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Encargado:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="" type="text" value="Fecha y Hora:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="codigoDivision" name="codigoDivision" onkeyup="saltar(event,'nombreDivision')" placeholder="Código División" readonly="off" style="color: darkred; font-weight: 600; text-align: center; font-size: 16px;" type="text" value="<?php echo $codigoDivision;?>"/>
+                    <a class="descripcion" id="">
+                        Código División
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="nombreDivision" name="nombreDivision" onkeyup="saltar(event,'descripcionDivision')" placeholder="Nombre División" type="text" value="<?php echo $nombreDivision;?>"/>
+                    <a class="descripcion" id="descripcion-nombreDivision">
+                        Nombre División
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="descripcionDivision" name="descripcionDivision" onkeyup="saltar(event,'nombreEncargado')" placeholder="Descripción División" type="text" value="<?php echo $descripcionDivision;?>"/>
+                    <a class="descripcion" id="descripcion-descripcionDivision">
+                        Descripción División
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <?php
+                           $consulta = "SELECT * FROM encargado";
+                           $ejecutar = mysqli_query($con, $consulta);
+                        ?>
+                    <input autocomplete="off" class="form-control" id="nombreEncargado" list="enc" name="nombreEncargado" onkeyup="saltar(event,'cargar')" placeholder="Encargado" type="text" value="<?php echo $nombreEncargado;?>"/>
+                    <datalist id="enc">
+                        <?php foreach ($ejecutar as $encargado): ?>
+                        <option value="<?php echo $encargado['nombreEncargado']?>">
+                        </option>
+                        <? endforeach; ?>
+                    </datalist>
+                    <a class="descripcion" id="descripcion-nombreEncargado">
+                        Encargado
+                    </a>
+                </div>
+                <?php date_default_timezone_set("America/Guatemala"); ?>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input class="form-control usuario-contador" id="horaFija" name="horaDivision" readonly="true" type="text" value="<?php $timestamp = time()+date('Z'); echo gmdate('H:i:s',$timestamp); ?>">
+                        <i class="glyphicon glyphicon-time" id="icono">
+                        </i>
+                        <a class="descripcion" id="descripcion-horaDivision">
+                            Hora
+                        </a>
+                    </input>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input class="form-control usuario-contador" id="fechaFija" name="fechaDivision" readonly="true" type="text" value="   <?php $timestamp = time()+date('Z'); echo gmdate('d/m/Y',$timestamp); ?>"/>
+                    <i class="glyphicon glyphicon-calendar" id="icono">
+                    </i>
+                    <a class="descripcion" id="descripcion-fechaDivision">
+                        Fecha
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-fullscreen">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+            <a href="division.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-unchecked">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+            <button class="button" onclick="window.close();" type="button">
+                <span class="glyphicon glyphicon-remove">
+                </span>
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .has-error{
+  border-color: darkred;
+  border-left: solid 3px;
+  border-left-color: darkred;
+}
+
+.has-succes{
+  border-color: darkgreen;
+  border-left: solid 3px;
+  border-left-color: darkgreen;
+}
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+    $('#datagrid').load('../funciones/rrhh/division/cargar.php');
+
+    if ('<?php echo $codigoDivision1;?>' != ""){
+       var codigoDivision1 = '<?php echo $codigoDivision1;?>'
+       document.getElementById('codigoDivision').value = codigoDivision1;
+    }else{
+    }
+
+    if ('<?php echo $fechaDivision ?>' != ""){
+       var fechaDivision = '<?php echo $fechaDivision ?>'
+       document.getElementById('fechaFija').value = fechaDivision;
+       document.getElementById('fechaFija').style.color = '#000000';
+    }else{
+    }
+
+    if ('<?php echo $horaDivision ?>' != ""){
+       var horaDivision = '<?php echo $horaDivision ?>'
+       document.getElementById('horaFija').value = horaDivision;
+       document.getElementById('horaFija').style.color = '#000000';
+    }else{
+    }
+
+  });
+</script>

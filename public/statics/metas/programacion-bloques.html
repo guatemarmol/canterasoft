@@ -1,0 +1,200 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="programacion-bloques.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    Programacion de Bloques
+                </h1>
+            </a>
+        </div>
+    </div>
+    <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+    <!---------------------------------------------------------------------------->
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!---VACIO--->
+            <!----------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio ocultar">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row">
+        <label for="mes">
+            Seleccione Mes a Mostrar
+        </label>
+        <select id="mes" name="mes">
+            <option>
+                Seleccione Mes a Mostrar
+            </option>
+            <option value="01">
+                Enero
+            </option>
+            <option value="02">
+                Febrero
+            </option>
+            <option value="03">
+                Marzo
+            </option>
+            <option value="04">
+                Abril
+            </option>
+            <option value="05">
+                Mayo
+            </option>
+            <option value="06">
+                Junio
+            </option>
+            <option value="07">
+                Julio
+            </option>
+            <option value="08">
+                Agosto
+            </option>
+            <option value="09">
+                Septiembre
+            </option>
+            <option value="10">
+                Octubre
+            </option>
+            <option value="11">
+                Noviembre
+            </option>
+            <option value="12">
+                Diciembre
+            </option>
+        </select>
+        <input id="weekend" name="weekend" type="checkbox" value="weekend">
+            <label for="weekend">
+                Utilizar Fines de Semana
+            </label>
+            <br>
+            </br>
+        </input>
+    </div>
+    <div>
+        <div class="cronograma">
+        </div>
+    </div>
+    <div class="row">
+        <h2>
+            Agregar Actividad
+        </h2>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 espacio">
+                <?php
+                               $consulta = "SELECT * FROM tipoactividad;";
+                               $ejecutar = mysqli_query($con, $consulta);
+                     ?>
+                <input autocomplete="off" class="form-control" id="actividad" list="list1" name="actividad" onkeyup="saltar(event,'duracion')" placeholder="Actividad" type="text" value="<?php echo $actividad; ?>"/>
+                <datalist id="list1">
+                    <?php foreach ($ejecutar as $descripcion): ?>
+                    <option value="<?php echo ($descripcion['nombreactividad']);?>">
+                        <?php echo strtoupper ($descripcion['id']);?>
+                    </option>
+                    <? endforeach; ?>
+                </datalist>
+                <a class="descripcion" id="descripcion-actividad">
+                    Actividad
+                </a>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 espacio">
+                <input autocomplete="off" class="form-control" id="duracion" min="0" name="duracion" onkeyup="saltar(event,'fechaInicio')" placeholder="Duracion" type="number"/>
+                <a class="descripcion" id="descripcion-duracion">
+                    Duracion
+                </a>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 espacio">
+                <input autocomplete="off" class="form-control" id="fechaInicio" name="fechaInicio" onkeyup="saltar(event,'fechaFin')" placeholder="Fecha de Inicio" type="date"/>
+                <a class="descripcion" id="descripcion-fechaInicio">
+                    Fecha de Inicio Actividad
+                </a>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 espacio">
+                <input autocomplete="off" class="form-control" id="fechaFin" name="fechaFin" onkeyup="saltar(event,'guardar')" placeholder="Fecha de Inicio" type="date"/>
+                <a class="descripcion" id="descripcion-fechaFin">
+                    Fecha de Fin Actividad
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <input autocomplete="off" class="form-control" data-jscolor="{}" id="colorevento" style="text-align: center;" value="#3399FF"/>
+                <a class="descripcion" id="descripcion-color">
+                    Color para el Evento
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div id="listadoinputs">
+            </div>
+            <input hidden="" id="cantidadinputs" type="number">
+            </input>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+    <div class="col-xs-6 col-sm-1 col-md-2 col-lg-2 espacio ocultar">
+    </div>
+    <!------------------------------------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+    </div>
+    <!-------------------------GUARDAR------------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="guardar" style="padding-bottom: 40px;" type="button">
+            <span class="glyphicon glyphicon-plus">
+            </span>
+            Guardar Actividad
+        </button>
+    </div>
+    <!-------------------------MODIFICAR---------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="modificar" style="padding-bottom: 40px;" type="button">
+            <span class="glyphicon glyphicon-pencil">
+            </span>
+            Correr Actividad
+        </button>
+    </div>
+    <!-------------------------Borrar---------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="borrar" style="padding-bottom: 40px;" type="button">
+            <span class="glyphicon glyphicon-trash" style="color: red">
+            </span>
+            Borrar Actividad
+        </button>
+    </div>
+    <!-------------------------RESET---------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+        <button class="button" id="resetear" style="padding-bottom: 40px;" type="button">
+            <span class="glyphicon glyphicon-repeat">
+            </span>
+            Resetear Mes Actual
+        </button>
+    </div>
+</div>
+<!-------------------------BOTON ARRIBA------------------------->
+<!-------------------------------------------------------------->
+<div class="row mensaje" id="mensaje">
+</div>
+<style>
+    td{
+        color: black;
+    }
+
+    #listadoinputs {
+  width: 100%;
+  height: 110px;
+  overflow: auto;
+}
+</style>

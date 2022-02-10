@@ -1,0 +1,59 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 20px; ">
+    <a class="titulo" style="text-decoration: none;">
+        Contacto de Emergencia
+    </a>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="emergenciaAvisar" name="emergenciaAvisar" onkeypress="return letras(event)" onkeyup="saltar(event,'hijos')" placeholder="Contacto de Emergencia" type="text" value="<?php echo $emergenciaAvisar;?>"/>
+        <a class="descripcion" id="descripcion-emergenciaAvisar">
+            Contacto de Emergencia
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="parentescoEmergemcia" name="parentescoEmergemcia" onkeypress="return letras(event)" onkeyup="saltar(event,'telefonoEmergencia')" placeholder="Parentesco" type="text" value="<?php echo $parentescoEmergemcia;?>"/>
+        <a class="descripcion" id="descripcion-parentescoEmergemcia">
+            Parentesco
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="telefonoEmergencia" maxlength="9" name="telefonoEmergencia" onblur="validar6();" oninput="validar6();" onkeypress="return numeros(event)" onkeyup="saltar(event,'beneficiario')" placeholder="Teléfono / Celular" style="text-align: center;" type="text" value="<?php echo $telefonoEmergencia;?>"/>
+        <a class="descripcion" id="descripcion-telefonoEmergencia">
+            Teléfono / Celular
+        </a>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 20px; ">
+    <a class="titulo" style="text-decoration: none;">
+        Beneficiario
+    </a>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="beneficiario" name="beneficiario" onkeypress="return letras(event)" onkeyup="saltar(event,'parentescoBeneficiario')" placeholder="Beneficiario" type="text" value="<?php echo $beneficiario;?>"/>
+        <a class="descripcion" id="descripcion-beneficiario">
+            Beneficiario
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="parentescoBeneficiario" name="parentescoBeneficiario" onkeypress="return letras(event)" onkeyup="saltar(event,'porcentaje')" placeholder="Porcentaje" type="text" value="<?php echo $parentescoBeneficiario;?>"/>
+        <a class="descripcion" id="descripcion-parentescoBeneficiario">
+            Parentesco
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="porcentaje" list="por" name="porcentaje" onkeypress="return numeros(event)" onkeyup="saltar(event,'salarioOrdinario')" placeholder="%" style="text-align: center;" type="text" value="<?php echo $porcentaje;?>"/>
+        <datalist id="por">
+            <script type="text/javascript">
+                for (var x = 0; 100 > x; x++){
+                                document.write("<option>" + parseInt(100 - x) + ' %' + "</option>")
+                                }
+            </script>
+        </datalist>
+        <a class="descripcion" id="descripcion-porcentaje">
+            Porcentaje
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+        <input autocomplete="off" class="form-control capitalizeText" id="telefonoPorcenaje" maxlength="9" name="telefonoPorcenaje" onblur="validar6();" oninput="validar6();" onkeypress="return numeros(event)" onkeyup="saltar(event,'beneficiario')" placeholder="Teléfono / Celular" style="text-align: center;" type="text" value="<?php echo $telefonoPorcenaje;?>"/>
+        <a class="descripcion" id="descripcion-telefonoPorcenaje">
+            Teléfono / Celular
+        </a>
+    </div>
+</div>

@@ -1,0 +1,305 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="cotizacion.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_cotizacion.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--VACIO--->
+            <!---------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+
+    <div id="tituloPedido" style="display: none;">
+        <div>
+            <div >
+                <h1 id="numPedido">Pedido No.</h1>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="row thumbnail SelloAgua " style="padding: 20px; margin-bottom: 1px; display: none;" id="valoresCotiza">  
+        <div style="align-content: center;">
+            <div class="row">
+                <div class="col-6">
+                    <div class="head" style="font-weight: 700; position: relative;">
+                        <h3>Producto Seleccionado</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 espacio"><br></div>
+            
+            <!-------------------------NOMBRES IZQUIERDA------------------------------>
+            <!------------------------------------------------------------------------>
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar tablet">
+                <input class="form-control" disabled id="nombres0" type="text" value="Proveedor:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled id="nombres2" type="text" value="Precio:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled id="nombres3" type="text" value="Desuento:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" disabled id="nombres3" type="text" value="Observación:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+    
+    
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-3 espacio" style="align-content: center ;" >
+                
+                <!------------------CODIGO---------------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-10 espacio">
+                        <select class="selectpicker" id="proveedor" name="proveedor" data-live-search="true"></select>
+                        <a class="descripcion" id="descripcion-producto">
+                            Proveedor
+                        </a>
+                    </div>
+                </div>
+                <!-----------------PRECIO-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-10 espacio">
+                        <input autocomplete="off" class="form-control" id="precio" name="precio" placeholder="Precio" type="number"/>
+                        <a class="descripcion" id="descripcion-horometro">
+                            Precio
+                        </a>
+                    </div>
+                </div>
+                <!-------------DESCUENTO------------>
+                <!---------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-10 espacio">
+                        <input autocomplete="off" class="form-control" id="descuento" name="descuento" placeholder="Descuento" type="number"/>
+                        <a class="descripcion" id="descripcion-horometro">
+                            Descuento
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-10 espacio">
+                        <input autocomplete="off" class="form-control" id="notaCot" name="notaCot" placeholder="Observación" type="text"/>
+                        <a class="descripcion" id="descripcion-horometro">
+                            Observación
+                        </a>
+                    </div>
+                </div>
+        
+                <!-- -----------------------BOTONES-----------------------  -->
+                <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+                    
+                    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-5 espacio">
+                        <br>
+                        <button class="button" id="guardar" type="button">
+                            <span class="glyphicon glyphicon-floppy-disk">
+                            </span>
+                            Guardar
+                        </button>
+                    </div>
+                    
+                    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-5 espacio">
+                        <br>
+                        <button class="button" id="denegar" type="button">
+                            <span class="glyphicon glyphicon-remove">
+                            </span>
+                            Denegar
+                        </button>
+                    </div>
+                    
+                    <div class="col-xs-6 col-sm-3 col-md-6 col-lg-4 espacio ocultar"> </div>
+                </div>
+                <!-- -----------------------BOTONES-----------------------  -->
+            </div>
+    
+        </div>
+        <!-- ---------------------------INFORMACION DE PROVEEDOR--------------------------- -->
+        <div class="col-xs-6 col-sm-3 col-md-6 col-lg-4 espacio ocultar" id="infoProveedor" >
+            <input style="text-align: left; width: 80;" disabled id="nombres0" type="text" value="Correo:"/><input style="text-align: left; width: 330;" disabled id="correo" type="text"/>
+            <a class="descripcion">.</a>
+            <input style="text-align: left;width: 80;" disabled id="nombres2" type="text" value="Contacto:"/><input style="text-align: left; width: 330;" disabled id="contacto" type="text"/>
+            <a class="descripcion">  . </a>
+            <input style="text-align: left;width: 80;" disabled id="nombres3" type="text" value="Teléfono:"/><input style="text-align: left; width: 330;" disabled id="telefono" type="text"/>
+            <a class="descripcion"> . </a>
+    
+            <input hidden  id="codPedido" name="codPedido"/>
+            <input hidden  id="idPedidoProd" name="idPedidoProd"/>
+            <input hidden id="producto" name="producto"/>
+            <input hidden id="cantidad" name="cantidad"/>
+    
+        </div>
+        <!-- ---------------------------INFORMACION DE PROVEEDOR--------------------------- -->
+    </div>
+
+    <div class="row thumbnail " style="padding: 20px; margin-bottom: 1px;">  
+        
+        <div id="tablaListado" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="overflow-y: auto;">
+            <!--Usaremos una clase de bootsrap para realizar nuestra table responsivo-->
+            <div class="table-responsive" >
+                <!--Creamos nuestra table, el width esta al 100% ya que tambien tiene que cazar con el div que nos habilita el espacio dentro del grid-->
+                <table class="list" id="listaproducto">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Cantidad</th>
+                            <th>U/Med.</th>
+                            <th>Descripción</th>
+                            <th>Máquina</th>
+                            <th>Consumo Mensual</th>
+                            <th>Saldo Actual</th>
+                            <th>Mínimo</th>
+                            <th>Máximo</th>
+                            <th>Horómetro</th>
+                            <th>Observación</th>
+                            <th>Estado</th>
+                            <th>Cotizar</th>
+                        </tr>
+                    </thead>
+                    <!--Crearemos solo el cuerpo de la tabla, con la clase cuerpoTabla usaremos Jquery para recorrer sus datos y propiamente, ingresar aqui los datos dinamicamente con javascript-->
+                    <tbody class="cuerpoTabla">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <!----------------------------FECHA Y HORA------------------------------->
+            <!----------------------------------------------------------------------->
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio"></div>
+            
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj"></i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <select class="selectpicker form-control" data-live-search="true" id="areaSelect" name="areaSelect">
+        <option selected value="0">Selecione un área</option>
+        <?php
+            $query = "SELECT * FROM `area` ORDER BY area ASC";
+            $ejecutar = mysqli_query($con, $query);
+
+            while($fila = mysqli_fetch_assoc($ejecutar)){
+                echo '<option value="'.$fila['codigo'].'">'.$fila['area'].'</option>';
+            }
+        ?>
+    </select>
+    <!-------------------------TABLAS-------------------------------->
+    <!-------------------------------------------------------------->
+    <div class="row" id="1" style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-plantaCarbonato.php'; ?>
+    </div>
+
+    <div class="row" id="2" style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-produccionPiedra.php'; ?>
+    </div>
+
+    <div class="row" id="3" style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-acarreoPiedra.php'; ?>
+    </div>
+
+    <div class="row" id="4" style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-predioTrasiego.php'; ?>
+    </div>
+
+    <div class="row" id="5" style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-produccionBloques.php'; ?>
+    </div>
+
+    <div class="row" id="6" style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-plantaMarfisa.php'; ?>
+    </div>
+
+    <div class="row" id="7"  style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-bodegaCantera.php'; ?>
+    </div>
+
+    <div class="row" id="8"  style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-bodega-Z13.php'; ?>
+    </div>
+
+    <div class="row" id="9"  style="display: none;">
+        <?php include '../funciones/compras/cotizacion/cargar-taller.php'; ?>
+    </div>
+    
+    <div class="row" style="padding-top: 15px; padding-bottom: -20px"></div>
+    <div class="row" style="padding-top: 15px; padding-bottom: -20px"></div>
+    <div class="row" style="padding-top: 15px; padding-bottom: -20px"></div>
+</div>
+
+
+<style type="text/css">
+    /*div {
+        border-style: solid;
+        border-color: rgb(66, 163, 107);
+    }*/
+
+    h3 {
+        text-align: center;
+    }
+
+    .button{
+        margin-bottom:2px;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: #cccccc;
+        border-left: solid 1px;
+        border-color: black;
+    }
+    .eModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    /*Colocamos bordes a nuestra tabla*/
+    .list td, .list th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        color: black;
+        
+    }
+
+    /*Colocamos color a los hijos pares de la tabla y al encabezado*/
+
+    .list tr:nth-child(even), .list thead>tr {
+        background-color: #dddddd;
+    }
+</style>

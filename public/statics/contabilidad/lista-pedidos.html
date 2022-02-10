@@ -1,0 +1,96 @@
+<form>
+    
+    <div class="contenedor">
+        <!-------------------------------------------------LOGO NOMBRE------------------------------------------------------------------>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+                <a href="lista-pedidos.php"><img class="logo" id="nombreLogo" ocultar src="../images/logo-form/listaPedidos.png"></a>
+            </div>
+        </div>
+        <!-------------------------------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------USUARIO Y DEPARTAMENTO------------------------------------------------------------->
+         <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ocultar espacio">
+                
+                  <input class="form-control" type="text" id="linea" autocomplete="off" readonly />
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input type="text" class="form-control usuario-contador" id="nicknameBitacora" name="nicknameBitacora" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>" readonly='true'>
+                 <i class="glyphicon glyphicon-user" id="icono"></i>
+                <a class="descripcion">Usuario</a>
+                <input type="text" class="form-control usuario-contador" id="departamentoBitacora" name="departamentoBitacora" value="Departamento de <?php echo $_SESSION['departamento']; ?>" readonly='true'>
+            </div>
+        </div>
+        
+        <!------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------->
+        
+        <div class="row thumbnail SelloAgua" style="padding: 20px; margin-bottom: 1px;">
+            <?php 
+                include '../on-database.php';
+                $consulta = "SELECT MAX(codigo) codigo FROM usuario";
+                $ejecutar = mysqli_query($con, $consulta);
+
+                $tabla = mysqli_fetch_array($ejecutar);
+                $codigo = $tabla['codigo'];
+                $codigo++;
+            ?>
+            <!-------------------------------------------------CODIGO------------------------------------------------------->
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <input type="text" id="codigoListaPedidos" name="codigo" class="form-control capitalizeText"  value="<?php echo $codigo;?>" placeholder="Código" />
+                <a class="descripcion"  id="">Código</a>
+            </div>
+      <!--------------------------------------------HORA Y FECHA----------------------------------------------------->
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                <?php date_default_timezone_set("America/Guatemala"); ?>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                <input type="text" class="form-control usuario-contador" id="horaFija" name="fechaUsuario" value="<?php $timestamp = time()+date("Z"); echo gmdate("H:i:s",$timestamp); ?>" readonly>
+                <i class="glyphicon glyphicon-time" id="icono"></i>
+                <a class="descripcion"  id="">Hora</a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                <input type="text" class="form-control usuario-contador" id="fechaFija" name="fechaUsuario" value="   <?php $timestamp = time()+date("Z"); echo gmdate("d/m/Y",$timestamp); ?>" readonly>
+                <i class="glyphicon glyphicon-calendar" id="icono"></i>
+                <a class="descripcion"  id="">Fecha</a>
+                </div>
+             </div>
+
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------------>
+        <!------------------------------------------------------------------------------------------------------------------------------------------>
+        <div class="row datagrid" id="datagrid" style="margin-top: 10px; margin-bottom: -5px">
+            <div class="datagrid" id="">
+                <!--CARGA LA TABLA DE USUARIOS---------------------------------------------------->
+                <!------------------------------------------------------------------------------------------>
+                <?php include '../funciones/usuarios/cargar.php'; ?>
+            </div> 
+        </div>
+        <!------------------------------------------------------------------------------------------------------------------------------------------>
+        <!------------------------------------------------------------------------------------------------------------------------------------------>
+        <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <!---------------------------------------------------BOTON CARGAR--------------------------------------------->
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <button type="button" id="cargarFactura" name="cargarFactura" class="button">
+                <span class="glyphicon glyphicon-refresh"></span> Cargar </button>
+            </div>
+        <!--------------------------------------------------BOTON AGREGAR--------------------------------------------->
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <button type="button" id="agregarFactura" name="agregarFactura" class="button">
+                <span class="glyphicon glyphicon-plus"></span> Guardar </button>
+            </div>
+        <!--------------------------------------------------BOTON ACTUALIZAR--------------------------------------------->
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                <button type="button" id="printFactura" name="printFactura" class="button">
+                    <span class="glyphicon glyphicon-print"></span> Imprimir </button>
+            </div>
+        <!---------------------------------------------------BOTON BORRAR---------------------------------------------->
+            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 espacio">
+                <a href="lista-pedidos.php"><button type="button" id="borrarFactura" name="borrarFactura" class="button">
+			    <span class="glyphicon glyphicon-unchecked"></span> Limpiar </button></a>
+            </div>
+        </div>  
+      
+    </div>
+    
+</form>
+

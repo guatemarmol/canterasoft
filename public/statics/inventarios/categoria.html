@@ -1,0 +1,140 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="categoria.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_categoria.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!---VACIO--->
+            <!----------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 10px 20px; margin-bottom: 1px;">
+        <?php 
+            include '../on-database.php';
+            $consulta = "SELECT MAX(codigo) codigo FROM categoriasuministros";
+            $ejecutar = mysqli_query($con, $consulta);
+
+            $tabla = mysqli_fetch_array($ejecutar);
+            $codigo = $tabla['codigo'];
+            $codigo++;   
+        ?>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Código:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Nombre:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input autocomplete="off" class="form-control" id="codigo" name="codigo" onkeyup="saltar(event,'nombre')" placeholder="Código Categoria" readonly="off" type="text" value="<?php echo $codigo;?>"/>
+                    <a class="descripcion" id="descripcion-codigo">
+                        Código Categoria
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="nombreC" name="nombre" onkeyup="saltar(event,'agregar')" placeholder="Nombre Categoria" type="text" value="<?php echo $nombre;?>"/>
+                    <a class="descripcion" id="descripcion-nombreC">
+                        Nombre Categoria
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+                </div>
+                <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                        <i class="glyphicon glyphicon-time" id="reloj">
+                        </i>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                        <i class="glyphicon glyphicon-calendar" id="calendario">
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px;">
+        <?php include '../funciones/inventarios/categoria/cargar.php'; ?>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="categoria.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-refresh">
+                    </span>
+                    Refrescar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        if ('<?php echo $codigo1;?>' != ""){
+           var codigo = '<?php echo $codigo1;?>'
+           document.getElementById('codigo').value = codigo;
+        }else{
+        }
+
+        if ('<?php echo $fecha ?>' != ""){
+           var fecha = '<?php echo $fecha ?>'
+           document.getElementById('fechaFija').value = fecha;
+           document.getElementById('fechaFija').style.color = '#000000';
+        }else{
+        }
+
+        if ('<?php echo $hora ?>' != ""){
+           var horaCategoria = '<?php echo $hora ?>'
+           document.getElementById('horaFija').value = horaCategoria;
+           document.getElementById('horaFija').style.color = '#000000';
+         }else{
+         }
+  });
+</script>
+<style type="text/css">
+    .button{
+        margin-bottom: 3px;
+    }
+</style>

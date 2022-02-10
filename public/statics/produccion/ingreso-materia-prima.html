@@ -1,0 +1,143 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="ingreso-materia-prima.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_ingreso-materia-prima.png"/>
+            </a>
+        </div>
+    </div>		<!-- Modal --><div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">  <div class="modal-dialog modal-dialog-centered" role="document">    <div class="modal-content">      <div class="modal-header">        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>        <button type="button" class="close" data-dismiss="modal" aria-label="Close">          <span aria-hidden="true">&times;</span>        </button>      </div>      <div class="modal-body">        ...      </div>      <div class="modal-footer">        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        <button type="button" class="btn btn-primary">Save changes</button>      </div>    </div>  </div></div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 5px 20px; margin-bottom: 1px;">
+        <?php 
+             include '../on-database.php';
+             $consulta = "SELECT MAX(correlativo) correlativo FROM ingresoMateriaPrima;";
+             $ejecutar = mysqli_query($con, $consulta);
+
+             $tabla = mysqli_fetch_array($ejecutar);
+             $correlativo = $tabla['correlativo'];
+             //$correlativo++;
+         ?>		 		<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio up">            <button class="button" id="nuevo" type="button">                <span class="glyphicon glyphicon-floppy-disk">                </span>                NUEVO            </button>        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Correlativo:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres6" readonly="" type="text" value="Equipo:"/>
+                <a class="descripcion">
+                    .
+                </a>								<input class="form-control" id="nombres7" readonly="" type="text" value="Encargado:"/>                <a class="descripcion">                    .                </a>								<input class="form-control" id="nombres8" readonly="" type="text" value="Operador 330:"/>                <a class="descripcion">                    .                </a>								<input class="form-control" id="nombres9" readonly="" type="text" value="Operador 215:"/>                <a class="descripcion">                    .                </a>								<input class="form-control" id="nombres10" readonly="" type="text" value="Camion:"/>                <a class="descripcion">                    .                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Peso:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">						<input id="id_codigo" type="hidden" value="">
+                        <input autocomplete="off" class="form-control" id="correlativo" name="correlativo" onkeyup="saltar(event,'materiaPrima')" placeholder="Correlativo" readonly="" type="text" value="<?php echo $correlativo ?>"/>
+                        <a class="descripcion" id="descripcion-correlativo">
+                            Correlativo
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                        <?php
+                            $consulta = "SELECT * FROM equipo";
+                            $ejecutar = mysqli_query($con, $consulta);
+                         ?>						<select class="form-control" id="equipo" name="equipo">						<option value="0">Seleccione Equipo:</option>
+                            <?php foreach ($ejecutar as $equipo): ?>							
+                            <option value="<?php echo $equipo['id_equipo']?>"><?php echo $equipo['comentario']?>
+                            </option>
+                            <? endforeach; ?>
+                        </select>
+                        <a class="descripcion" id="descripcion-equipo">
+                            Equipo
+                        </a>
+                    </div>					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">                            <input class="form-control" id="nombres3" readonly="" type="text" value="Turno:"/>                            <a class="descripcion">                                .                            </a>                        </div>                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">												<?php                            $consulta = "SELECT * FROM turno";                            $ejecutar = mysqli_query($con, $consulta);                         ?>                            <select class="form-control" id="turno" name="turno">								<option value="0">Seleccione Turno:</option>                            <?php foreach ($ejecutar as $turno): ?>                            <option value="<?php echo $turno['id']?>"><?php echo $turno['id']?>                            </option>                            <? endforeach; ?>                        </select>                            <a class="descripcion" id="descripcion-capacidad">                                Turno                            </a>                        </div>                    </div>					
+                </div>				               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">                        <input autocomplete="off" class="form-control" id="encargado" name="encargado" readonly="" placeholder="Encargado" type="text" value=""/>                        <a class="descripcion" id="descripcion-encargado">                            Encargado							                        </a>                    </div>					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">                            <input class="form-control" id="nombres15" readonly="" type="text" value="Tolvero:"/>                            <a class="descripcion">                                .                            </a>                        </div>                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">                            <input autocomplete="off" class="form-control capitalizeText" id="tolvero" name="tolvero" readonly="" onkeyup="saltar(event,'marca')" placeholder="Tolvero" type="text" value=""/>                            <a class="descripcion" id="descripcion-tolvero">                                Tolvero                            </a>                        </div>                    </div>					                </div>								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">                        <input autocomplete="off" class="form-control" id="operador330" name="operador330" readonly="" placeholder="Operador 330" type="text" value=""/>                        <a class="descripcion" id="descripcion-operador330">                            Operador 330							                        </a>                    </div>					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">                            <input class="form-control" id="nombres16" readonly="" type="text" value="Operador CC:"/>                            <a class="descripcion">                                .                            </a>                        </div>                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">						                                                   <input autocomplete="off" class="form-control capitalizeText" id="operadorCamion" name="operadorCamion" onkeyup="saltar(event,'marca')" placeholder="Operador Carga de Camiones" type="text" value="<?php echo $materiaPrima ?>"/>							<a class="descripcion" id="descripcion-operadorCamion">                                Operador Carga de Camiones                            </a>                        </div>                    </div>					                </div>								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">                        <input autocomplete="off" class="form-control" id="operador215" name="operador215" readonly="" placeholder="Operador 215" type="text" value=""/>                        <a class="descripcion" id="descripcion-operador215">                            Operador 215							                        </a>                    </div>					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">                            <input class="form-control" id="nombres17" readonly="" type="text" value="Material:"/>                            <a class="descripcion">                                .                            </a>                        </div>                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">												<?php							 $consulta = "SELECT * FROM materiaPrima";                            $ejecutar = mysqli_query($con, $consulta);                         ?>                            <input autocomplete="off" class="form-control capitalizeText" id="material" name="material" list="codmp" onkeyup="saltar(event,'marca')" placeholder="material" type="text" value="<?php echo $materiaPrima ?>"/>                            <datalist id="codmp">                            <?php foreach ($ejecutar as $materiaPrima): ?>                            <option value="<?php echo $materiaPrima['nombre']?>">                            </option>                            <? endforeach; ?>                        </datalist>							<a class="descripcion" id="descripcion-material">                                Material                            </a>                        </div>                    </div>					                </div>								                								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">                        <?php							$consulta = "SELECT * FROM maquinaria";                            $ejecutar = mysqli_query($con, $consulta);                         ?>                        <input autocomplete="off" class="form-control" id="camion" name="camion" list="list_camion" placeholder="camion" type="text" value="<?php echo $camion ?>"/>								<datalist id="list_camion">									<?php foreach ($ejecutar as $camion): ?>									<option value="<?php echo $camion['placa'] ?>">									</option>									<? endforeach; ?>								</datalist>                        <a class="descripcion" id="descripcion-camion">                            Camion							                        </a>                    </div>					<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">                            <input class="form-control" id="nombres18" readonly="" type="text" value="Piloto:"/>                            <a class="descripcion">                                .                            </a>                        </div>                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">						 <?php							$consulta = "SELECT * FROM empleado where codigo_puesto = 560 and equipo = 1";                            $ejecutar = mysqli_query($con, $consulta);                         ?>                            <input autocomplete="off" class="form-control capitalizeText" id="piloto" name="piloto" list="ltspiloto" onkeyup="saltar(event,'marca')" placeholder="Piloto" type="text" value="<?php echo $piloto; ?>"/>                               <datalist id="ltspiloto">                            <?php foreach ($ejecutar as $piloto): ?>                            <option value="<?php echo $piloto['nombre_empleado'].' '.$piloto['apellido_empleado']?>">                            </option>                            <? endforeach; ?>								</datalist>							<a class="descripcion" id="descripcion-piloto">                                Piloto                            </a>                        </div>                    </div>					                </div>				
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-1 espacio">
+                        <input class="form-control" id="moneda2" name="moneda2" readonly="" style="padding: 1px; text-align: center; font-weight: 800; font-size: 15px; color: #666666; background-color: #fff;" value="t">
+                            <a class="descripcion">
+                                Medida
+                            </a>
+                        </input>
+                    </div>
+                    <div class="col-xs-10 col-sm-4 col-md-4 col-lg-5 espacio">
+                        <input autocomplete="off" class="form-control" id="peso" name="peso" placeholder="Peso" type="number" min="0" max="50" value=""/>
+                        <a class="descripcion" id="descripcion-peso">
+                            Peso
+                        </a>
+                    </div>
+                </div>				<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio up">            <button class="button" id="agregar" type="button">                <span class="glyphicon glyphicon-floppy-disk">                </span>                Llegada            </button>        </div>				<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio up">            <button class="button" id="stock" type="button">                <span class="glyphicon glyphicon-floppy-disk">                </span>                Stock            </button>        </div>				        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio up">            <button class="button" id="tolva" type="button">                <span class="glyphicon glyphicon-floppy-disk">                </span>                Tolva            </button>        </div>        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio up">                <button class="button" id="limpiar" type="button">                    <span class="glyphicon glyphicon-erase">                    </span>                    Limpiar                </button>        </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>						 </div>						<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">						            <button class="button" id="report" type="button">                <span class="glyphicon glyphicon-th-list">                </span>                Reportes            </button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: darkgreen;
+        border-left: solid 3px;
+        border-left-color: darkgreen;
+    }
+    .button{
+        margin-bottom:3px;
+    }	.up{		margin-top:5px;	}
+    @media (max-width: 767px){
+        #tablaIngresoMateriaPrima_wrapper .dt-buttons{
+            display: none;
+        }
+    }
+</style>

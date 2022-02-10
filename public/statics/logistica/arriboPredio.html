@@ -1,0 +1,100 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="arriboPredio.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    Arribos a Predio
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 10px 10px 10px; margin-bottom: 1px;">
+        <dic class="row">
+            <center>
+                <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="table-responsive" >
+                        <table class="list" id="cargas">
+                            <thead>
+                                <tr>
+                                    <th>Envío</th>
+                                    <th>Producto</th>
+                                    <th>Tonelaje</th>
+                                    <th>Transportista</th>
+                                    <th>Piloto</th>
+                                    <th>Placa</th>
+                                    <th>Hora Salida</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </center>
+        </dic>
+        
+        <br>
+
+        <div class="row">
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    h3 {
+        text-align: center;
+    }
+
+    .button{
+        margin-bottom:2px;
+    }
+
+    .list {
+        overflow: auto;
+        height:350px;
+        width:100%;
+    }
+
+    .list td, .list th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+        color: black;
+        
+    }
+    
+    .list tr:nth-child(even), .list thead>tr {
+        background-color: #dddddd;
+    }
+</style>

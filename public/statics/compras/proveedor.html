@@ -1,0 +1,114 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="proveedor.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_proveedor.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio"></div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 15px; margin-bottom: 1px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-6 align-self-center text-center">
+            <div class="form-group row" id="divCodigo">
+                <label for="codigo" class="col-sm-2 col-md-3 col-form-label text-right">Codigo</label>
+                <div class="col-sm-8">
+                  <input required type="text" class="form-control-plaintext" id="codigo" name="codigo" placeholder="Codigo" value="<?php echo $codigo?>">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="nombre0" class="col-sm-2 col-md-3 col-form-label text-right">Nombre</label>
+                <div class="col-sm-8">
+                  <input required type="text" value="<?php echo $nombre?>" class="form-control" id="nombre0" name="nombre0" placeholder="Nombre">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="nit" class="col-sm-2 col-md-3 col-form-label text-right">Nit</label>
+                <div class="col-sm-8">
+                  <input required type="text" value="<?php echo $nit?>" class="form-control" id="nit" name="nit" placeholder="Nit">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="establecimiento" class="col-sm-2 col-md-3 col-form-label text-right">Establecimiento</label>
+                <div class="col-sm-8">
+                  <input required type="text" value="<?php echo $establecimiento?>" class="form-control" id="establecimiento" name="establecimiento" placeholder="Establecimiento">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="direccion" class="col-sm-2 col-md-3 col-form-label text-right">Direccion</label>
+                <div class="col-sm-8">
+                  <input required type="text" value="<?php echo $direccion?>" class="form-control" id="direccion" name="direccion" placeholder="Direccion">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="regimen" class="col-sm-2 col-md-3 col-form-label text-right">Regimen</label>
+                <div class="col-sm-8">
+                  <input required type="text" value="<?php echo $regimen?>" class="form-control" id="regimen" name="regimen" placeholder="Regimen">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="telefono" class="col-sm-2 col-md-3 col-form-label text-right">Telefono</label>
+                <div class="col-sm-8">
+                  <input required type="number" value="<?php echo $telefono?>" class="form-control" id="telefono" name="telefono" placeholder="Telefono">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="correo" class="col-sm-2 col-md-3 col-form-label text-right">Correo</label>
+                <div class="col-sm-8">
+                  <input required type="text" value="<?php echo $correo?>" class="form-control" id="correo" name="correo" placeholder="Correo">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="nombreContacto" class="col-sm-2 col-md-3 col-form-label text-right">Nombre del Contacto</label>
+                <div class="col-sm-8">
+                  <input required type="text" value="<?php echo $nombreContacto?>" class="form-control" id="nombreContacto" name="nombreContacto" placeholder="Nombre del Contacto">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="telefonoContacto" class="col-sm-2 col-md-3 col-form-label text-right">Telefono del Contacto</label>
+                <div class="col-sm-8">
+                  <input required type="number" value="<?php echo $telefonoContacto?>" class="form-control" id="telefonoContacto" name="telefonoContacto" placeholder="Telefono del Contacto">
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <div class="col-sm-6 col-md-7 col-xs-6"></div>
+                <div class="col-sm-4 col-xs-6">
+                    <button class="button" id="guardar" type="submit">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        Guardar
+                    </button>        
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-------------------------TABLA-------------------------------->
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/compras/proveedor/cargar.php'; ?>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-fullscreen">
+                </span>
+                Cargar
+            </button>
+        </div>
+    </div>
+</div>

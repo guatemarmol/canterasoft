@@ -1,0 +1,754 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="planilla.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_planilla.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="margin-bottom: 1px; ">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" style="background-color: #f7f7f7; padding-top: 20px; padding-bottom: 10px;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <input autocomplete="off" class="form-control" id="codigoPlanilla" name="codigoPlanilla" onkeyup="saltar(event,'descripcionSuministro')" placeholder="Código Planilla" readonly="" type="text" value="<?php echo $codigoPlanilla;?>"/>
+                <a class="descripcion" id="descripcion-codigoSuministro">
+                    Código Planilla
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <input autocomplete="off" class="form-control" id="codigoEmpleado" list="codE" name="codigoEmpleado" onkeyup="saltar(event,'descripcionSuministro')" placeholder="Código Empleado" readonly="" type="text" value="<?php echo $codigoEmpleado;?>"/>
+                <a class="descripcion" id="descripcion-codigoEmpleado">
+                    Código Empleado
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <input autocomplete="off" class="form-control" id="empleado" list="emp" name="empleado" onkeyup="saltar(event,'codigoBodegaSuministros')" placeholder="Nombre del Empleado" readonly="" style="cursor: pointer" type="text" value="<?php echo $descripcionSuministro;?>"/>
+                <a class="descripcion" id="descripcion-empleado">
+                    Nombre del Empleado
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 20px; ">
+                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+                    <select class="form-control" id="moneda0" name="moneda0">
+                        <option value="Q">
+                            Q
+                        </option>
+                        <option value="$">
+                            $
+                        </option>
+                    </select>
+                    <a class="descripcion">
+                        Moneda
+                    </a>
+                </div>
+                <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="sueldoBase" name="sueldoBase" onkeypress="return sueldo(event)" onkeyup="saltar(event,'bonificacionDecreto')" placeholder="Sueldo Base" readonly="" style="cursor: pointer" type="text" value="0.00"/>
+                    <a class="descripcion" id="descripcion-sueldoBase">
+                        Sueldo Base
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+                    <select class="form-control" id="moneda1" name="moneda1">
+                        <option value="Q">
+                            Q
+                        </option>
+                        <option value="$">
+                            $
+                        </option>
+                    </select>
+                    <a class="descripcion">
+                        Moneda
+                    </a>
+                </div>
+                <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+                    <input autocomplete="off" class="form-control" id="bonificacionDecreto" name="bonificacionDecreto" onkeyup="saltar(event,'bonoProductividad')" placeholder="Bonificación Mensual" readonly="" style="cursor: pointer" type="text" value="0.00"/>
+                    <a class="descripcion" id="descripcion-bonificacionDecreto">
+                        Bonificación Decreto Ley 78-89
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+                    <select class="form-control" id="moneda2" name="moneda2">
+                        <option value="Q">
+                            Q
+                        </option>
+                        <option value="$">
+                            $
+                        </option>
+                    </select>
+                    <a class="descripcion">
+                        Moneda
+                    </a>
+                </div>
+                <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="bonoProductividad" name="bonoProductividad" onkeyup="saltar(event,'totalSueldo')" placeholder="Bono de Productividad" readonly="" style="cursor: pointer" type="text" value="0.00"/>
+                    <a class="descripcion" id="descripcion-bonoProductividad">
+                        Bono de Productividad
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+                    <select class="form-control" id="moneda3" name="moneda3">
+                        <option value="Q">
+                            Q
+                        </option>
+                        <option value="$">
+                            $
+                        </option>
+                    </select>
+                    <a class="descripcion">
+                        Moneda
+                    </a>
+                </div>
+                <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+                    <input autocomplete="off" class="form-control" id="totalSueldo" name="totalSueldo" onkeyup="saltar(event,'bonificacion1')" placeholder="Total" readonly="" style="cursor: pointer" type="text" value="0.00"/>
+                    <a class="descripcion" id="descripcion-totalSueldo">
+                        Total Ingresos
+                    </a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 20px; margin-bottom: 25px;">
+                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2 espacio">
+                    <select class="form-control" id="moneda4" name="moneda4">
+                        <option value="Q">
+                            Q
+                        </option>
+                        <option value="$">
+                            $
+                        </option>
+                    </select>
+                    <a class="descripcion">
+                        Moneda
+                    </a>
+                </div>
+                <div class="col-xs-10 col-sm-8 col-md-10 col-lg-10 espacio">
+                    <input autocomplete="off" class="form-control capitalizeText" id="devengando" name="devengando" onkeypress="return sueldo(event)" onkeyup="saltar(event,'bonificacionDecreto')" placeholder="Devengando" readonly="" type="text" value="0.00"/>
+                    <a class="descripcion" id="descripcion-devengando">
+                        Devengando
+                    </a>
+                </div>
+            </div>
+            <div class="row" id="datagridBuscar">
+                <!--------------------------TABLA------------------------------------>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 espacio">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="margin-top: 20px; margin-bottom: 20PX;">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                        <input class="form-control" id="nombres0" readonly="" style="font-size: 20px;" type="text" value="40% ">
+                            <a class="descripcion">
+                                .
+                            </a>
+                        </input>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <input autocomplete="off" class="form-control calendario" data-date-format="d/m/yy" id="40PorcientoI" name="40PorcientoI" onblur="diasFechaI()" onkeyup="saltar(event,'fechaFinal')" placeholder="Fecha Inicio" type="text" value=""/>
+                        <i class="glyphicon glyphicon-calendar" style="cursor: pointer; color: #ff8a65; font-size: 16px; margin-top: -25px; margin-left: 10px;">
+                        </i>
+                        <a class="descripcion" id="descripcion-40PorcientoI">
+                            Fecha Inicio 40%
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <input autocomplete="off" class="form-control calendario" data-date-format="d/m/yy" id="40PorcientoF" name="40PorcientoF" onblur="diasFechaI()" onkeyup="saltar(event,'jefeInmediato')" placeholder="Fecha Final" type="text" value=""/>
+                        <i class="glyphicon glyphicon-calendar" style="cursor: pointer; color: #ff8a65; font-size: 16px; margin-top: -25px; margin-left: 10px;">
+                        </i>
+                        <a class="descripcion" id="descripcion-40PorcientoF">
+                            Fecha Final 40%
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                        <input class="form-control" id="dias40" name="dias40" placeholder="15 Días" readonly="" style="text-align: left; padding-left: 5px;" type="text">
+                            <a class="descripcion">
+                                .
+                            </a>
+                        </input>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                        <input class="form-control" id="nombres0" readonly="" style="font-size: 20px;" type="text" value="60% ">
+                            <a class="descripcion">
+                                .
+                            </a>
+                        </input>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <input autocomplete="off" class="form-control calendario" data-date-format="d/m/yy" id="60PorcientoI" name="60PorcientoI" onblur="diasFechaF()" onkeyup="saltar(event,'60PorcientoF')" placeholder="Fecha Inicio" type="text" value=""/>
+                        <i class="glyphicon glyphicon-calendar" style="cursor: pointer; color: #ff8a65; font-size: 16px; margin-top: -25px; margin-left: 10px;">
+                        </i>
+                        <a class="descripcion" id="descripcion-60PorcientoI">
+                            Fecha Inicio 60%
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                        <input autocomplete="off" class="form-control calendario" data-date-format="d/m/yy" id="60PorcientoF" name="60PorcientoF" onblur="diasFechaF()" onkeyup="saltar(event,'diasTrabajados')" placeholder="Fecha Final" type="text" value=""/>
+                        <i class="glyphicon glyphicon-calendar" style="cursor: pointer; color: #ff8a65; font-size: 16px; margin-top: -25px; margin-left: 10px;">
+                        </i>
+                        <a class="descripcion" id="descripcion-60PorcientoF">
+                            Fecha Final 60%
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                        <input class="form-control" id="dias60" name="dias60" placeholder="15 Días" readonly="" style="text-align: left; padding-left: 5px;" type="text">
+                            <a class="descripcion">
+                                .
+                            </a>
+                        </input>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Días Trabajados:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Ordinario:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Días Vacaciones:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Sueldo Vacaciones:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="" type="text" value="Otros Ingresos:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Horas Día:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Horas Noche:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="Extraordnario:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres6" readonly="" type="text" value="IGSS:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres7" readonly="" type="text" value="Anticipo Sueldo:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres8" readonly="" type="text" value="Descuentos Legales:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres9" readonly="" type="text" value="ISR:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres10" readonly="" type="text" value="Solidarismo:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres11" readonly="" type="text" value="Otros Descuentos:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres12" readonly="" type="text" value="Total Descuentos:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres13" readonly="" type="text" value="Liquido:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <!--<input class="form-control" id="nombres14" readonly="" type="text" value="Fecha y Hora:"/>
+                <a class="descripcion">
+                    .
+                </a>-->
+            </div>
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-10 col-sm-9 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="diasTrabajados" name="diasTrabajados" onfocus="sumarDescuentos();" onkeyup="saltar(event,'ordinario')" placeholder="Días Trabajdos" type="text" value="0"/>
+                    <a class="descripcion" id="descripcion-diasTrabajados">
+                        Días Trabajdos
+                    </a>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 espacio">
+                    <input class="form-control nombres15" id="nombres15" readonly="" style="font-size: 30px; text-align: center;" type="text">
+                        <a class="descripcion" id="mes" style="text-align: center;">
+                            Días
+                        </a>
+                    </input>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda5" name="moneda5">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="ordinario" name="ordinario" onfocus="sumarDescuentos();" onkeyup="saltar(event,'diasVacaciones')" placeholder="Ordinario" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-ordinario">
+                            Ordinario
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-8 col-lg-8 espacio">
+                    <input autocomplete="off" class="form-control" id="diasVacaciones" name="diasVacaciones" onfocus="sumarDescuentos();" onkeyup="saltar(event,'sueldoVacaciones')" placeholder="Días Vacaciones" type="text" value="0"/>
+                    <a class="descripcion" id="descripcion-diasVacaciones">
+                        Días Vacaciones
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda6" name="moneda6">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="sueldoVacaciones" name="sueldoVacaciones" onfocus="sumarDescuentos();" onkeyup="saltar(event,'otrosIngresos')" placeholder="Sueldo  Vacaciones" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-sueldoVacaciones">
+                            Sueldo  Vacaciones
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda7" name="moneda7">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="otrosIngresos" name="otrosIngresos" onfocus="sumarDescuentos();" onkeyup="saltar(event,'horasDia')" placeholder="Otros Ingresos" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-otrosIngresos">
+                            Otros Ingresos
+                        </a>
+                    </div>
+                </div>
+                <!------------------------------------------->
+                <!------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda8" name="moneda8">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-7 col-sm-3 col-md-4 col-lg-4 espacio">
+                        <input autocomplete="off" class="form-control" id="horasDia" name="horasDia" onfocus="sumarDescuentos();" onkeyup="saltar(event,'horasNoche')" placeholder="Horas Día" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-horasDia">
+                            Horas Día
+                        </a>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="horasExtras form-control" id="cantidaDia" name="cantidaDia" style="color: #272727">
+                            <option selected="">
+                                0
+                            </option>
+                            <script type="text/javascript">
+                                for (var x = 0; x < 99; x++){
+                                    document.write("<option>" + parseInt(x + 1) + "</option>")
+                                }
+                            </script>
+                        </select>
+                        <a class="descripcion">
+                            Horas
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda8" name="moneda8">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-7 col-sm-3 col-md-4 col-lg-4 espacio">
+                        <input autocomplete="off" class="form-control" id="horasNoche" name="horasNoche" onfocus="sumarDescuentos();" onkeyup="saltar(event,'extraordinario')" placeholder="Horas Noche" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-horasNoche">
+                            Horas Noche
+                        </a>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="horasExtras form-control" id="cantidaNoche" name="cantidaNoche" style="color: #272727">
+                            <option selected="">
+                                0
+                            </option>
+                            <script type="text/javascript">
+                                for (var x = 0; x < 99; x++){
+                                    document.write("<option>" + parseInt(x + 1) + "</option>")
+                                }
+                            </script>
+                        </select>
+                        <a class="descripcion">
+                            Horas
+                        </a>
+                    </div>
+                </div>
+                <!------------------------------------------->
+                <!------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda8" name="moneda8">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="extraordinario" name="extraordinario" onfocus="sumarDescuentos();" onkeyup="saltar(event,'igss')" placeholder="Extraordinario" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-extraordinario">
+                            Extraordinario
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda8" name="moneda8">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="igss" name="igss" onfocus="sumarDescuentos();" onkeyup="saltar(event,'anticipoSueldo')" placeholder="IGSS" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-igss">
+                            IGSS
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda9" name="moneda9">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="anticipoSueldo" name="anticipoSueldo" onfocus="sumarDescuentos();" onkeyup="saltar(event,'descuentosLegales')" placeholder="Anticipo Sueldo" readonly="" style="cursor: pointer" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-anticipoSueldo">
+                            Anticipo Sueldo
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda10" name="moneda10">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="descuentosLegales" name="descuentosLegales" onfocus="sumarDescuentos();" onkeyup="saltar(event,'isr')" placeholder="Descuentos Legales" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-descuentosLegales">
+                            Descuentos Legales
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda11" name="moneda11">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="isr" name="isr" onfocus="sumarDescuentos();" onkeyup="saltar(event,'solidarismo')" placeholder="ISR" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-isr">
+                            ISR
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda12" name="moneda12">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="solidarismo" name="solidarismo" onfocus="sumarDescuentos();" onkeyup="saltar(event,'otrosDescuentos')" placeholder="Solidarismo" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-solidarismo">
+                            Solidarismo
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda13" name="moneda13">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="otrosDescuentos" name="otrosDescuentos" onfocus="sumarDescuentos();" onkeyup="saltar(event,'totalDescuentos')" placeholder="Otros Descuentos" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-otrosDescuentos">
+                            Otros Descuentos
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda14" name="moneda14">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="totalDescuentos" name="totalDescuentos" onfocus="sumarDescuentos();" onkeyup="saltar(event,'liquido')" placeholder="Total Descuentos" readonly="" style="cursor: pointer" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-totalDescuentos">
+                            Total Descuentos
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-2 col-sm-3 col-md-2 col-lg-2 espacio">
+                        <select class="form-control" id="moneda15" name="moneda15">
+                            <option value="Q">
+                                Q
+                            </option>
+                            <option value="$">
+                                $
+                            </option>
+                        </select>
+                        <a class="descripcion">
+                            Moneda
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="liquido" name="liquido" onkeyup="saltar(event,'cargarPlanilla')" placeholder="Liquido" readonly="" style="cursor: pointer" type="text" value="0.00"/>
+                        <a class="descripcion" id="descripcion-liquido">
+                            Liquido
+                        </a>
+                    </div>
+                </div>
+                <?php date_default_timezone_set("America/Guatemala"); ?>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input class="form-control" id="horaFija" name="horaPlanilla" readonly="" type="hidden" value="<?php $timestamp = time()+date('Z'); echo gmdate('H:i:s',$timestamp); ?>"/>
+                    <!--<i class="glyphicon glyphicon-time" id="icono" style="cursor: pointer; color: #ff8a65; font-size: 16px; margin-top: -25px; margin-left: 10px;">
+                    </i>
+                    <a class="descripcion" id="descripcion-hora">
+                        Hora
+                    </a>-->
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+                    <input class="form-control" id="fechaFija" name="fechaPlanilla" readonly="" type="hidden" value="   <?php $timestamp = time()+date('Z'); echo gmdate('d/m/Y',$timestamp); ?>"/>
+                    <!--<i class="glyphicon glyphicon-calendar" id="icono" style="cursor: pointer; color: #ff8a65; font-size: 16px; margin-top: -25px; margin-left: 10px;">
+                    </i>
+                    <a class="descripcion" id="descripcion-fecha">
+                        Fecha
+                    </a>-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-7 col-md-7 col-lg-8 espacio">
+                </div>
+                <div class="col-xs-9 col-sm-5 col-md-5 col-lg-4 espacio">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                        <i class="glyphicon glyphicon-time" id="reloj">
+                        </i>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                        <i class="glyphicon glyphicon-calendar" id="calendario">
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row datagrid40" id="datagrid40" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+        <?php include '../funciones/rrhh/planilla/cargar-40.php'; ?>
+    </div>
+    <div class="row datagrid60" id="datagrid60" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+        <?php include '../funciones/rrhh/planilla/cargar-60.php'; ?>
+    </div>
+    <div class="row datagrid" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <!--------------------------TABLA------------------------------------>
+        <?php include '../funciones/rrhh/planilla/cargar.php'; ?>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+            <button class="button" id="Sueldo40" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Sueldo 40%
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+            <button class="button" id="Sueldo60" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Sueldo 60%
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+            <button class="button" id="cargarPlanilla" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Planilla
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="planilla.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-erase">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    #tablaPlanillaV_info{
+      display: none;
+    }
+    #tablaPlanillaV_paginate{
+      margin-top: 20px;
+    }
+    .has-error{
+      border-color: darkred;
+      border-left: solid 3px;
+      border-left-color: darkred;
+    }
+    .has-succes{
+      border-color: darkgreen;
+      border-left: solid 3px;
+      border-left-color: darkgreen;
+    }
+    #datagridBuscar{
+        height: 900px;
+    }
+    @media (max-width: 600px){
+        #datagridBuscar{
+            height: 0px;
+        }
+    }
+</style>

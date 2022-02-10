@@ -1,0 +1,163 @@
+<div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+    <?php
+                        $consulta = "SELECT * FROM empresa";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <select class="form-control" id="razonSocialEmpresaE" name="razonSocialEmpresaE" onkeypress="return letras(event)" onkeyup="saltar(event,'nombreDivisionE')" value="<?php echo $razonSocialEmpresaE;?>">
+        <option value="Empresa">
+            Empresa
+        </option>
+        <?php foreach ($ejecutar as $empresa): ?>
+        <option value="<?php echo $empresa['razonSocialEmpresa']?>">
+            <?php echo $empresa['razonSocialEmpresa']?>
+        </option>
+        <? endforeach; ?>
+    </select>
+    <a class="descripcion" id="descripcion-empresa">
+        Empresa
+    </a>
+</div>
+<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+    <span class="agregar glyphicon glyphicon-plus" id="agregarE">
+    </span>
+</div>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<?php include 'sub/crearEmpresa.html' ?>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+    <?php
+                        $consulta = "SELECT * FROM division";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <select class="form-control" id="nombreDivisionE" name="nombreDivisionE" onclick="accion();" onkeypress="return letras(event)" onkeyup="saltar(event,'nombreSubDivisionE')" value="<?php echo $nombreDivisionE;?>">
+        <option value="División">
+            División
+        </option>
+        <?php foreach ($ejecutar as $division): ?>
+        <option value="<?php echo $division['nombreDivision']?>">
+            <?php echo $division['nombreDivision']?>
+        </option>
+        <? endforeach; ?>
+    </select>
+    <a class="descripcion" id="descripcion-division">
+        División
+    </a>
+</div>
+<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+    <span class="agregar glyphicon glyphicon-plus" id="agregarD">
+    </span>
+</div>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<?php include 'sub/crearDivision.html' ?>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+    <?php
+                        $consulta = "SELECT * FROM subDivision";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <select class="form-control" id="nombreSubDivisionE" list="sub" name="nombreSubDivisionE" onkeypress="return letras(event)" onkeyup="saltar(event,'nombreDepartamentoE')" placeholder="Sub División" type="text" value="<?php echo $nombreSubDivisionE;?>">
+        <option value="Sub División">
+            Sub División
+        </option>
+        <?php foreach ($ejecutar as $subDivision): ?>
+        <option value="<?php echo $subDivision['nombreSubDivision']?>">
+            <?php echo $subDivision['nombreSubDivision']?>
+        </option>
+        <? endforeach; ?>
+    </select>
+    <a class="descripcion" id="descripcion-subDivision">
+        Sub División
+    </a>
+</div>
+<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+    <span class="agregar glyphicon glyphicon-plus" id="agregarS">
+    </span>
+</div>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<?php include 'sub/crearSubDivision.html' ?>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+    <?php
+                        $consulta = "SELECT * FROM seccion";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <select class="form-control" id="nombreSubDivisionE" list="sub" name="nombreSubDivisionE" onkeypress="return letras(event)" onkeyup="saltar(event,'nombreDepartamentoE')" placeholder="Sub División" type="text" value="<?php echo $nombreSubDivisionE;?>">
+        <option value="Departamento">
+            Departamento
+        </option>
+        <?php foreach ($ejecutar as $seccion): ?>
+        <option value="<?php echo $seccion['nombreSeccion']?>">
+            <?php echo $seccion['nombreSeccion']?>
+        </option>
+        <? endforeach; ?>
+    </select>
+    <a class="descripcion" id="descripcion-departamento">
+        Departamento
+    </a>
+</div>
+<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+    <span class="agregar glyphicon glyphicon-plus" id="agregarE">
+    </span>
+</div>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<?php include 'sub/crearSeccion.html' ?>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+    <?php
+                        $consulta = "SELECT * FROM puesto";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <select class="form-control" id="nombreSubDivisionE" list="sub" name="nombreSubDivisionE" onkeypress="return letras(event)" onkeyup="saltar(event,'nombreDepartamentoE')" placeholder="Sub División" type="text" value="<?php echo $nombreSubDivisionE;?>">
+        <option value="Puesto">
+            Puesto
+        </option>
+        <?php foreach ($ejecutar as $puesto): ?>
+        <option value="<?php echo $puesto['nombrePuesto']?>">
+            <?php echo $puesto['nombrePuesto']?>
+        </option>
+        <? endforeach; ?>
+    </select>
+    <a class="descripcion" id="descripcion-puesto">
+        Puesto
+    </a>
+</div>
+<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+    <span class="agregar glyphicon glyphicon-plus" id="agregarE">
+    </span>
+</div>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<?php include 'sub/crearPuesto.html' ?>
+<!---------------------------------------------------------------->
+<!---------------------------------------------------------------->
+<div class="col-xs-10 col-sm-11 col-md-11 col-lg-11 espacio">
+    <?php
+                        $consulta = "SELECT * FROM encargado";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <select class="form-control" id="nombreEncargadoE" list="enc" name="nombreEncargadoE" onkeypress="return letras(event)" onkeyup="saltar(event,'nombreEmpleado')" placeholder="Encargado" type="text" value="<?php echo $nombreEncargadoE;?>">
+        <option value="Encargado">
+            Encargado
+        </option>
+        <?php foreach ($ejecutar as $encargado): ?>
+        <option value="<?php echo $encargado['nombreEncargado']?>">
+            <?php echo $encargado['nombreEncargado']?>
+        </option>
+        <? endforeach; ?>
+    </select>
+    <a class="descripcion" id="descripcion-nombreEncargadoE">
+        Encargado
+    </a>
+</div>
+<div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 espacio">
+    <span class="agregar glyphicon glyphicon-plus" id="agregarE">
+    </span>
+</div>

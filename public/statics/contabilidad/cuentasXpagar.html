@@ -1,0 +1,485 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="cuentasXpagar.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_cuentasXpagar.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!----------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--VACIO--->
+            <!---------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 10px 10px 10px; margin-bottom: 1px;">
+        <!-------------------------NOMBRES DERECHA------------------------------->
+        <!----------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="on" type="text" value="Código:"/>
+                <a class="descripcion" style="color: #fff;">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="on" type="text" value="Nombre:"/>
+                <a class="descripcion" style="color: #fff;">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="on" type="text" value="Descipción:"/>
+                <a class="descripcion" style="color: #fff;">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="on" type="text" value="Fecha:"/>
+                <a class="descripcion" style="color: #fff;">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="on" style="display: none;" type="text" value="Lote:"/>
+                <a class="descripcion" id="lote0" style="display: none;">
+                    .
+                </a>
+            </div>
+            <!---------------------CONSULTA A CUENTAS POR PAGAR------------------------->
+            <!-------------------------------------------------------------------------->
+            <?php 
+                $consulta = "SELECT * FROM cuentasXpagarSAP";
+                $ejecutar = mysqli_query($con, $consulta);
+
+                $tabla = mysqli_fetch_array($ejecutar);
+                $idC = $tabla['codigo'];
+            ?>
+            <?php
+                $codigo1 = $_REQUEST['codigo'];
+                if ($codigo1 != '') {
+                    $codigo1 = $_REQUEST['codigo'];
+                    $consultaDatos = "SELECT * FROM  cuentasXpagarSAP WHERE codigo='$codigo1' ";
+                    $ejecutarDatos = mysqli_query($con, $consultaDatos);
+                    $i         = 0;
+                    while ($filaDatos = mysqli_fetch_array($ejecutarDatos)) {
+                        $codigo1        = $filaDatos['codigo'];
+                        $nombreAcreedor1 = $filaDatos['nombreAcreedor'];
+                        $descripcion = $filaDatos['descripcion'];
+                        $i++;
+                    }
+                } else {
+                    
+                }   
+            ?>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <!------------------CODIGO---------------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                    <input id="idC" name="idC" type="hidden" value="<?php echo $idC ?>"/>
+                    <?php
+                        $consulta = "SELECT * FROM cuentasXpagarSAP GROUP BY codigo ORDER BY codigo";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+                    <input autocomplete="off" class="form-control capitalizeText" id="codigo1" list="co" name="codigo1" placeholder="Código" type="text" value="<?php echo $codigo1 ?>"/>
+                    <datalist id="co">
+                        <?php foreach ($ejecutar as $codigo): ?>
+                        <option value="<?php echo $codigo['codigo']?>">
+                        </option>
+                        <? endforeach; ?>
+                    </datalist>
+                    <!------------------ESPACIO--------------------->
+                    <!---------------------------------------------->
+                    <a class="descripcion" id="descripcion-codigo1">
+                        Código
+                    </a>
+                </div>
+                <!-------------NOMBRE CAMPO TIPO---------------->
+                <!---------------------------------------------->
+                <div class="col-xs-0 col-sm-3 col-md-3 col-lg-3 espacio ocultar">
+                    <input class="form-control" id="nombres1" readonly="" type="text" value="Tipo:"/>
+                    <a class="descripcion" style="color: #fff;">
+                        .
+                    </a>
+                </div>
+                <!--------------------TIPO---------------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 espacio">
+                    <select class="form-control" id="tipo" name="tipo">
+                        <option value="- - - Seleccionar - - -">
+                            - - - Seleccionar - - -
+                        </option>
+                        <option value="TT">
+                            TT
+                        </option>
+                        <option value="PP">
+                            PP
+                        </option>
+                        <option value="SI">
+                            SI
+                        </option>
+                        <option value="PR">
+                            PR
+                        </option>
+                        <option value="AS">
+                            AS
+                        </option>
+                        <option value="CB">
+                            CB
+                        </option>
+                        <option value="PC">
+                            PC
+                        </option>
+                    </select>
+                    <a class="descripcion" id="descripcion-codigo1">
+                        Tipo
+                    </a>
+                </div>
+                <!-----------------NOMBRE ACREEDOR-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control" id="nombreAcreedor" list="pro" name="nombreAcreedor" placeholder="Nombre de Acreedor" type="text" value="<?php echo strtoupper($nombreAcreedor1) ?>"/>
+                    <datalist id="pro">
+                        <?php foreach ($ejecutar as $nombreAcreedor): ?>
+                        <option value="<?php echo strtoupper ($nombreAcreedor['nombreAcreedor'])?>">
+                        </option>
+                        <? endforeach; ?>
+                    </datalist>
+                    <a class="descripcion" id="descripcion-nombreAcreedor">
+                        Nombre de Acreedor
+                    </a>
+                </div>
+                <!---------------------DESCRIPCION-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                        <input autocomplete="off" class="form-control" id="descripcion" list="des" name="descripcion" placeholder="Descipción Acreedor" type="text" value="<?php echo strtoupper($descripcion) ?>"/>
+                        <datalist id="des">
+                            <?php foreach ($ejecutar as $descripcion): ?>
+                            <option value="<?php echo strtoupper ($descripcion['descripcion'])?>">
+                            </option>
+                            <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion" id="descripcion-nombreAcreedor">
+                            Descripción Acreedor
+                        </a>
+                    </div>
+                    <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                        <input class="form-control" id="nombres1" readonly="" type="text" value="Factura:"/>
+                        <a class="descripcion" style="color: #fff;">
+                            .
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                        <input autocomplete="off" class="form-control" id="nReferencia" name="nReferencia" onchange="javascript:this.value=this.value.toUpperCase();" onkeyup="saltar(event,'vencimiento')" placeholder="No. Factura" type="text"/>
+                        <a class="descripcion" id="descripcion-nReferencia">
+                            No. Factura
+                        </a>
+                    </div>
+                </div>
+                <?php date_default_timezone_set("America/Guatemala");?>
+                <!----------------FECHA VENCIMIENTO------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                    <input class="form-control" id="contabilizacion" name="fContabilizacion" placeholder="Fecha Contabilización" readonly="off" type="hidden" value="<?php $timestamp = time()+date('Z'); echo gmdate('Y-m-d',$timestamp); ?>"/>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="fecha-v-1">
+                            <span class="glyphicon glyphicon-calendar" id="fecha-v-2" style="cursor: pointer;">
+                            </span>
+                        </span>
+                        <input class="form-control calendario" id="vencimiento" name="fVencimiento" onkeyup="saltar(event,'cantidad')" placeholder="Fecha Vencimiento" type="text"/>
+                    </div>
+                    <a class="descripcion" id="descripcion">
+                        Fecha Vencimiento
+                    </a>
+                </div>
+                <!-------------NOMBRE CAMPO CANTIDAD------------>
+                <!---------------------------------------------->
+                <div class="col-xs-0 col-sm-2 col-md-2 col-lg-2 espacio ocultar">
+                    <input class="form-control" id="nombres1" readonly="" type="text" value="Cantidad:"/>
+                    <a class="descripcion" style="color: #fff;">
+                        .
+                    </a>
+                </div>
+                <!------------------CANTIDAD-------------------->
+                <!---------------------------------------------->
+                <div class="input-group col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                    <span class="input-group-addon" style="font-weight: 900; cursor: pointer;">
+                        Q.
+                    </span>
+                    <input autocomplete="off" class="form-control" id="cantidad" name="saldoVencido" onkeyup="saltar(event,'agregar')" placeholder="Cantidad" type="tel" value="0.00"/>
+                    <span class="input-group-addon" style="font-weight: 900; cursor: pointer;">
+                        ?
+                    </span>
+                </div>
+                <a class="descripcion" id="descripcion-cantidad">
+                    Cantidad - Sin ceros y punto si es cantidad exacta (.00).
+                </a>
+                <!---------------------LOTE--------------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio" id="lote1" style="display: none;">
+                    <input autocomplete="off" class="form-control" id="lote" name="lote" onkeyup="saltar(event,'agregar')" placeholder="Lote" type="tel"/>
+                    <a class="descripcion" id="descripcion">
+                        Lote
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--------------------------FECHA Y HORA------------------------------->
+            <!--------------------------------------------------------------------->
+            <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-------------------------TABLA-------------------------------->
+    <!-------------------------------------------------------------->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio datagrid-e" id="datagrid-e">
+        <?php include_once '../funciones/contabilidad/cuentasXpagar/editarCuentasXpagar.php'?>
+    </div>
+    <div class="row" style="padding-top: 10px; margin-bottom: 5px;">
+        <!-------------------------ELIMINAR FILAS------------------------------>
+        <!--------------------------------------------------------------------->
+        <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 espacio">
+            <button class="button" id="delAcreedor" type="button">
+                <span class="glyphicon glyphicon-trash">
+                </span>
+                Eliminar Filas
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-6 col-lg-6 espacio ocultar">
+        </div>
+        <!-------------------------ELIMINAR FILA------------------------------->
+        <!--------------------------------------------------------------------->
+        <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 espacio">
+            <button class="button" id="delete" type="button">
+                <span class="glyphicon glyphicon-trash">
+                </span>
+                Eliminar Fila
+            </button>
+        </div>
+        <!------------------------------GUARDAR-------------------------------->
+        <!--------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+    </div>
+    <!--------------------------------TABLAS------------------------------->
+    <!--------------------------------------------------------------------->
+    <?php include_once '../funciones/contabilidad/cuentasXpagar/cargarCuentasXpagarFinal.php'?>
+    <?php include_once '../funciones/contabilidad/cuentasXpagar/cargarCuentasXpagarSaldo.php'?>
+    <!--------------------------TABLA------------------------------------>
+    <!------------------------------------------------------------------->
+    <div class="row datagrid" id="datagrid" style="padding-bottom: -20px">
+        <?php include_once '../funciones/contabilidad/cuentasXpagar/cargarCuentasXpagar.php'?>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px; margin-bottom: 5px;">
+        <!-----------------------------CARGAR SAP------------------------------>
+        <!--------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar SAP
+            </button>
+        </div>
+        <!-----------------------------CARAR DATOS----------------------------->
+        <!--------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 espacio">
+            <button class="button" id="final" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar Datos
+            </button>
+        </div>
+        <!--------------------------ACTUALIZAR DATOS--------------------------->
+        <!--------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 espacio">
+            <button class="button" id="usaldo" type="button">
+                <span class="glyphicon glyphicon-resize-full">
+                </span>
+                Actualizar Datos
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 espacio ocultar">
+        </div>
+        <!----------------------------BORRAR BBDD------------------------------>
+        <!--------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 espacio ocultar">
+            <button class="button" id="borrar" name="borrar" type="button">
+                <span class="glyphicon glyphicon-trash">
+                </span>
+                Borrar BBDD
+            </button>
+        </div>
+        <!------------------------------REFRESCAR------------------------------>
+        <!--------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 espacio">
+            <a href="cuentasXpagar.php">
+                <button class="button" id="limpia" type="button">
+                    <span class="glyphicon glyphicon-refresh">
+                    </span>
+                    Refrescar
+                </button>
+            </a>
+        </div>
+    </div>
+    <!------------------------------MENSAJE 1------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje">
+    </div>
+    <!------------------------------MENSAJE 2------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje1">
+    </div>
+    <!------------------------------MENSAJE 3------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje2">
+    </div>
+    <!------------------------------MENSAJE 4------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje3">
+    </div>
+    <!------------------------------MENSAJE 5------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje4">
+    </div>
+    <!------------------------------MENSAJE 6------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje5">
+    </div>
+    <!------------------------------MENSAJE 7------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje6">
+    </div>
+    <!------------------------------MENSAJE 8------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje7">
+    </div>
+    <!------------------------------MENSAJE 9------------------------------>
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje8">
+    </div>
+    <!------------------------------MENSAJE 10----------------------------->
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje9">
+    </div>
+    <!------------------------------MENSAJE 11----------------------------->
+    <!--------------------------------------------------------------------->
+    <div class="mensaje" id="mensaje10">
+    </div>
+</div>
+<style type="text/css">
+    #agregar:active, #agregar:focus{ 
+        background-color: darkgreen;
+    }
+    #delAcreedor:active, #delete:active, #delAcreedor:focus, #delete:focus{
+        background-color: darkred;
+    }
+    .button{
+        margin-bottom: 5px;
+    }
+    .mensaje{
+        text-align: center;
+    }
+    .botonAceptar{
+        padding: 7px 20px 7px 20px; 
+        background: #3fc3ee; 
+        color: #ffffff; 
+        font-size: 13px;
+        border: solid 4px #fff; 
+        border-radius: 4px; 
+        margin-bottom: 10px;
+    }
+    .botonAceptar:hover{
+        background-color: #0d7596;
+        cursor: pointer;
+    }
+    #contabilizacion{
+        text-align: center;
+
+    }
+    #nReferencia{
+        text-align: center;
+        font-weight: bold;
+        color: darkred;
+        font-size: 18px;
+    }
+    .pieModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: darkgreen;
+        border-left: solid 3px;
+        border-left-color: darkgreen;
+    }
+    #datagrid-e{
+        margin-top: 5px; 
+        padding-bottom: -20px; 
+        margin-bottom: 10px;
+    }
+    #corretativo:active, #correlativo:focus{
+        color: #000000;
+    }
+    @media (max-width: 1200px){
+        #borrar{
+            display: none;
+        }
+        #limpia{
+            margin-top: -2px;
+        }
+    }
+    @media (max-width: 767px){
+        #tablaBajaJumbo_wrapper .dt-buttons{
+            display: none;
+        }
+        #datagrid-e{
+            margin-top: 10px;
+        }
+        #datagrid{
+            margin-top: 10px;
+        }
+    }
+</style>
+<script type="text/javascript">
+    $('.calendario').flatpickr();
+    $('.calendario').css("text-align", "center");
+</script>
+<script type="text/javascript">
+    function ped(datos) {
+        d = datos.split('||');
+        $('#idC').val(d[0]);
+        //$('#tipo').val(d[1]);
+        $('#contabilizacion').val(d[2]);
+        $('#vencimiento').val(d[3]);
+        $('#nReferencia').val(d[4]);
+        $('#cantidad').val(d[5]);
+    }
+</script>

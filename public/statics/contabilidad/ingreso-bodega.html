@@ -1,0 +1,212 @@
+<div class="contenedor">
+    <div class="row">
+        <!-------------------------IMAGEN IZQUIERDA------------------------------->
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="ingreso-bodega.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_ingreso-bodega.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <!-------------------------USUARIO Y DEPARTAMENTO----------------------------->
+        <!---------------------------------------------------------------------------->
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--VACIO--->
+            <!---------->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <!-------------------------MUESTRA EL CORRETATIVO----------------------------->
+    <!---------------------------------------------------------------------------->
+    <?php 
+        $consulta = "SELECT MAX(numero) numero FROM ingresoBodega";
+        $ejecutar = mysqli_query($con, $consulta);
+
+        $tabla = mysqli_fetch_array($ejecutar);
+        $numero = $tabla['numero'];
+        $numero++;
+    ?>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 10px 10px 10px; margin-bottom: 1px;">
+        <!-------------------------NOMBRES IZQUIERDA------------------------------>
+        <!------------------------------------------------------------------------>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Número:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Fecha Ingreso:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="# Línea I.B.:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="# Orden Compra:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres4" readonly="" type="text" value="# Línea O.C.:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres5" readonly="" type="text" value="# Factura:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <!------------------NUMERO---------------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="numero" name="numero" onkeyup="saltar(event,'fechaIngreso')" placeholder="Número" readonly="" type="text" value="<?php echo $numero ?>"/>
+                        <a class="descripcion" id="descripcion-numero">
+                            Número
+                        </a>
+                    </div>
+                </div>
+                <!------------------FECHA DE INGRESO---------------------->
+                <!-------------------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="fechaIngreso" name="fechaIngreso" onkeyup="saltar(event,'lineaIngreso')" placeholder="Fecha Ingreso" type="text"/>
+                        <a class="descripcion" id="descripcion-fechaIngreso">
+                            Fecha Ingreso
+                        </a>
+                    </div>
+                </div>
+                <!------------LINEA INGRESO BODEGA-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="lineaIngreso" name="lineaIngreso" onkeyup="saltar(event,'ordenCompra')" placeholder="Línea Ingreso Bodega" type="text"/>
+                        <a class="descripcion" id="descripcion-lineaIngreso">
+                            Línea Ingreso Bodega
+                        </a>
+                    </div>
+                </div>
+                <!-----------------ORDEN DE COMPRA-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="ordenCompra" name="ordenCompra" onkeyup="saltar(event,'lineaOrden')" placeholder="Orden Compra" type="text"/>
+                        <a class="descripcion" id="descripcion-ordenCompra">
+                            Orden Compra
+                        </a>
+                    </div>
+                </div>
+                <!-------------LINEA ORDEN DE COMPRA------------>
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="lineaOrden" name="lineaOrden" onkeyup="saltar(event,'factura')" placeholder="Línea O.C." type="text"/>
+                        <a class="descripcion" id="descripcion-lineaOrden">
+                            Línea O.C.
+                        </a>
+                    </div>
+                </div>
+                <!------------------NUMERO FACTURA-------------->
+                <!---------------------------------------------->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control capitalizeText" id="factura" name="factura" onkeyup="saltar(event,'cargar')" placeholder="# Factura" type="text"/>
+                        <a class="descripcion" id="descripcion-factura">
+                            # Factura
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!------------------FECHA Y HORA---------------->
+                <!---------------------------------------------->
+                <div class="col-xs-4 col-sm-9 col-md-9 col-lg-9 espacio">
+                </div>
+                <div class="col-xs-8 col-sm-3 col-md-3 col-lg-3 espacio">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                        <i class="glyphicon glyphicon-time" id="reloj">
+                        </i>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                        <i class="glyphicon glyphicon-calendar" id="calendario">
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    <!------------------TABLA---------------------->
+    <!---------------------------------------------->
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px">
+        <?php include '../funciones/contabilidad/ingreso-bodega/cargar.php'; ?>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <!------------------CARGAR---------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-6 col-lg-6 espacio ocultar">
+        </div>
+        <!------------------GUARDAR---------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <!------------------LIMPIAR--------------------->
+        <!---------------------------------------------->
+        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 espacio">
+            <a href="ingreso-bodega.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-unchecked">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<!------------------BOTON ARRIBA---------------------->
+<!---------------------------------------------->
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .button{
+        margin-bottom:2px;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: #cccccc;
+        border-left: solid 1px;
+        border-color: black;
+    }
+    .eModal{
+        font-weight: 600;
+        font-size: 12px;
+    }
+</style>

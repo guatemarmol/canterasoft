@@ -1,0 +1,162 @@
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="laboratorio.php">
+                <img class="logo" id="nombreLogo" src="../images/nombre/1_laboratorio.png"/>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 5px 20px; margin-bottom: 1px;">
+        <?php 
+            include '../on-database.php';
+            $consulta = "SELECT MAX(correlativo) correlativo FROM laboratorio";
+            $ejecutar = mysqli_query($con, $consulta);
+
+            $tabla = mysqli_fetch_array($ejecutar);
+            $correlativo = $tabla['correlativo'];
+            $correlativo++;
+        ?>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Correlativo:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Correlativo Producción:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Especificación 1:"/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Especificación 2:"/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <input autocomplete="off" class="form-control" id="correlativo" name="correlativo" onkeyup="saltar(event,'correlativo')" placeholder="Correlativo" readonly="" type="text" value="<?php echo $correlativo ?>"/>
+                        <a class="descripcion" id="descripcion-correlativo">
+                            Correlativo
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 espacio">
+                        <?php
+                            $consulta = "SELECT * FROM produccion";
+                            $ejecutar = mysqli_query($con, $consulta);
+                         ?>
+                        <input autocomplete="off" class="form-control" id="correlativoProduccion" list="cp" name="correlativoProduccion" onkeyup="saltar(event,'especificacion1')" placeholder="Correlativo Producción" type="text" value="<?php echo $correlativoProduccion ?>"/>
+                        <datalist id="cp">
+                            <?php foreach ($ejecutar as $produccion): ?>
+                            <option value="<?php echo $produccion['correlativoProduccion']?>">
+                            </option>
+                            <? endforeach; ?>
+                        </datalist>
+                        <a class="descripcion" id="descripcion-correlativoProduccion">
+                            Correlativo Producción
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control" id="especificacion1" name="especificacion1" onkeyup="saltar(event,'especificacion2')" placeholder="Especificación 1" type="text" value="<?php echo $especificacion1 ?>"/>
+                    <a class="descripcion" id="descripcion-especificacion1">
+                        Especificación 1
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <input autocomplete="off" class="form-control" id="especificacion2" name="especificacion2" onkeyup="saltar(event,'agregar')" placeholder="Especificación 2" type="text" value="<?php echo $especificacion2 ?>"/>
+                    <a class="descripcion" id="descripcion-especificacion2">
+                        Especificación 2
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="datagrid" style="padding-top: 15px; padding-bottom: -20px;">
+        <!--------------------------TABLA------------------------------------>
+    </div>
+    <div class="row" style="padding-bottom: 15px; padding-top: 10px;">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="cargar" type="button">
+                <span class="glyphicon glyphicon-th-list">
+                </span>
+                Cargar
+            </button>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio ocultar">
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <button class="button" id="agregar" type="button">
+                <span class="glyphicon glyphicon-floppy-disk">
+                </span>
+                Guardar
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 espacio">
+            <a href="laboratorio.php">
+                <button class="button" type="button">
+                    <span class="glyphicon glyphicon-erase">
+                    </span>
+                    Limpiar
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+    .button{
+        margin-bottom: 2px;
+    }
+    .has-error {
+        border-color: darkred;
+        border-left: solid 3px;
+        border-left-color: darkred;
+    }
+    .has-succes {
+        border-color: darkgreen;
+        border-left: solid 3px;
+        border-left-color: darkgreen;
+    }
+    @media (max-width: 767px){
+        #tablaLaboratorio_wrapper .dt-buttons{
+            display: none;
+        }
+    }
+</style>

@@ -1,0 +1,32 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio thumbnail" id="divisionSub" style="display: none; padding: 10px;">
+    <input autocomplete="off" class="form-control capitalizeText" id="nombreDivision" name="nombreDivision" onkeyup="saltar(event,'descripcionDivision')" placeholder="Nombre División" type="text" value="<?php echo $nombreDivision;?>"/>
+    <a class="descripcion" id="descripcion-nombreDivision">
+        Nombre División
+    </a>
+    <input autocomplete="off" class="form-control capitalizeText" id="descripcionDivision" name="descripcionDivision" onkeyup="saltar(event,'nombreEncargado')" placeholder="Descripción División" type="text" value="<?php echo $descripcionDivision;?>"/>
+    <a class="descripcion" id="descripcion-descripcionDivision">
+        Descripción División
+    </a>
+    <?php
+                        $consulta = "SELECT * FROM encargado";
+                        $ejecutar = mysqli_query($con, $consulta);
+                    ?>
+    <select class="form-control" id="nombreEncargadoE" list="enc" name="nombreEncargadoE" onkeypress="return letras(event)" onkeyup="saltar(event,'nombreEmpleado')" placeholder="Encargado" type="text" value="<?php echo $nombreEncargadoE;?>">
+        <option value="Encargado">
+            Encargado
+        </option>
+        <?php foreach ($ejecutar as $encargado): ?>
+        <option value="<?php echo $encargado['nombreEncargado']?>">
+            <?php echo $encargado['nombreEncargado']?>
+        </option>
+        <? endforeach; ?>
+    </select>
+    <a class="descripcion" id="descripcion-nombreEncargadoE">
+        Encargado
+    </a>
+    <button class="button" id="agregarDivision" type="button">
+        <span class="glyphicon glyphicon-plus">
+        </span>
+        Agregar
+    </button>
+</div>

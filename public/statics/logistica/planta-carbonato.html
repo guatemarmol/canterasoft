@@ -1,0 +1,223 @@
+<script src="../js/logistica/planta-carbonato.js"></script>
+<div class="contenedor">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" style="padding-top: 10px;">
+            <a href="planta-carbonato.php">
+                <h1 class="ocultar" style="position: absolute; top: 10px;">
+                    PLANTA CARBONATO
+                </h1>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8 ocultar espacio">
+            <!--<input autocomplete="off" class="form-control" id="linea" readonly="" type="text"/>-->
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 espacio">
+            <input class="form-control" id="nicknameBitacora" name="nicknameBitacora" readonly="true" type="text" value="<?php echo $_SESSION['username']; ?> <?php echo $_SESSION['username0']; ?>"/>
+            <i class="glyphicon glyphicon-user " id="icono">
+            </i>
+            <a class="descripcion" style="color: green">
+                Usuario
+            </a>
+            <input class="form-control" id="departamentoBitacora" name="departamentoBitacora" readonly="true" type="text" value="Departamento de <?php echo $_SESSION['departamento']; ?>"/>
+        </div>
+    </div>
+    <div class="row thumbnail SelloAgua" style="padding: 20px 20px 5px 20px; margin-bottom: 1px;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3 espacio ocultar">
+                <input class="form-control" id="nombres0" readonly="" type="text" value="Camión: "/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres1" readonly="" type="text" value="Hora de Llegada: "/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres2" readonly="" type="text" value="Hora de Descarga: "/>
+                <a class="descripcion">
+                    .
+                </a>
+                <input class="form-control" id="nombres3" readonly="" type="text" value="Hora de Vaciado: "/>
+                <a class="descripcion">
+                    .
+                </a>
+            </div>
+
+            <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7 espacio">
+                
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                        <?php
+                            $consulta = "SELECT * FROM maquinaria WHERE codigotipo = 2;";
+                            $ejecutar = mysqli_query($con, $consulta);
+                        ?>
+                        <select class="form-control" id="camion" name="camion" >
+                            <option value="0">
+                                Seleccione su Camión
+                            </option>
+                            <?php foreach ($ejecutar as $camion): ?>
+                            <option value="<?php echo $camion['id']?>">
+                                <?php echo $camion['descripcion']. ' - ' .$camion['placa']?>
+                            </option>
+                            <? endforeach; ?>
+                        </select>
+                        <a class="descripcion" id="camion">
+                            .
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                        <button class="button" id="llegada" type="button">
+                            Llegada
+                        </button>
+                        <a class="descripcion" id="camion">.
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                        <button class="button" id="descarga" type="button">
+                            Descarga
+                        </button>
+                        <a class="descripcion" id="camion">
+                        .</a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio">
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 espacio">
+                        <button class="button" id="vaciado" type="button" >
+                            Vaciado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <!--
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 espacio" id="act">
+            <div class="table-responsive">
+                <table id="listaCamion" width="100%" class="list" style="width:100%" >
+                    <thead class="StandardTable">
+                        <tr>
+                            <th style="background-color:#ffffff18">Fecha</th>
+                            <th style="background-color:#ffffff18">Camión</th>
+                            <th style="background-color:#ffffff18">Hora Llegada</th>
+                            <th style="background-color:#ffffff18">Hora Descarga</th>
+                            <th style="background-color:#ffffff18">Inicio Vaciado</th>
+                            <th style="background-color:#ffffff18">Finalización Vaciado</th>
+                            <th style="background-color:#ffffff18">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <?php
+                            //include '../funciones/logistica/planta-carbonato/tablaCamion.php';
+                        ?>
+                    </tbody>
+                </table>
+                <br>
+            </div>
+        </div>
+        -->
+
+        <div class="row">
+            <div class="col-xs-3 col-sm-9 col-md-9 col-lg-9 espacio">
+            </div>
+            <div class="col-xs-9 col-sm-3 col-md-3 col-lg-3 espacio">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="hora" name="hora" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-time" id="reloj">
+                    </i>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 espacio">
+                    <input class="form-control" id="fecha" name="fecha" readonly="true" type="text"/>
+                    <i class="glyphicon glyphicon-calendar" id="calendario">
+                    </i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row mensaje" id="mensaje">
+</div>
+<style type="text/css">
+
+    .list{
+        background-color: #ffffff;
+        padding: 5px;
+        padding-left: 10px;
+        border: solid 1px #f5f5f5;
+        border-radius: 4px;
+        text-align: center;
+        font-weight: 1;
+        margin-bottom: -31px;
+        margin-top: 5px;
+    }
+
+</style>
+
+<script>
+    $(document).ready(function() {
+        $('#listaCamion').DataTable( {
+            "order": [[ 0, 'desc' ]],
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging":         false,
+            //"ordering":       false,
+            "info":           false,
+                dom: 'Bfrtip',
+                buttons: [
+                //'copyHtml5',
+                //'excelHtml5',
+                //'csvHtml5'
+                //'pdfHtml5'
+            ],
+            language: {
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "Mostrar _MENU_",
+                    "sZeroRecords":    "No se encontraron resultados",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "info": " _PAGE_ of _PAGES_",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    },
+                    "buttons": {
+                        "copy": "Copiar",
+                        "colvis": "Visibilidad"
+                    }
+                },
+            
+            scrollX: true,
+        } );
+        //var table = $('#tablaPedidosIngresados').DataTable();
+       
+        $('#listaCamion tbody').on( 'click', 'tr', function () {
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        } );
+    });
+</script>
