@@ -27,8 +27,15 @@
                     <td>{{ $usuario->email }}</td>
                     <td>{{ $usuario->departamento }}</td>
                     <td>{{ $usuario->perfil }}</td>
-                    <td><a href="" class="btn btn-success">Editar</a>
-                        </td>
+                    <td>
+                        <a class="justify-content-left mb-4" href="{{ route('editar',[ 'id' => $usuario->id]) }}">
+                            <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/35/000000/external-edit-miscellaneous-kiranshastry-gradient-kiranshastry.png"/>
+                          </a>
+
+                          <a class="justify-content-left mb-4" href="{{ route('delete',[ 'id' => $usuario->id]) }}">
+                            <img src="https://img.icons8.com/fluency/35/000000/filled-trash.png"/>
+                          </a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

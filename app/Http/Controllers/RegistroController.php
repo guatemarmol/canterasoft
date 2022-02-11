@@ -51,9 +51,17 @@ class RegistroController extends Controller
 		return view('auth.consulta',compact('users'));
 	}
 
-    public function edit($id){
-        $user = User::findOrFail($id);
-		return view('auth.consulta.edit',compact('user'));
+    public function edit(Request $id){
+        $user = User::findOrFail($id['id']);
+		return view('auth.edit',compact('user'));
+	}
+
+    public function delete(Request $id){
+        $users = User::paginate(5);
+        $user=User::where('id', '=', $id['id'])->first();
+        $user->status = 'N';
+        $user->save;
+		return view('auth.consulta',compact('users'));
 	}
 
 }
