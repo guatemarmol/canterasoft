@@ -10,6 +10,7 @@ use Laravel\Jetstream\Jetstream;
 use Illuminate\Http\Request;
 use App\Actions\Fortify\PasswordValidationRules;
 use Laravel\Fortify\Contracts\RegisterResponse;
+$urlServer = config('app.APP_URL');
 
 class RegistroController extends Controller
 {
@@ -42,12 +43,15 @@ class RegistroController extends Controller
 
     public function render()
     {
-        return view('livewire.users-tabble',['users' => User::paginate(5)
+        return view('livewire.users-tabble',['users' => User::paginate(3)
     ]);
     }
 
     public function query(){
-        $users = User::paginate(5);
+        $users = User::where('status', 'A')->paginate(5);
+       // $users = User::where('status', 'A')->get();
+        //$users->fresh();
+
 		return view('auth.consulta',compact('users'));
 	}
 
@@ -57,11 +61,28 @@ class RegistroController extends Controller
 	}
 
     public function delete(Request $id){
-        $users = User::paginate(5);
-        $user=User::where('id', '=', $id['id'])->first();
-        $user->status = 'N';
-        $user->save;
+        $users = User::where('status', 'A')->paginate(5);
+        $user = User::findOrFail($id['id']);
+        $user->forceFill([
+            'status' => 'N',
+        ])->save();
 		return view('auth.consulta',compact('users'));
 	}
+    public function updatePassword(Request $request){
+        $input = $request->all();
+        Validator::make($input, [
+            'password' => $this->passwordRules(),
+        ])->after(function ($validator) use ($input) {
+            if (! isset($input['password']) || $input['password'] == $input['password_confirmation']) {
+                $validator->errors()->add('password', __('La contrase;a no coincide por favor verifique.'));
+            }
+        });
+        $user = User::findOrFail($request['id']);
+        $user->forceFill([
+            'password' => Hash::make($input['password']),
+        ])->save();
+		return view('auth.edit',compact('user'));
+	}
+
 
 }

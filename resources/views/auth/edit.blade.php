@@ -38,16 +38,26 @@
                 <x-jet-label value="{{ __('Departamento') }}" />
 
                 <select id="departamento"  class="form-control" name="departamento">
-                    <option value="0"  >
+                    {{ $selected1='' }} {{ $selected='' }} {{ $selected2='' }} {{ $selected3='' }}
+                    @if( $user->departamento == '0' )
+                    {{$selected='selected' }}
+                    @elseif ( $user->departamento == '1' )
+                    {{$selected1='selected' }}
+                    @elseif ( $user->departamento == '2' )
+                    {{$selected1='selected' }}
+                    @elseif  ( $user->departamento == '3' )
+                    {{$selected1='selected' }}
+                    @endif
+                    <option value="{{ $user->departamento ? '0' : '0' }}" {{ $selected}} >
                         Seleccione departamento
                     </option>
-                    <option value="1"  >
+                    <option value="{{ $user->departamento ? '1' : '1' }}" {{ $selected1}}  >
                         informatica
                     </option>
-                    <option value="2" >
+                    <option value="{{ $user->departamento ? '2' : '2' }}" {{ $selected2}}  >
                         Bodega
                     </option>
-                    <option value="3" >
+                    <option value="{{ $user->departamento ? '3' : '3' }}" {{ $selected3}}  >
                         Administracion
                     </option>
 
@@ -111,42 +121,64 @@
     <x-jet-section-border />
     <div>
 
-        <x-jet-form-section submit="updatePassword">
-            <x-slot name="title">
+        <div class="row">
+            <div class="col-md-4">
+                <x-jet-section-title>
+                  <x-slot name="title">
                 {{ __('Cambiar Contraseña') }}
             </x-slot>
-
             <x-slot name="description">
                 {{ __('Asegúrese de que su cuenta esté usando una contraseña larga y aleatoria para mantenerse seguro.') }}
-            </x-slot>
 
-            <x-slot name="form">
-                <div class="w-md-75">
+                        <span class="small">
+                            {{ __('Asegúrese de que su cuenta esté usando una contraseña larga y aleatoria para mantenerse seguro.') }}
+                        </span>
+                    </x-slot>
+                </x-jet-section-title>
+            </div>
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <form method="POST" action="/editar" class="justify-content-left mb-4">
+                        @csrf
+                        <div class="card-body">
 
-                    <div class="mb-3">
-                        <x-jet-label for="password" value="{{ __('Nueva Contraseña') }}" />
-                        <x-jet-input id="password" type="password" class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
-                                     wire:model.defer="state.password" autocomplete="new-password" />
-                        <x-jet-input-error for="password" />
-                    </div>
+                                <div class="w-md-75">
 
-                    <div class="mb-3">
-                        <x-jet-label for="password_confirmation" value="{{ __('Confirmar contraseña') }}" />
-                        <x-jet-input id="password_confirmation" type="password" class="{{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
-                                     wire:model.defer="state.password_confirmation" autocomplete="new-password" />
-                        <x-jet-input-error for="password_confirmation" />
-                    </div>
+                                    <div class="mb-3">
+                                        <x-jet-label for="password" value="{{ __('Nueva Contraseña') }}" />
+                                        <x-jet-input id="password" type="password" name="password" class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                                     wire:model.defer="state.password" autocomplete="new-password" />
+                                        <x-jet-input-error for="password" />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <x-jet-label for="password_confirmation" value="{{ __('Confirmar contraseña') }}" />
+                                        <x-jet-input id="password_confirmation" name="password_confirmation" type="password" class="{{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
+                                                     wire:model.defer="state.password_confirmation" autocomplete="new-password" />
+                                        <x-jet-input-error for="password_confirmation" />
+                                    </div>
+                                    <input type="hidden" name="id" value="{{$user->id}}">
+
+
+
+
+                                </div>
+                                <x-jet-button class="justify-content-right mb-4">
+                                    <div wire:loading class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">Cargando...</span>
+                                    </div>
+
+                                    {{ __('Guardar') }}
+                                </x-jet-button>
+
+
+
+                        </div>
+                    </form>
                 </div>
-            </x-slot>
+            </div>
+        </div>
 
-            <x-slot name="actions">
-                <x-jet-button>
-                    <div wire:loading class="spinner-border spinner-border-sm" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
 
-                    {{ __('Guardar') }}
-                </x-jet-button>
-            </x-slot>
-        </x-jet-form-section>
+
 </x-app-layout>

@@ -76,12 +76,6 @@
                         <x-jet-dropdown-link href="{{ route('consulta') }}">
                             {{ __('Consulta') }}
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('consulta') }}">
-                            {{ __('Modificacion') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('consulta') }}">
-                            {{ __('Eliminar') }}
-                        </x-jet-dropdown-link>
 
                         <hr class="dropdown-divider">
 

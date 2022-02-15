@@ -31,7 +31,10 @@ Route::get('/consulta', [RegistroController::class, 'query'])
 ->name('consulta');
 
 Route::post('/consulta', [RegistroController::class, 'delete'])
-->name('delete');
+->name('borrar');
 
 Route::get('/editar', [RegistroController::class, 'edit'])
 ->name('editar');
+
+Route::post('/editar', [RegistroController::class, 'updatePassword'])
+->name('actualizarPassword');

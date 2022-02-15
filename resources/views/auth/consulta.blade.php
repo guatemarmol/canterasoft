@@ -31,10 +31,11 @@
                         <a class="justify-content-left mb-4" href="{{ route('editar',[ 'id' => $usuario->id]) }}">
                             <img src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/35/000000/external-edit-miscellaneous-kiranshastry-gradient-kiranshastry.png"/>
                           </a>
-
-                          <a class="justify-content-left mb-4" href="{{ route('delete',[ 'id' => $usuario->id]) }}">
-                            <img src="https://img.icons8.com/fluency/35/000000/filled-trash.png"/>
-                          </a>
+                          <form method="POST" action="/consulta" class="justify-content-left mb-4" style="display: inline;">
+                            @csrf
+                            <input type="hidden" name="id" value="{{$usuario->id}}">
+                            <input type=image src="https://img.icons8.com/fluency/35/000000/filled-trash.png" alt="Submit feedback">
+                        </form>
                     </td>
                 </tr>
             @endforeach
