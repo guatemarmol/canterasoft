@@ -34,36 +34,30 @@
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Departamento') }}" />
 
-                    <select id="departamento"  class="form-control" name="departamento">
-                        <option value="0"  >
-                            Seleccione departamento
+                    <select id="departamento"  class="form-control" name="departamento" required>
+                        <option value=""  >
+                            Seleccione Departamento
                         </option>
-                        <option value="1"  >
-                            informatica
+                        @foreach ($departments as $value)
+                        <option value="{{ $value->id }}">
+                           {{ $value->name}}
                         </option>
-                        <option value="2" >
-                            Bodega
-                        </option>
-                        <option value="3" >
-                            Administracion
-                        </option>
-
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Perfil') }}" />
 
-                    <select id="perfil"  class="form-control" name="perfil">
-                        <option value="0"  >
+                    <select id="perfil"  class="form-control" name="perfil" required>
+                        <option value=""  >
                             Seleccione Perfil
                         </option>
-                        <option value="1"  >
-                            Administrador
+                        @foreach ($profiles as $value)
+                        <option value="{{ $value->id }}">
+                           {{ $value->name}}
                         </option>
-                        <option value="2" >
-                            Usuario estandar
-                        </option>
+                        @endforeach
 
                     </select>
                 </div>

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <div>
-    <x-jet-form-section submit="updateProfileInformation">
+    <x-jet-form-profile-edit submit="actualizarPerfil">
         <x-slot name="title">
             {{ __('Informacion de Perfil') }}
         </x-slot>
@@ -13,7 +13,9 @@
         <x-slot name="description">
             {{ __('Actualiza la informacion de registro de perfil.') }}
         </x-slot>
+
         <x-slot name="form">
+
             <x-slot name="action-mensaje" on="saved">
                 {{ __('Guardado con exito.') }}
             </x-slot>
@@ -22,14 +24,14 @@
                 <!-- Name -->
                 <div class="mb-3">
                     <x-jet-label for="name" value="{{ __('Nombre') }}" />
-                    <x-jet-input id="name" type="text" class="{{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ $user->name}}"  autocomplete="name" />
+                    <x-jet-input id="name" type="text" name="name" class="{{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ $user->name}}"  autocomplete="name" required/>
                     <x-jet-input-error for="name" />
                 </div>
 
                 <!-- Email -->
                 <div class="mb-3">
                     <x-jet-label for="email" value="{{ __('Email') }}" />
-                    <x-jet-input id="email" type="email" class="{{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ $user->email}}" />
+                    <x-jet-input id="email" type="email" name="email" class="{{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ $user->email}}" required/>
                     <x-jet-input-error for="email" />
                 </div>
             </div>
@@ -37,29 +39,19 @@
             <div class="mb-3">
                 <x-jet-label value="{{ __('Departamento') }}" />
 
-                <select id="departamento"  class="form-control" name="departamento">
-                    {{ $selected1='' }} {{ $selected='' }} {{ $selected2='' }} {{ $selected3='' }}
-                    @if( $user->departamento == '0' )
+                <select id="departamento"  class="form-control" name="departamento" required>
+                    <option value=""  >
+                        Seleccione Departamento
+                    </option>
+                    @foreach ($departments as $value)
+                    {{ $selected='' }}
+                    @if ($user->departamento == $value->id)
                     {{$selected='selected' }}
-                    @elseif ( $user->departamento == '1' )
-                    {{$selected1='selected' }}
-                    @elseif ( $user->departamento == '2' )
-                    {{$selected1='selected' }}
-                    @elseif  ( $user->departamento == '3' )
-                    {{$selected1='selected' }}
                     @endif
-                    <option value="{{ $user->departamento ? '0' : '0' }}" {{ $selected}} >
-                        Seleccione departamento
+                    <option value="{{ $value->id }}" {{ $selected}}>
+                       {{ $value->name}}
                     </option>
-                    <option value="{{ $user->departamento ? '1' : '1' }}" {{ $selected1}}  >
-                        informatica
-                    </option>
-                    <option value="{{ $user->departamento ? '2' : '2' }}" {{ $selected2}}  >
-                        Bodega
-                    </option>
-                    <option value="{{ $user->departamento ? '3' : '3' }}" {{ $selected3}}  >
-                        Administracion
-                    </option>
+                    @endforeach
 
                 </select>
             </div>
@@ -67,16 +59,19 @@
             <div class="mb-3">
                 <x-jet-label value="{{ __('Perfil') }}" />
 
-                <select id="perfil"  class="form-control" name="perfil">
+                <select id="perfil"  class="form-control" name="perfil" required>
                     <option value="0"  >
                         Seleccione Perfil
                     </option>
-                    <option value="1"  >
-                        Administrador
+                    @foreach ($profiles as $value)
+                    {{ $selected='' }}
+                    @if ($user->perfil == $value->id)
+                    {{$selected='selected' }}
+                    @endif
+                    <option value="{{ $value->id }}" {{ $selected }}>
+                       {{ $value->name}}
                     </option>
-                    <option value="2" >
-                        Usuario estandar
-                    </option>
+                    @endforeach
 
                 </select>
             </div>
@@ -84,23 +79,32 @@
             <div class="mb-3">
                 <x-jet-label value="{{ __('Estado') }}" />
 
-                <select id="perfil"  class="form-control" name="perfil">
-                    <option value="0"  >
+                <select id="estado"  class="form-control" name="estado" required>
+                    {{ $selected1='' }} {{ $selected='' }} {{ $selected2='' }}
+                    <option value=""  >
                         Seleccione Estado
                     </option>
-                    <option value="A"  >
+                    @if( $user->status == 'A' )
+                    {{$selected='selected' }}
+                    @elseif ( $user->status == 'B' )
+                    {{$selected1='selected' }}
+                    @elseif ( $user->status == 'N' )
+                    {{$selected2='selected' }}
+                    @endif
+                    <option value="A"  {{ $selected}}>
                         Activo
                     </option>
-                    <option value="N" >
+                    <option value="N" {{ $selected2}} >
                         Inactivo
                     </option>
-                    <option value="B" >
+                    <option value="B" {{ $selected1}}>
                         Bloqueado
                     </option>
 
                 </select>
             </div>
-
+            <input type="hidden" name="id" value="{{$user->id}}">
+            <input type="hidden" name="tipo" value="profile">
 
             <x-slot name="actions">
                 <div class="d-flex align-items-baseline">
@@ -117,68 +121,48 @@
         </x-slot>
 
 
-    </x-jet-form-section>
+    </x-jet-form-profile-edit>
+
     <x-jet-section-border />
     <div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <x-jet-section-title>
-                  <x-slot name="title">
+        <x-jet-form-profile-edit submit="actualizarPerfil">
+            <x-slot name="title">
                 {{ __('Cambiar Contraseña') }}
             </x-slot>
+
             <x-slot name="description">
                 {{ __('Asegúrese de que su cuenta esté usando una contraseña larga y aleatoria para mantenerse seguro.') }}
+            </x-slot>
 
-                        <span class="small">
-                            {{ __('Asegúrese de que su cuenta esté usando una contraseña larga y aleatoria para mantenerse seguro.') }}
-                        </span>
-                    </x-slot>
-                </x-jet-section-title>
-            </div>
-            <div class="col-md-8">
-                <div class="card shadow-sm">
-                    <form method="POST" action="/editar" class="justify-content-left mb-4">
-                        @csrf
-                        <div class="card-body">
+            <x-slot name="form">
+                <div class="w-md-75">
+                    <div class="mb-3">
+                        <x-jet-label value="{{ __('Contraseña') }}" />
 
-                                <div class="w-md-75">
+                        <x-jet-input class="{{ $errors->has('password') ? 'is-invalid' : '' }}" type="password"
+                                     name="password" required autocomplete="new-password" />
+                        <x-jet-input-error for="password"></x-jet-input-error>
+                    </div>
 
-                                    <div class="mb-3">
-                                        <x-jet-label for="password" value="{{ __('Nueva Contraseña') }}" />
-                                        <x-jet-input id="password" type="password" name="password" class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
-                                                     wire:model.defer="state.password" autocomplete="new-password" />
-                                        <x-jet-input-error for="password" />
-                                    </div>
+                    <div class="mb-3">
+                        <x-jet-label value="{{ __('Confirmar Contraseña') }}" />
 
-                                    <div class="mb-3">
-                                        <x-jet-label for="password_confirmation" value="{{ __('Confirmar contraseña') }}" />
-                                        <x-jet-input id="password_confirmation" name="password_confirmation" type="password" class="{{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
-                                                     wire:model.defer="state.password_confirmation" autocomplete="new-password" />
-                                        <x-jet-input-error for="password_confirmation" />
-                                    </div>
-                                    <input type="hidden" name="id" value="{{$user->id}}">
-
-
-
-
-                                </div>
-                                <x-jet-button class="justify-content-right mb-4">
-                                    <div wire:loading class="spinner-border spinner-border-sm" role="status">
-                                        <span class="visually-hidden">Cargando...</span>
-                                    </div>
-
-                                    {{ __('Guardar') }}
-                                </x-jet-button>
-
-
-
-                        </div>
-                    </form>
+                        <x-jet-input class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" />
+                    </div>
+                    <input type="hidden" name="id" value="{{$user->id}}">
+                    <input type="hidden" name="tipo" value="password">
                 </div>
-            </div>
-        </div>
+            </x-slot>
 
+            <x-slot name="actions">
+                <x-jet-button>
+                    <div wire:loading class="spinner-border spinner-border-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
 
+                    {{ __('Guardar') }}
+                </x-jet-button>
+            </x-slot>
+        </x-jet-form-section>
 
 </x-app-layout>

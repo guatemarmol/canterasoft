@@ -24,25 +24,25 @@
                         <x-jet-dropdown-link href="">
                             {{ __('Produccion') }}
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                        <x-jet-dropdown-link href="">
                             {{ __('Logistica') }}
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                        <x-jet-dropdown-link href="">
                             {{ __('Compras') }}
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                        <x-jet-dropdown-link href="">
                             {{ __('Bodega') }}
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                        <x-jet-dropdown-link href="">
                             {{ __('Contabilidad') }}
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                        <x-jet-dropdown-link href="">
                             {{ __('Ventas') }}
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                        <x-jet-dropdown-link href="">
                             {{ __('R.R.H.H') }}
                         </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                        <x-jet-dropdown-link href="">
                             {{ __('Laboratorio') }}
                         </x-jet-dropdown-link>
 

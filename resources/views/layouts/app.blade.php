@@ -15,6 +15,14 @@
         <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet"/>
         @livewireStyles
 
+        <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
@@ -25,12 +33,14 @@
         <!-- Page Heading -->
         <header class="d-flex py-3 bg-white shadow-sm border-bottom">
             <div class="container">
+                @include('components.flash_alerts')
                 {{ $header }}
             </div>
         </header>
 
         <!-- Page Content -->
         <main class="container my-5">
+
             {{ $slot }}
         </main>
 
