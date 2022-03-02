@@ -11,36 +11,57 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+       <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet"/>
         @livewireStyles
+        <link rel="stylesheet" href="{{ asset('assets/css/pushbar.css') }}"/>
+    <!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
-        <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"/>
+
+        <link rel="stylesheet" href="{{ asset('assets/css/fonts.css') }}"/>  -->
+
+
+
+     <!--   <link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}"/>
+
+        <link rel="stylesheet" href="{{ asset('assets/css/estilos.css') }}"/>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_orange.css">
+
+
+
+        <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet"> -->
 
 
         <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+      <script src="{{ mix('js/app.js') }}" defer></script>
+       <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.2.1/jquery.quicksearch.js"></script>
+        <script src="{{ asset('js/pushbar.js') }}" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     </head>
     <body class="font-sans antialiased bg-light">
         <x-jet-banner />
         @livewire('navigation-menu')
-
         <!-- Page Heading -->
         <header class="d-flex py-3 bg-white shadow-sm border-bottom">
             <div class="container">
-                @include('components.flash_alerts')
                 {{ $header }}
             </div>
+
         </header>
 
         <!-- Page Content -->
         <main class="container my-5">
-
             {{ $slot }}
         </main>
 

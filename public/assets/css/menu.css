@@ -1,212 +1,629 @@
-* {
-    padding: 0;
-    margin: 0;
-}
-/*body {
-    background-color: #ffffff;
-}
-header {
-    background: #abababab;
-    color: #fff;
-    height: 50px;
-}*-/
-/* ----- ----- ----- ----- BOTONES LINEAS ------ ----- ----- -----*/
-
-header a img:hover {
-    background: #1f1d1d;
-    cursor: pointer;
-}
-/* ----- ----- ----- BOTON CERRAR LEFT Y RIGTH ----- ----- -----*/
-
-/* ----- ----- ----- MENU LEFT ----- ----- -----*/
-
-header .pushbar .pushbar-menu-padre-left {
-    padding-top: 30px;
-    cursor: pointer;
-    padding-left: 0;
-}
-header .pushbar .pushbar-menu-padre-left li {
-    height: 50px;
-    padding-top: 5px;
-    padding-left: 5px;
-    cursor: pointer;
-}
-header .pushbar .pushbar-menu-padre-left li:hover {
-    height: 50px;
-    background: #1f1d1d;
-    cursor: pointer;
-}
-header .pushbar .pushbar-menu-padre-left li .pushbar-nombre-left {
-    color: #ffffff;
-    padding-left: 30px;
-    height: 50px;
-    cursor: pointer;
-}
-header .pushbar .pushbar-menu-padre-left .pushbar-nombre-left:hover {
-    height: 50px;
-    width: 100%;
-    background: #1f1d1d;
-    cursor: pointer;
-}
-header .pushbar .pushbar-menu-padre-left a {
-    text-decoration: none;
-}
-header .pushbar .pushbar-menu-padre-left .pushbar-icono-left:hover {
-    height: 50px;
-    background: #1f1d1d;
-    cursor: pointer;
-}
-/* ----- ----- ----- MENU RIGTH ----- ----- -----*/
-
-header .pushbar .pushbar-menu-padre-rigth a {
-    text-decoration: none;
-}
-header .pushbar .pushbar-cuadros-iconos .pushbar-iconos-rigth {
-    margin-top: 40px;
-    margin-left: 18px;
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-iconos .pushbar-iconos-rigth td {
-    height: 40px;
-    padding: 3px;
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-iconos .pushbar-iconos-rigth td a:hover {
-    background: #1f1d1d;
-}
-header .pushbar .pushbar-cuadros-iconos .pushbar-iconos-rigth td:hover {
-    background: #1f1d1d;
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-iconos li {
-    height: 40px;
-    padding-top: 6px;
-    padding-left: 5px;
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-iconos li .pushbar-nombre-rigth {
-    margin-left: 100px;
-    color: #ffffff;
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-iconos li .pushbar-nombre-rigth:hover {
-    background: #1f1d1d;
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-iconos li .pushbar-icono-rigth {
-    padding-left: 50px;
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-iconos li:hover {
-    height: 50px;
-    background: #1f1d1d;
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-iconos .pushbar-icono-rigth:hover {
-    height: 50px;
-    background: #1f1d1d;
-    cursor: pointer;
-}
-/* ----- ----- ----- MENU TOP ----- ----- -----*/
-
-header .pushbar-joss {
-    margin-left: 0px;
-}
-header .sistema-joss {
-    font-size: 25px;
-    color: #ffffff;
-    text-decoration: none;
-    padding-top: 6px;
-}
-header img:hover {
-    cursor: pointer;
-}
-header .pushbar .pushbar-cuadros-top .pushbar-iconos-top {
-    margin: auto;
-    margin-top: 10px;
-    font-size: 50px;
-    cursor: pointer;
-}
-/* ----- ----- ----- MENU ORILLA ----- ----- -----
-
-form {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
-    background-color: #FCFCFC;
-}
-/* ----- ----- ----- 800 px ----- ----- -----*/
-
-@media (max-width: 800px) {
-    header ul .navbar-header img {
-        display: none;
-    }
-    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
-        height: 100px;
-        margin-right: 7px;
-    }
-}
-/* ----- ----- ----- 700 px ----- ----- -----*/
-
-@media (max-width: 767) {
-    header .sis-joss-div {
-        padding-bottom: -100px;
-    }
-}
-@media (max-width: 700px) {
-    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
-        height: 90px;
-    }
-}
-/* ----- ----- ----- 600 px ----- ----- -----*/
-
-@media (max-width: 600px) {
-    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
-        height: 80px;
-        margin-bottom: 10px;
-    }
-}
-/* ----- ----- ----- 500 px ----- ----- -----*/
-
-@media (max-width: 500px) {
-    .pushbar-joss {
-        height: 45px;
-        margin-top: 5px;
-    }
-    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
-        height: 70px;
-        margin-top: -5px;
-    }
-}
-/* ----- ----- ----- 400 px ----- ----- -----*/
-
-@media (max-width: 400px) {
-    footer {
-        font-size: 9px;
-        text-align: center;
-    }
-    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
-        height: 60px;
-    }
-}
-/* ----- ----- ----- 350 px ----- ----- -----*/
-
-@media (max-width: 350px) {
-    .pushbar-joss {
-        display: none;
-    }
-}
-.ir-arriba {
-    display: none;
-    padding: 10px;
-    background-color: #4F4E4E;
-    font-size: 20px;
-    color: #ffffff;
-    cursor: pointer;
-    position: fixed;
-    bottom: 12px;
-    right: 15px;
+* {
+
+    padding: 0;
+
+    margin: 0;
+
+}
+
+/*body {
+
+    background-color: #ffffff;
+
+}
+
+header {
+
+    background: #abababab;
+
+    color: #fff;
+
+    height: 50px;
+
+}*-/
+
+/* ----- ----- ----- ----- BOTONES LINEAS ------ ----- ----- -----*/
+
+
+
+header a img:hover {
+
+    background: #1f1d1d;
+
+    cursor: pointer;
+
+}
+
+/* ----- ----- ----- BOTON CERRAR LEFT Y RIGTH ----- ----- -----*/
+
+
+
+/* ----- ----- ----- MENU LEFT ----- ----- -----*/
+
+
+
+header .pushbar .pushbar-menu-padre-left {
+
+    padding-top: 30px;
+
+    cursor: pointer;
+
+    padding-left: 0;
+
+}
+
+header .pushbar .pushbar-menu-padre-left li {
+
+    height: 50px;
+
+    padding-top: 5px;
+
+    padding-left: 5px;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-menu-padre-left li:hover {
+
+    height: 50px;
+
+    background: #1f1d1d;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-menu-padre-left li .pushbar-nombre-left {
+
+    color: #ffffff;
+
+    padding-left: 30px;
+
+    height: 50px;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-menu-padre-left .pushbar-nombre-left:hover {
+
+    height: 50px;
+
+    width: 100%;
+
+    background: #1f1d1d;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-menu-padre-left a {
+
+    text-decoration: none;
+
+}
+
+header .pushbar .pushbar-menu-padre-left .pushbar-icono-left:hover {
+
+    height: 50px;
+
+    background: #1f1d1d;
+
+    cursor: pointer;
+
+}
+
+/* ----- ----- ----- MENU RIGTH ----- ----- -----*/
+
+
+
+header .pushbar .pushbar-menu-padre-rigth a {
+
+    text-decoration: none;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos .pushbar-iconos-rigth {
+
+    margin-top: 40px;
+
+    margin-left: 18px;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos .pushbar-iconos-rigth td {
+
+    height: 40px;
+
+    padding: 3px;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos .pushbar-iconos-rigth td a:hover {
+
+    background: #1f1d1d;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos .pushbar-iconos-rigth td:hover {
+
+    background: #1f1d1d;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos li {
+
+    height: 40px;
+
+    padding-top: 6px;
+
+    padding-left: 5px;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos li .pushbar-nombre-rigth {
+
+    margin-left: 100px;
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos li .pushbar-nombre-rigth:hover {
+
+    background: #1f1d1d;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos li .pushbar-icono-rigth {
+
+    padding-left: 50px;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos li:hover {
+
+    height: 50px;
+
+    background: #1f1d1d;
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-iconos .pushbar-icono-rigth:hover {
+
+    height: 50px;
+
+    background: #1f1d1d;
+
+    cursor: pointer;
+
+}
+
+/* ----- ----- ----- MENU TOP ----- ----- -----*/
+
+
+
+header .pushbar-joss {
+
+    margin-left: 0px;
+
+}
+
+header .sistema-joss {
+
+    font-size: 25px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    padding-top: 6px;
+
+}
+
+header img:hover {
+
+    cursor: pointer;
+
+}
+
+header .pushbar .pushbar-cuadros-top .pushbar-iconos-top {
+
+    margin: auto;
+
+    margin-top: 10px;
+
+    font-size: 50px;
+
+    cursor: pointer;
+
+}
+
+/* ----- ----- ----- MENU ORILLA ----- ----- -----
+
+
+
+form {
+
+    margin-top: 5px;
+
+    margin-bottom: 5px;
+
+    margin-left: 5px;
+
+    margin-right: 5px;
+
+    padding-left: 25px;
+
+    padding-right: 25px;
+
+    background-color: #FCFCFC;
+
+}
+
+
+
+
+
+/* ----- ----- ----- 800 px ----- ----- -----*/
+header {
+
+    background: transparent;
+
+    height: 50px;
+
+    }
+
+
+
+    .navbar {
+
+        background-color: #272727;
+
+        position: fixed;
+
+        left: 0;
+
+        z-index: 1000;
+
+        height: 50px;
+
+        width: 100%;
+
+    }
+
+    #lineas-b {
+
+        margin-top: -10px;
+
+        cursor: pointer;
+
+        width: 50px;
+
+        height: 50px;
+
+    }
+
+    #lineas-n {
+
+        display: none;
+
+
+
+    }
+
+    a:hover {
+
+        text-decoration: none;
+
+    }
+
+
+
+    ul a li{
+
+        color: #ffffff;
+
+        list-style: none;
+
+    }
+
+
+
+    ul a li img{
+
+        margin-right: 0px;
+
+    }
+
+    #nombre {
+
+        color: white;
+
+        padding: auto;
+
+        margin: auto;
+
+        cursor: pointer;
+
+        line-height: 50px;
+
+        height: 100vh;
+
+    }
+
+    .top-icono{
+
+        padding: 3px;
+
+    }
+
+    .back{
+
+    float: right;
+
+    padding-right: 15px;
+
+    padding-top: 5px;
+
+    }
+
+
+
+  .pushbar-span {
+
+    background-color: transparent;
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    float: right;
+
+    padding: 10px;
+
+    border: transparent;
+
+  }
+
+
+
+  .pushbar-span:hover {
+
+    color: #FF0000;
+
+  }
+
+
+
+  .menu-opciones {
+
+    margin-top: 30px;
+
+    padding: 0;
+
+  }
+
+  .icono-menu {
+
+    float: right;
+
+    padding-top: 10px;
+
+    font-size: 10px;
+
+  }
+
+
+
+  .icono-menu-exit {
+
+    float: right;
+
+    font-size: 20px;
+
+  }
+
+
+
+  @media (max-width: 767px) {
+
+    #nav{
+
+        display: none;
+
+    }
+
+    #lineas-n{
+
+        display: block;
+
+        float: right;
+
+        margin-right: -10px;
+
+        cursor: pointer;
+
+        z-index: 2000;
+
+    }
+
+    form{
+
+        margin-top: -15px;
+
+    }
+
+    #lineas-b{
+
+        margin-top: -12;
+
+    }
+
+}
+
+
+
+
+@media (max-width: 800px) {
+
+    header ul .navbar-header img {
+
+        display: none;
+
+    }
+
+    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
+
+        height: 100px;
+
+        margin-right: 7px;
+
+    }
+
+}
+
+/* ----- ----- ----- 700 px ----- ----- -----*/
+
+
+
+
+
+@media (max-width: 767) {
+
+    header .sis-joss-div {
+
+        padding-bottom: -100px;
+
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
+
+        height: 90px;
+
+    }
+
+}
+
+/* ----- ----- ----- 600 px ----- ----- -----*/
+
+
+
+@media (max-width: 600px) {
+
+    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
+
+        height: 80px;
+
+        margin-bottom: 10px;
+
+    }
+
+}
+
+/* ----- ----- ----- 500 px ----- ----- -----*/
+
+
+
+@media (max-width: 500px) {
+
+    .pushbar-joss {
+
+        height: 45px;
+
+        margin-top: 5px;
+
+    }
+
+    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
+
+        height: 70px;
+
+        margin-top: -5px;
+
+    }
+
+}
+
+/* ----- ----- ----- 400 px ----- ----- -----*/
+
+
+
+@media (max-width: 400px) {
+
+    footer {
+
+        font-size: 9px;
+
+        text-align: center;
+
+    }
+
+    header .pushbar .pushbar-cuadros-top .pushbar-iconos-top img {
+
+        height: 60px;
+
+    }
+
+}
+
+/* ----- ----- ----- 350 px ----- ----- -----*/
+
+
+
+@media (max-width: 350px) {
+
+    .pushbar-joss {
+
+        display: none;
+
+    }
+
+}
+
+.ir-arriba {
+
+    display: none;
+
+    padding: 10px;
+
+    background-color: #4F4E4E;
+
+    font-size: 20px;
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+    position: fixed;
+
+    bottom: 12px;
+
+    right: 15px;
+
 }

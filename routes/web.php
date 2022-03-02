@@ -20,21 +20,22 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
+
 })->name('dashboard');
 
-Route::get('/registro', [RegistroController::class, 'store'])->name('create');
+Route::middleware(['auth:sanctum', 'verified'])->get('/registro', [RegistroController::class, 'store'])->name('create');
 
-Route::post('/registro', [RegistroController::class, 'create'])
+Route::middleware(['auth:sanctum', 'verified'])->post('/registro', [RegistroController::class, 'create'])
 ->name('registro');
 
-Route::get('/consulta', [RegistroController::class, 'query'])
+Route::middleware(['auth:sanctum', 'verified'])->get('/consulta', [RegistroController::class, 'query'])
 ->name('consulta');
 
-Route::post('/consulta', [RegistroController::class, 'delete'])
+Route::middleware(['auth:sanctum', 'verified'])->post('/consulta', [RegistroController::class, 'delete'])
 ->name('borrar');
 
-Route::get('/editar', [RegistroController::class, 'edit'])
+Route::middleware(['auth:sanctum', 'verified'])->get('/editar', [RegistroController::class, 'edit'])
 ->name('editar');
 
-Route::post('/editar', [RegistroController::class, 'updateProfile'])
+Route::middleware(['auth:sanctum', 'verified'])->post('/editar', [RegistroController::class, 'updateProfile'])
 ->name('actualizarPerfil');

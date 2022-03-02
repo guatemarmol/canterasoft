@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
     <div class="container">
+
+        @include('menu')
         <!-- Logo -->
         <a class="navbar-brand me-4" href="/">
             <x-jet-application-mark width="36" />
@@ -11,85 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                <x-jet-dropdown id="menuDropdown">
-                    <x-slot name="trigger">
-                        {{ __('MENU') }}
-                    </x-slot>
 
-                    <x-slot name="content">
-                        <h6 class="dropdown-header small text-muted">
-                            {{ __('CanteraSoft') }}
-                        </h6>
-
-                        <x-jet-dropdown-link href="">
-                            {{ __('Produccion') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="">
-                            {{ __('Logistica') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="">
-                            {{ __('Compras') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="">
-                            {{ __('Bodega') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="">
-                            {{ __('Contabilidad') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="">
-                            {{ __('Ventas') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="">
-                            {{ __('R.R.H.H') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="">
-                            {{ __('Laboratorio') }}
-                        </x-jet-dropdown-link>
-
-                        <hr class="dropdown-divider">
-
-                        <!-- Authentication -->
-                        <x-jet-dropdown-link href="{{ route('logout') }}"
-                                             onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Salir') }}
-                        </x-jet-dropdown-link>
-                        <form method="POST" id="logout-form" action="{{ route('logout') }}">
-                            @csrf
-                        </form>
-                    </x-slot>
-                </x-jet-dropdown>
-
-                <x-jet-dropdown id="userDropdown">
-                    <x-slot name="trigger">
-                        {{ __('Usuarios') }}
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <h6 class="dropdown-header small text-muted">
-                            {{ __('Mantenimiento Usuarios') }}
-                        </h6>
-
-                        <x-jet-dropdown-link href="{{ route('create')}}">
-                            {{ __('Creacion') }}
-                        </x-jet-dropdown-link>
-                        <x-jet-dropdown-link href="{{ route('consulta') }}">
-                            {{ __('Consulta') }}
-                        </x-jet-dropdown-link>
-
-                        <hr class="dropdown-divider">
-
-                        <!-- Authentication -->
-                        <x-jet-dropdown-link href="{{ route('logout') }}"
-                                             onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            {{ __('Salir') }}
-                        </x-jet-dropdown-link>
-                        <form method="POST" id="logout-form" action="{{ route('logout') }}">
-                            @csrf
-                        </form>
-                    </x-slot>
-                </x-jet-dropdown>
 
             </ul>
 

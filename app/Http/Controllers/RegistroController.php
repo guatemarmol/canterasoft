@@ -11,9 +11,15 @@ use Illuminate\Http\RedirectResponse;
 use Laravel\Jetstream\Jetstream;
 use Illuminate\Http\Request;
 use App\Actions\Fortify\PasswordValidationRules;
+use App\Models\Profiles\gm_equipo;
+use App\Models\Profiles\gm_estado;
+use App\Models\Profiles\gm_lugare;
+use App\Models\Profiles\gm_perfile;
+use App\Models\Profiles\gm_turno;
+use App\Models\Profiles\gm_usuario;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Http\JsonResponse;
+
 
 class RegistroController extends Controller
 {
@@ -21,28 +27,32 @@ class RegistroController extends Controller
     use PasswordValidationRules;
 
 	public function store(){
-        $departments = Department::all();
-        $profiles = Profile::all();
-		return view('auth.register',compact('departments', 'profiles'));
+        $departments = gm_lugare::all();
+        $profiles = gm_perfile::all();
+        $equipos = gm_equipo::all();
+		return view('auth.register',compact('departments', 'profiles', 'equipos'));
 	}
 
     public function create(Request $request)
     {
         $input = $request->all();
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'usuario' => ['required', 'string', 'max:255', 'unique:gm_usuarios'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'correo' => ['required', 'string', 'email', 'max:255', 'unique:gm_usuarios'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
-            'departamento' => $input['departamento'],
-            'perfil' => $input['perfil'],
-            'status' => 'A'
+        gm_usuario::create([
+            'usuario' => $input['usuario'],
+            'nombre' => $input['nombre'],
+            'correo' => $input['correo'],
+            'clave' => Hash::make($input['password']),
+            'equipoid' => $input['departamento'],
+            'lugarid' => $input['departamento'],
+            'perfilid' => $input['perfil'],
+            'estadoid' => 1
         ]);
         return app(RegisterResponse::class);
     }
@@ -54,38 +64,43 @@ class RegistroController extends Controller
     }
 
     public function query(){
-        $users = User::join('departments', 'departments.id', '=', 'users.departamento')
-        ->join('profiles', 'profiles.id', '=', 'users.perfil')
-        ->select('users.*','departments.name as department_name','profiles.name as profile_name')
-        ->where('users.status', 'A')
+        $users = gm_usuario::join('gm_lugares', 'id_lugar', '=', 'gm_usuarios.lugarid')
+        ->join('gm_perfiles', 'id_perfil', '=', 'gm_usuarios.perfilid')
+        ->select('gm_usuarios.*','gm_lugares.nombre_lugar as department_name','gm_perfiles.tipo_perfil as profile_name')
+        ->where('gm_usuarios.estadoid','=', 1)
         ->paginate(5);
 
 		return view('auth.consulta',compact('users'));
 	}
 
     public function edit(Request $id){
-        $user = User::findOrFail($id['id']);
-        $departments = Department::all();
-        $profiles = Profile::all();
-		return view('auth.edit',compact('user','departments','profiles'));
+        $user = gm_usuario::findOrFail($id['id']);
+        $departments = gm_lugare::all();
+        $profiles = gm_perfile::all();
+        $equipos = gm_equipo::all();
+        $turnos = gm_turno::all();
+        $estados = gm_estado::all();
+		return view('auth.edit',compact('user','departments','profiles', 'equipos', 'turnos', 'estados'));
 	}
 
     public function delete(Request $id){
 
-        $user = User::findOrFail($id['id']);
+
+        $user = gm_usuario::findOrFail($id['id']);
         $user->forceFill([
-            'status' => 'N',
+            'estadoid' => 3,
         ])->save();
         $user->fresh();
-        $users = User::where('status', 'A')->paginate(5);
+        $users = gm_usuario::where('estadoid', 1)->paginate(5);
 		return view('auth.consulta',compact('users'));
+
 	}
     public function updatePassword(Request $request){
         $input = $request->all();
         Validator::make($input, [
             'password' => $this->passwordRules(),
         ])->after(function ($validator) use ($input) {
-            if (! isset($input['password']) || $input['password'] == $input['password_confirmation']) {
+            if ($input['password'] != $input['password_confirmation']) {
                 $validator->errors()->add('password', __('La contrase;a no coincide por favor verifique.'));
             }
         });
@@ -101,18 +116,20 @@ class RegistroController extends Controller
         $id = Crypt::encryptString($request->id);
         $input = $request->all();
         $validator = Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'nombre' => ['required', 'string', 'max:255'],
         ])->validate();
 
 
-        $user = User::findOrFail($request['id']);
+        $user = gm_usuario::findOrFail($request['id']);
         $user->forceFill([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'status' => $input['estado'],
-            'departamento' => $input['departamento'],
-            'perfil' => $input['perfil'],
+            'nombre' => $input['nombre'],
+            'usuario' => $input['usuario'],
+            'correo' => $input['correo'],
+            'estadoid' => $input['estado'],
+            'lugarid' => $input['departamento'],
+            'perfilid' => $input['perfil'],
+            'equipoid' => $input['equipo'],
+            'turnoid' => $input['turno'],
         ])->save();
 		return redirect()
                 ->route('editar', ['id' => $request['id']])
@@ -121,23 +138,22 @@ class RegistroController extends Controller
         else if($request->tipo  == 'password'){
             $input = $request->all();
             Validator::make($input, [
-                'password' => $this->passwordRules(),
+                'clave' => $this->passwordRules(),
             ])->after(function ($validator) use ($input) {
-                if ($input['password'] != $input['password_confirmation']) {
-                    $validator->errors()->add('password', __('La contrase;a no coincide por favor verifique.'));
+                if ($input['clave'] != $input['password_confirmation']) {
+                    $validator->errors()->add('clave', __('La contrase;a no coincide por favor verifique.'));
                     return redirect()
                     ->route('editar', ['id' => $request['id']])
                     ->with('danger', 'la contrasena no coincide');
                 }
             });
-            $user = User::findOrFail($request['id']);
+            $user = gm_usuario::findOrFail($request['id']);
             $user->forceFill([
-                'password' => Hash::make($input['password']),
+                'clave' => Hash::make($input['clave']),
             ])->save();
             return redirect()
             ->route('editar', ['id' => $request['id']])
             ->with('message', 'Guardado con exito');
-
         }
 	}
 

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 font-weight-bold">
-            <i class="fa fa-user"></i>  {{ __('Consulta de Usuarios') }}
+            <i class="fa fa-user"></i>  {{ __('Consulta de Usuarios') }} <a href="{{ route('create')}}"><i class="fa fa-user-plus" ></i></a>
         </h2>
     </x-slot>
 
@@ -14,6 +14,7 @@
             <tr>
                 <th>codigo</th>
                 <th>Nombre</th>
+                <th>Usuario</th>
                 <th>correo electronico</th>
                 <th>Area</th>
                 <th>Perfil</th>
@@ -23,18 +24,19 @@
         <tbody>
             @foreach ($users as $usuario)
                 <tr>
-                    <td>{{ $usuario->id }}</td>
-                    <td>{{ $usuario->name }}</td>
-                    <td>{{ $usuario->email }}</td>
+                    <td>{{ $usuario->id_usuario }}</td>
+                    <td>{{ $usuario->nombre }}</td>
+                    <td>{{ $usuario->usuario }}</td>
+                    <td>{{ $usuario->correo }}</td>
                     <td>{{ $usuario->department_name }}</td>
                     <td>{{ $usuario->profile_name }}</td>
                     <td>
-                        <a class="justify-content-left mb-4" href="{{ route('editar',[ 'id' => $usuario->id]) }}">
+                        <a class="justify-content-left mb-4" href="{{ route('editar',[ 'id' => $usuario->id_usuario]) }}">
                             <i class="fa fa-edit"></i>
                           </a>
                           <form method="POST" action="/consulta" class="justify-content-left mb-4" style="display: inline;">
                             @csrf
-                            <input type="hidden" name="id" value="{{$usuario->id}}">
+                            <input type="hidden" name="id" value="{{$usuario->id_usuario}}">
                             <input class="fa-regular" value="&#xf2ed;" style="border:none;background-color: transparent;" type="submit">
                         </form>
                     </td>

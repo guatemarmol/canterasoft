@@ -18,17 +18,25 @@
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Nombre') }}" />
 
-                    <x-jet-input class="{{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
-                                 :value="old('name')" required autofocus autocomplete="name" />
-                    <x-jet-input-error for="name"></x-jet-input-error>
+                    <x-jet-input class="{{ $errors->has('nombre') ? 'is-invalid' : '' }}" type="text" name="nombre"
+                                 :value="old('nombre')" required autofocus autocomplete="nombre" />
+                    <x-jet-input-error for="nombre"></x-jet-input-error>
+                </div>
+
+                <div class="mb-3">
+                    <x-jet-label value="{{ __('Usuario') }}" />
+
+                    <x-jet-input class="{{ $errors->has('usuario') ? 'is-invalid' : '' }}" type="text" name="usuario"
+                                 :value="old('usuario')" required autofocus autocomplete="user" />
+                    <x-jet-input-error for="usuario"></x-jet-input-error>
                 </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Correo Electronico') }}" />
 
-                    <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email"
-                                 :value="old('email')" required />
-                    <x-jet-input-error for="email"></x-jet-input-error>
+                    <x-jet-input class="{{ $errors->has('correo') ? 'is-invalid' : '' }}" type="email" name="correo"
+                                 :value="old('correo')" required />
+                    <x-jet-input-error for="correo"></x-jet-input-error>
                 </div>
 
                 <div class="mb-3">
@@ -39,8 +47,8 @@
                             Seleccione Departamento
                         </option>
                         @foreach ($departments as $value)
-                        <option value="{{ $value->id }}">
-                           {{ $value->name}}
+                        <option value="{{ $value->id_lugar }}">
+                           {{ $value->nombre_lugar}}
                         </option>
                         @endforeach
                     </select>
@@ -54,8 +62,24 @@
                             Seleccione Perfil
                         </option>
                         @foreach ($profiles as $value)
-                        <option value="{{ $value->id }}">
-                           {{ $value->name}}
+                        <option value="{{ $value->id_perfil }}">
+                           {{ $value->tipo_perfil}}
+                        </option>
+                        @endforeach
+
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <x-jet-label value="{{ __('Equipo') }}" />
+
+                    <select id="equipo"  class="form-control" name="equipo" required>
+                        <option value=""  >
+                            Seleccione Equipo
+                        </option>
+                        @foreach ($equipos as $value)
+                        <option value="{{ $value->id_equipos }}">
+                           {{ $value->nombre_equipo}}
                         </option>
                         @endforeach
 
