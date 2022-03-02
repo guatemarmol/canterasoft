@@ -133,15 +133,63 @@
 
                     <a class="menos" href="#" id="">
 
-                        <li>
+                        <li data-pushbar-target="pushbar-menu-left-01" id="catalogos">
 
                             <img alt="" height="40px" src="#"/>
 
-                            Baja de Jumbo
+                            Mis Catalogos
 
                         </li>
 
                     </a>
+
+
+                    <li data-pushbar-target="pushbar-menu-left">
+
+                        <img height="30px" src="{{ asset('img/menu-icono/regresarr.png') }}" style="float: right; padding-right: 15px; padding-top: 5px;" width="40px"/>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="pushbar from_left pushbar-menu-left" data-pushbar-id="pushbar-menu-left-01">
+
+                <span class="pushbar-span" data-pushbar-close="" name="" type="text">
+
+                    X
+
+                </span>
+
+                <img alt="" class="pushbar-logo" src="{{ asset('img/logo/menu.png') }}" style="padding: 5px; padding-top: 40px; padding-left: 20px;" width="230px"/>
+
+                <ul class="pushbar-menu-padre-left">
+
+                    <a class="menos" href="{{ route('consultaPefil') }}" id="perfiles">
+
+                        <li>
+
+                            <img alt="" height="40px" src="#"/>
+
+                            Perfiles
+
+                        </li>
+
+                    </a>
+
+                    <a class="menos" href="#" id="">
+
+                        <li>
+
+                            <img alt="" height="40px" src="#"/>
+
+                            Estatus
+
+                        </li>
+
+                    </a>
+
 
 
                     <li data-pushbar-target="pushbar-menu-left">

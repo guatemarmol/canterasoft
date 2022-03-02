@@ -9,6 +9,11 @@ class gm_perfile extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_perfil';
+
+    const CREATED_AT = 'fecha_crea';
+    const UPDATED_AT = 'fecha_modifica';
+
     protected $fillable = [
         'tipo_perfil',
         'descripcion_perfil',
